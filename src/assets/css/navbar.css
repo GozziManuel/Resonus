@@ -1,0 +1,74 @@
+/* NAVBAR */
+.navbar-toggler:focus {
+  box-shadow: none !important;
+}
+.icon-container {
+  display: flex;
+  overflow: hidden;
+  width: 21px;
+  opacity: 1;
+  transform: translateX(0);
+  transition:
+    width 0.35s ease,
+    opacity 0.25s ease,
+    transform 0.35s ease;
+}
+
+.icon-wrapper {
+  display: flex;
+  gap: 9px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Searchbar */
+/* RESET SEARCHBAR */
+
+.searchbar {
+  display: block;
+  background-color: var(--inner-color);
+  border: none;
+  transition: background-color 0.2s ease;
+  height: 40px;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+.searchbar:focus {
+  outline: none;
+  background-color: white;
+}
+/* Navbar padding rework */
+.navbar {
+  --bs-navbar-nav-link-padding-x: 1rem !important;
+}
+
+/* Medias */
+@media screen and (max-width: 500px) {
+  .mainContainer {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}
+
+/* Navbar Toggler */
+@media (min-width: 992px) {
+  .icon-container {
+    width: 0;
+    opacity: 0;
+    transform: translateX(-8px);
+    visibility: hidden;
+    transition:
+      width 0.35s ease,
+      opacity 0.25s ease,
+      transform 0.35s ease,
+      visibility 0.35s step-end;
+  }
+  .icon-wrapper {
+    gap: 0;
+  }
+}
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-toggler {
+    display: block !important;
+  }
+}

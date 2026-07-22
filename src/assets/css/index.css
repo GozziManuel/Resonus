@@ -1,0 +1,33 @@
+:root {
+  --background-color: #f8f8f8;
+  --inner-color: #ededed;
+  --padding-container: 3rem;
+  --button-color: #222222;
+  --button-color-hover: #383838;
+}
+
+body {
+  background-color: #f8f8f8;
+}
+
+.buttonBasic {
+  border: none;
+  border-radius: 5px;
+  padding: 12px 20px;
+  background-color: var(--button-color);
+  color: white;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+/* Container */
+.mainContainer {
+  justify-content: var(--background-color);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-right: var(--padding-container);
+  padding-left: var(--padding-container);
+  transition: padding 0.5s ease;
+}
