@@ -4,10 +4,29 @@
   --padding-container: 3rem;
   --button-color: #222222;
   --button-color-hover: #383838;
+  --card-badge: #383838b4;
+  --font-color-main: #222222;
+  --button-color-2: #aaaaaa;
+  --font-color-animation: #b3b3b3;
+}
+/* FONTS */
+
+.Outfit {
+  font-family: "Outfit", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+}
+.Sans {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
 }
 
+/* BACKGROUND */
 body {
-  background-color: #f8f8f8;
+  background-color: var(--background-color);
 }
 
 .buttonBasic {
@@ -16,9 +35,12 @@ body {
   padding: 12px 20px;
   background-color: var(--button-color);
   color: white;
-  height: 40px;
   display: flex;
   align-items: center;
+  transition: background-color 0.3s ease;
+}
+.buttonBasic:hover {
+  background-color: var(--button-color-hover);
 }
 
 /* Container */
@@ -30,4 +52,11 @@ body {
   padding-right: var(--padding-container);
   padding-left: var(--padding-container);
   transition: padding 0.5s ease;
+}
+/* Medias */
+@media screen and (max-width: 500px) {
+  .mainContainer {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
 }

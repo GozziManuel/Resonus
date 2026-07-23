@@ -1,26 +1,99 @@
 /* NAVBAR */
+.navbar-toggler {
+  width: auto;
+  max-width: 72px;
+  padding: 0;
+  overflow: visible;
+  transition:
+    max-width 0.35s ease,
+    padding 0.35s ease,
+    margin 0.35s ease,
+    opacity 0.25s ease;
+}
+
 .navbar-toggler:focus {
   box-shadow: none !important;
 }
 .icon-container {
   display: flex;
-  overflow: hidden;
-  width: 21px;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  min-width: 22px;
+  overflow: visible;
   opacity: 1;
   transform: translateX(0);
   transition:
-    width 0.35s ease,
+    max-width 0.35s ease,
     opacity 0.25s ease,
     transform 0.35s ease;
 }
 
 .icon-wrapper {
   display: flex;
-  gap: 9px;
-  justify-content: center;
+  gap: 2px;
+  justify-content: flex-start;
   align-items: center;
+  white-space: nowrap;
+  margin-right: 0 !important;
 }
 
+/* navbar FullScreen */
+.togglerfull {
+  display: flex;
+  text-decoration: none;
+  background-color: transparent;
+  flex: 0 0 auto;
+  width: 0;
+  min-width: 0;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    width 0.35s ease,
+    max-width 0.35s ease,
+    min-width 0.35s ease,
+    padding 0.35s ease,
+    margin 0.35s ease,
+    opacity 0.25s ease,
+    visibility 0.35s step-end;
+}
+.togglerfull:hover,
+.togglerfull:focus {
+  text-decoration: none;
+}
+.icon-container-full {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  min-width: 22px;
+  overflow: visible;
+  opacity: 0;
+  transform: translateX(8px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.35s ease;
+}
+
+.icon-wrapper-full {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.icon-wrapper-full p {
+  opacity: 0;
+  transform: translateX(-4px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.35s ease;
+}
 /* Searchbar */
 /* RESET SEARCHBAR */
 
@@ -40,35 +113,76 @@
 /* Navbar padding rework */
 .navbar {
   --bs-navbar-nav-link-padding-x: 1rem !important;
+  --bs-navbar-toggler-icon-bg: url("/Finale2.png") !important;
+}
+
+/* Icon */
+.navbar-toggler-icon {
+  display: block;
+  width: 21px;
+  height: 21px;
+  flex-shrink: 0;
+  background-size: 100% !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: translateZ(0);
+  transition:
+    transform 0.35s ease,
+    opacity 0.25s ease;
 }
 
 /* Medias */
-@media screen and (max-width: 500px) {
-  .mainContainer {
-    padding-right: 10px;
-    padding-left: 10px;
+/* Navbar Toggler */
+@media (min-width: 992px) {
+  .navbar-toggler {
+    max-width: 0;
+    padding: 0 !important;
+    margin: 0 !important;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .icon-container {
+    max-width: 0;
+    opacity: 0;
+    transform: translateX(-12px);
+    transition:
+      max-width 0.35s ease,
+      opacity 0.25s ease,
+      transform 0.35s ease;
+  }
+
+  .navbar-toggler-icon {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+
+  .togglerfull {
+    width: 180px;
+    min-width: 180px;
+    max-width: 180px;
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .icon-container-full {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .icon-wrapper-full p {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
-/* Navbar Toggler */
-@media (min-width: 992px) {
-  .icon-container {
-    width: 0;
+@media (max-width: 992px) {
+  .togglerfull {
+    max-width: 0;
     opacity: 0;
-    transform: translateX(-8px);
+    transform: translateX(8px);
     visibility: hidden;
-    transition:
-      width 0.35s ease,
-      opacity 0.25s ease,
-      transform 0.35s ease,
-      visibility 0.35s step-end;
-  }
-  .icon-wrapper {
-    gap: 0;
-  }
-}
-@media (min-width: 992px) {
-  .navbar-expand-lg .navbar-toggler {
-    display: block !important;
   }
 }

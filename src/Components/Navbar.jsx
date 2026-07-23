@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import "../assets/css/navbar.css";
 export default function NavBar() {
   return (
@@ -5,24 +6,60 @@ export default function NavBar() {
       <div className="container-fluid p-0 ">
         <div className="d-flex w-100">
           <button
-            className="navbar-toggler  border-0 ps-0"
+            className="navbar-toggler togglerStart  border-0 "
             data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
             aria-label="Toggle navigation"
+            style={{ width: "173px" }}
           >
             <div className="d-flex me-3 icon-wrapper">
               <div className=" justify-content-center icon-container">
-                <span
-                  className="navbar-toggler-icon"
-                  style={{ width: "21px", height: "21px" }}
-                ></span>
+                <div className="d-flex align-items-center">
+                  <span className="navbar-toggler-icon"></span>
+                  <p
+                    className="mb-0 ms-1 fw-bold Outfit"
+                    style={{ color: "var(--font-color-main)" }}
+                  >
+                    R
+                  </p>
+                </div>
               </div>
-              <p className="m-0">NavBar</p>
             </div>
           </button>
-          <form className="d-flex w-100 justify-content-center" role="search">
+
+          {/* SEcond Display */}
+          <NavLink
+            className=" border-0 togglerfull mb-0"
+            style={{ width: "100px", cursor: "pointer" }}
+            to={"/"}
+          >
+            <div className="d-flex me-3 icon-wrapper-full">
+              <div className=" justify-content-center icon-container-full">
+                <div className="d-flex align-items-center">
+                  <div style={{ width: "30px" }}>
+                    <img src="/Finale2.png" alt="" style={{ width: "100%" }} />
+                  </div>
+                  <p
+                    className="mb-0 ms-1 fw-bold Outfit"
+                    style={{
+                      fontSize: "1.25rem",
+                      color: "var(--font-color-main)",
+                    }}
+                  >
+                    RESONUS
+                  </p>
+                </div>
+              </div>
+            </div>
+          </NavLink>
+
+          {/* Form for searchbar */}
+          <form
+            className="d-flex w-100 justify-content-center align-items-center"
+            role="search"
+          >
             <input
               className=" me-2 w-100 searchbar"
               type="search"
@@ -38,48 +75,18 @@ export default function NavBar() {
           >
             <li className="nav-item">
               <a className="nav-link active pe-1" aria-current="page" href="#">
-                Home
+                Placeholder
               </a>
             </li>
             <li className="nav-item ">
               <a className="nav-link pe-1" href="#">
-                Link
+                Placeholder
               </a>
             </li>
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle pe-1"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Dropdown
-              </a>
-              <ul className="dropdown-menu">
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Action
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Another action
-                  </a>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Something else here
-                  </a>
-                </li>
-              </ul>
-            </li>
+
             <li className="nav-item pe-1">
               <a className="nav-link disabled" aria-disabled="true">
-                Disabled
+                Placeholder
               </a>
             </li>
           </ul>
