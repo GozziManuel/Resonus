@@ -82,7 +82,7 @@ export default function NavBar() {
                 aria-current="page"
                 to={"/products"}
               >
-                Shop
+                Collection
               </NavLink>
             </li>
             <li className="nav-item ">
