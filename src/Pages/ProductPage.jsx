@@ -1,6 +1,11 @@
 import "../assets/css/product.css";
+import Product from "../Cards/Product";
+import { useCrudContext } from "../context/CrudContext";
 
 export default function ProductPage() {
+  const { setProduct, product } = useCrudContext();
+  console.log(product);
+
   return (
     <>
       {/* Filters */}
