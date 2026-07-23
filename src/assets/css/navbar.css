@@ -1,3 +1,22 @@
+/* Link */
+.active {
+  color: var(--button-color-hover);
+  font-weight: bold;
+}
+.navlink {
+  text-decoration: none;
+  position: relative;
+  color: var(--button-color-hover);
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+  display: inline-block;
+}
+.navlink:hover {
+  color: var(--button-color);
+  transform: translateY(-2px) scale(1.05);
+}
+
 /* NAVBAR */
 .navbar-toggler {
   width: auto;
@@ -84,7 +103,7 @@
   justify-content: center;
   align-items: center;
   white-space: nowrap;
-  width: 100%;
+  width: 77%;
 }
 
 .icon-wrapper-full p {
@@ -105,6 +124,7 @@
   height: 40px;
   border-radius: 5px;
   padding-left: 10px;
+  margin-right: 2.5rem;
 }
 .searchbar:focus {
   outline: none;
@@ -184,5 +204,10 @@
     opacity: 0;
     transform: translateX(8px);
     visibility: hidden;
+  }
+}
+@media (max-width: 992px) {
+  .searchbar {
+    margin-right: 0 !important;
   }
 }

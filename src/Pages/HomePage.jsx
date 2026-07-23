@@ -22,7 +22,7 @@ export default function HomePage() {
 
       <section className="py-4 mb-5">
         <div>
-          <div className="row align-items-center gy-5">
+          <div className="row gy-5">
             <div className="col-lg-7">
               {/* Hero Boom */}
               {/* Title */}

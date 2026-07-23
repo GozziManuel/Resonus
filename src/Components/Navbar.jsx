@@ -31,11 +31,14 @@ export default function NavBar() {
 
           {/* SEcond Display */}
           <NavLink
-            className=" border-0 togglerfull mb-0"
+            className=" border-0 togglerfull mb-0 navlink"
             style={{ width: "100px", cursor: "pointer" }}
             to={"/"}
           >
-            <div className="d-flex me-3 icon-wrapper-full">
+            <div
+              className="d-flex  icon-wrapper-full"
+              style={{ marginRight: "3rem" }}
+            >
               <div className=" justify-content-center icon-container-full">
                 <div className="d-flex align-items-center">
                   <div style={{ width: "30px" }}>
@@ -61,7 +64,7 @@ export default function NavBar() {
             role="search"
           >
             <input
-              className=" me-2 w-100 searchbar"
+              className="  w-100 searchbar"
               type="search"
               placeholder="Search"
               aria-label="Search"
@@ -70,13 +73,17 @@ export default function NavBar() {
         </div>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul
-            className="navbar-nav me-auto mb-2 mb-lg-0 d-flex"
+            className="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center justify-content-center"
             style={{ gap: "15px" }}
           >
             <li className="nav-item">
-              <a className="nav-link active pe-1" aria-current="page" href="#">
-                Placeholder
-              </a>
+              <NavLink
+                className="navlink pe-1"
+                aria-current="page"
+                to={"/products"}
+              >
+                Shop
+              </NavLink>
             </li>
             <li className="nav-item ">
               <a className="nav-link pe-1" href="#">
