@@ -6,33 +6,6 @@
   animation: glow 2s ease-in-out infinite alternate;
 }
 
-/* Buttons */
-/* BestSellers */
-.bestSellerButton {
-  border: none;
-  border-radius: 5px;
-  padding: 12px 20px;
-  background-color: var(--inner-color);
-  color: var(--font-color-main);
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  transition: all 0.3s ease-out;
-  position: relative;
-  z-index: 1;
-}
-
-.bestSellerButton:hover {
-  background-color: var(--font-color-animation);
-  color: white;
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 0 20px var(--font-color-animation);
-}
-
-.bestSellerButton:active {
-  transform: translateY(0) scale(0.98);
-}
-
 /* ICONS */
 /* ICONA SCUDO */
 .bi-shield-check {
@@ -155,18 +128,6 @@
   transform: scale(1.25);
 }
 
-/* Bestseller Section */
-.badgeCardCategory {
-  background-color: var(--card-badge);
-  border-radius: 5px;
-  color: white;
-}
-.floating {
-  display: inline-block;
-  animation: floatBadge 3s ease-in-out infinite;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  transition: box-shadow 0.3s ease;
-}
 /*  */
 /*  */
 /*  */
@@ -189,16 +150,5 @@
       0 0 20px var(--font-color-animation),
       0 0 25px var(--font-color-animation),
       0 0 27px var(--font-color-animation);
-  }
-}
-@keyframes floatBadge {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
-  100% {
-    transform: translateY(0px);
   }
 }

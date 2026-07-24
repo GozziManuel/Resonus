@@ -8,9 +8,14 @@ const CrudContextProvider = ({ children }) => {
 
   //   asynchandler
   const asyncHandler = async (url) => {
-    const obj = await fetch(url);
-    const response = await obj.json();
-    return response;
+    try {
+      const obj = await fetch(url);
+      const response = await obj.json();
+
+      return response;
+    } catch (error) {
+      console.error(error, "Errore nel raggiungere il database");
+    }
   };
 
   // Main Products
@@ -22,6 +27,17 @@ const CrudContextProvider = ({ children }) => {
   useEffect(() => {
     const recivingMainProducts = async () => {
       const array = await mainProducts();
+      if (!array) {
+        console.error("Array inesistente");
+        return;
+      } else if (Array.isArray(array.results) === false) {
+        console.error("Formato Array non valido");
+        return;
+      }
+      const result = array.results;
+      const sortedResult = result.sort((a, b) => b.is_featured - a.is_featured);
+      console.log(sortedResult);
+
       setProduct(array.results);
     };
     recivingMainProducts();

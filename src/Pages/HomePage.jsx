@@ -1,6 +1,11 @@
+import { Link } from "react-router-dom";
 import "../assets/css/Homepage.css";
 import Product from "../Cards/Product";
+import { useMainContext } from "../context/MainContext";
 export default function HomePage() {
+  const { bestSeller, BestsellerSlug } = useMainContext();
+  console.log(bestSeller);
+
   return (
     <main>
       {/* Home section */}
@@ -44,12 +49,12 @@ export default function HomePage() {
                 <a href="#bestseller" className=" bestSellerButton">
                   Scopri i Best Seller →
                 </a>
-                <a
-                  href="#prodotti"
+                <Link
+                  to={"/products"}
                   className="buttonBasic text-decoration-none"
                 >
                   Tutti i Prodotti
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -142,7 +147,22 @@ export default function HomePage() {
           </div>
 
           <div className="row g-4 Sans">
-            <Product />
+            {bestSeller.map((b) => {
+              return (
+                <Product
+                  key={b.slug}
+                  title={b.name}
+                  price={b.price}
+                  slug={b.slug}
+                  featured={b.is_featured}
+                  specs={b.specs}
+                  image={b.image_url}
+                  stock={b.stock}
+                  category={b.category_name}
+                  BestsellerSlug={BestsellerSlug}
+                />
+              );
+            })}
           </div>
         </div>
       </section>

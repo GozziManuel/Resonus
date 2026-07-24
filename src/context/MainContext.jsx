@@ -14,7 +14,7 @@ const MainContextProvider = ({ children }) => {
 
       return response;
     } catch (error) {
-      console.error(error);
+      console.error(error, "Errore nel raggiungere il database");
     }
   };
 
@@ -29,14 +29,23 @@ const MainContextProvider = ({ children }) => {
   useEffect(() => {
     const recivingBestSellers = async () => {
       const array = await bestSellers();
+      if (!array) {
+        console.error(" Array inesistente");
+        return;
+      } else if (Array.isArray(array.results) === false) {
+        console.error("Formato Array non valido");
+        return;
+      }
 
       setBestSeller(array.results);
     };
     recivingBestSellers();
   }, []);
+  // BestSellersSlug
+  const BestsellerSlug = bestSeller.map((b) => b.slug);
 
   //   exports
-  const value = { bestSeller, setBestSeller };
+  const value = { bestSeller, setBestSeller, BestsellerSlug };
   return <MainContext.Provider value={value}>{children}</MainContext.Provider>;
 };
 

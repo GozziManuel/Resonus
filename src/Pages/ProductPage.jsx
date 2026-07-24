@@ -1,9 +1,11 @@
 import "../assets/css/product.css";
 import Product from "../Cards/Product";
 import { useCrudContext } from "../context/CrudContext";
+import { useMainContext } from "../context/MainContext";
 
 export default function ProductPage() {
   const { setProduct, product } = useCrudContext();
+  const { BestsellerSlug } = useMainContext();
   console.log(product);
 
   return (
@@ -30,7 +32,7 @@ export default function ProductPage() {
       {/* Title */}
       <section className="" style={{ marginTop: "70px", marginBottom: "70px" }}>
         <div className="d-flex justify-content-center">
-          <div className="text-center w-75">
+          <div className="text-center" style={{ width: "88%" }}>
             <p className="Sans">Solo il meglio</p>
             <h1 className="display-1 Outfit text-center fw-bold">COLLECTION</h1>
             <h5 className="Sans">
@@ -44,7 +46,22 @@ export default function ProductPage() {
       {/* Products */}
       <section className="">
         <div className="row g-4 Sans">
-          <Product />
+          {product.map((p) => {
+            return (
+              <Product
+                key={p.slug}
+                title={p.name}
+                price={p.price}
+                slug={p.slug}
+                featured={p.is_featured}
+                specs={p.specs}
+                image={p.image_url}
+                stock={p.stock}
+                category={p.category_name}
+                BestsellerSlug={BestsellerSlug}
+              />
+            );
+          })}
         </div>
       </section>
     </>
