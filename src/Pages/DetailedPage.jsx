@@ -4,14 +4,84 @@ import { useEffect, useState } from "react";
 import { useMainContext } from "../context/MainContext";
 import ModalCarousel from "../Components/ModalCarousel";
 import "../assets/css/productDetailed.css";
+import { Popover } from "bootstrap/dist/js/bootstrap.bundle.min";
+import PopOverbutton from "../Components/PopOverbutton";
+
+//
 
 export default function DetailedPage() {
+  //
   // Import Context
   const { detailedProduct } = useCrudContext();
+
   const { BestsellerSlug } = useMainContext();
 
   // States
   const [detailed, setDetailed] = useState({});
+
+  //
+  // Bootstrap popOVERS STARTING ON DetailedChanges
+  useEffect(() => {
+    const popoverTriggerList = document.querySelectorAll(
+      '[data-bs-toggle="popover"]',
+    );
+    const popoverList = [];
+    const cleanupHandlers = [];
+
+    popoverTriggerList.forEach((popoverTriggerEl) => {
+      const instance = new Popover(popoverTriggerEl);
+      popoverList.push(instance);
+
+      // Chiudi popover aperti prima di aprire il nuovo + button close on click (AI HELP)
+      const handleShow = () => {
+        popoverList.forEach((popoverInstance) => {
+          if (popoverInstance !== instance) {
+            popoverInstance.hide();
+          }
+        });
+      };
+
+      popoverTriggerEl.addEventListener("show.bs.popover", handleShow);
+      cleanupHandlers.push(() => {
+        popoverTriggerEl.removeEventListener("show.bs.popover", handleShow);
+      });
+    });
+
+    document.querySelectorAll(".DropdownRework").forEach((buttonEl) => {
+      const handleButtonClick = () => {
+        popoverList.forEach((popoverInstance) => popoverInstance.hide());
+      };
+
+      buttonEl.addEventListener("click", handleButtonClick);
+      cleanupHandlers.push(() => {
+        buttonEl.removeEventListener("click", handleButtonClick);
+      });
+    });
+
+    return () => {
+      cleanupHandlers.forEach((removeListener) => removeListener());
+      popoverList.forEach((popoverInstance) => popoverInstance.dispose());
+    };
+  }, [detailed]);
+
+  // Containers for specs
+  const specs = [];
+  const specsKey = [];
+  // Getting specs name
+  for (const key in detailed.specs) {
+    if (!Object.hasOwn(detailed.specs, key)) continue;
+
+    const element = detailed.specs[key];
+    specs.push(element);
+  }
+
+  // Getting keys
+  for (let key2 in detailed.specs) {
+    specsKey.push((key2 += ": "));
+  }
+
+  // assembling Specs to get full array for map
+  const fullSpecs = specsKey.map((el, id) => (el += specs[id]));
 
   // * IMG FOR CAROUSEL
   // img1
@@ -119,6 +189,7 @@ export default function DetailedPage() {
             )}
           </div>
 
+          {/* Dynamic stock */}
           <div className="mt-4">
             <h1 className="Outfit">{detailed.name}</h1>
             <div className="d-flex justify-content-between infoContainerDetailedTop ">
@@ -138,14 +209,55 @@ export default function DetailedPage() {
               )}
             </div>
           </div>
+
+          {/* PriceSection */}
           <div className="PriceContainer py-3">
             <p className="mb-1">Prezzo:</p>
             <h2>&euro; {detailed.price}</h2>
           </div>
-          <div style={{ width: "70%" }}>
-            <p className="my-5">{detailed.description}</p>
+          <div className="categoryContainer">
+            {/* Description */}
+            <p className="mt-5">{detailed.description}</p>
+
+            {/* Dropdown for specs */}
+            <p class="d-inline-flex gap-1">
+              <button
+                class="btn btn-secondary DropdownRework "
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseExample"
+                aria-expanded="false"
+                aria-controls="collapseExample"
+              >
+                Specifiche
+              </button>
+            </p>
           </div>
-          <div className="bottomDetailedContainer pt-4 d-flex justify-content-between">
+          {/* Collapse Button */}
+
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body mb-5" style={{ maxWidth: "30rem" }}>
+              <ul
+                className="text-decoration-none p-0 mb-0"
+                style={{ listStyle: "none" }}
+              >
+                {fullSpecs.map((el, id) => {
+                  const PrimaParola = el.split(" ")[0];
+                  const RestanteDellaFrase = el.substring(el.indexOf(" ") + 1);
+
+                  return (
+                    <li className="border-top  py-2" key={id}>
+                      <span className="fw-bold">{PrimaParola}</span>
+                      {RestanteDellaFrase}
+                      <PopOverbutton IdParole={id} Specs={fullSpecs} />
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+          {/*  */}
+          {/*  */}
+          <div className="bottomDetailedContainer mt-5 pt-4 d-flex justify-content-between">
             <p>
               Acquistati:{" "}
               <span className="fw-bold">{detailed.sales_count}</span>

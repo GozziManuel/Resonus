@@ -5,7 +5,9 @@
   border-bottom: solid 1px var(--button-color-2);
   width: 80%;
 }
-
+.categoryContainer {
+  width: 70%;
+}
 /* Button Detailed */
 .backToShopButton {
   border: none;
@@ -58,6 +60,20 @@
   border-radius: 5px;
   display: flex;
   justify-content: center;
+}
+
+/* Dropdown SPecs */
+.DropdownRework {
+  background-color: var(--button-third-color) !important;
+  color: var(--font-color-main) !important;
+}
+.card-body {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+/* Icon for info  */
+.infoHover {
+  cursor: pointer;
 }
 
 /* Wrapper per mantenere dimensione costante dell'immagine principale */
@@ -116,5 +132,8 @@
 @media (max-width: 490px) {
   .immagineDetailedWrapper {
     height: 380px;
+  }
+  .categoryContainer {
+    width: 100%;
   }
 }
