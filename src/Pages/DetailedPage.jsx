@@ -2,6 +2,8 @@ import { Link, useParams } from "react-router-dom";
 import { useCrudContext } from "../context/CrudContext";
 import { useEffect, useState } from "react";
 import { useMainContext } from "../context/MainContext";
+import ModalCarousel from "../Components/ModalCarousel";
+import "../assets/css/productDetailed.css";
 
 export default function DetailedPage() {
   // Import Context
@@ -96,7 +98,7 @@ export default function DetailedPage() {
             style={{ padding: "6px" }}
             to={"/products"}
           >
-            <i class="bi bi-arrow-left"> </i> Torna allo shop
+            <i className="bi bi-arrow-left"> </i> Torna allo shop
           </Link>
           <div
             className=" w-100   d-flex  align-items-start pointer-events-none  gap-3"
@@ -184,6 +186,12 @@ export default function DetailedPage() {
           </div>
         </div>
       </div>
+      <ModalCarousel
+        isOpen={showModalIMage}
+        Image={image1}
+        name={detailed.name}
+        Closer={() => setShowModalImage(false)}
+      />
     </section>
   );
 }
