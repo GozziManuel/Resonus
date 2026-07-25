@@ -6,8 +6,9 @@ const CrudContextProvider = ({ children }) => {
   // states
   const [product, setProduct] = useState([]);
 
-  //   asynchandler
+  //   asynchandler For easier Fetch
   const asyncHandler = async (url) => {
+    // Error Handling
     try {
       const obj = await fetch(url);
       const response = await obj.json();
@@ -20,13 +21,14 @@ const CrudContextProvider = ({ children }) => {
 
   // Main Products
   const mainProducts = async () => {
-    const array = await asyncHandler(`http://localhost:3000/products`);
+    const array = await asyncHandler(`http://localhost:3000/products`); // Getting Data (Promise)
     return array;
   };
 
   useEffect(() => {
     const recivingMainProducts = async () => {
-      const array = await mainProducts();
+      const array = await mainProducts(); // Translating Promise
+      // Error Handling
       if (!array) {
         console.error("Array inesistente");
         return;
@@ -34,9 +36,11 @@ const CrudContextProvider = ({ children }) => {
         console.error("Formato Array non valido");
         return;
       }
+
+      // SEtting Data
       const result = array.results;
-      const sortedResult = result.sort((a, b) => b.is_featured - a.is_featured);
-      console.log(sortedResult);
+      const sortedResult = result.sort((a, b) => b.is_featured - a.is_featured); //Sorting Data
+      console.log(sortedResult); // setting Data
 
       setProduct(array.results);
     };
@@ -45,7 +49,7 @@ const CrudContextProvider = ({ children }) => {
 
   //   Detailed Products
   const detailedProduct = async (id) => {
-    const array = await asyncHandler(`http://localhost:3000/products/${id}`);
+    const array = await asyncHandler(`http://localhost:3000/products/${id}`); // Setting data To Use in Detailed Page
     return array;
   };
 

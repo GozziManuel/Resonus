@@ -1,3 +1,4 @@
+/* ROOT COLORS */
 :root {
   --background-color: #f8f8f8;
   --inner-color: #ededed;
@@ -9,8 +10,8 @@
   --button-color-2: #aaaaaa;
   --font-color-animation: #b3b3b3;
 }
-/* FONTS */
 
+/* FONTS */
 .Outfit {
   font-family: "Outfit", sans-serif;
   font-optical-sizing: auto;
@@ -25,10 +26,34 @@
 }
 
 /* BACKGROUND */
+/* Rework for footer & FOOTER */
 body {
   background-color: var(--background-color);
+  height: 100%;
+}
+#root {
+  min-height: 100vh;
 }
 
+/* Footer */
+.InfoLink {
+  color: var(--font-color-main);
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+/* INfo Footer */
+.InfoLink:hover {
+  color: var(--badge-bestseller);
+  transform: translateY(-2px) scale(1.05);
+}
+.InfoContainer {
+  color: var(--font-color-main);
+}
+
+/*  */
+/* Button Main */
 .buttonBasic {
   border: none;
   border-radius: 5px;
@@ -43,7 +68,7 @@ body {
   background-color: var(--button-color-hover);
 }
 
-/* Container */
+/* Container PAGE */
 .mainContainer {
   justify-content: var(--background-color);
   width: 100%;
@@ -54,21 +79,8 @@ body {
   transition: padding 0.5s ease;
 }
 
-/* Footer */
-.InfoLink {
-  color: var(--font-color-main);
-  transition:
-    transform 0.2s ease,
-    color 0.2s ease;
-}
-.InfoLink:hover {
-  color: var(--badge-bestseller);
-  transform: translateY(-2px) scale(1.05);
-}
-.InfoContainer {
-  color: var(--font-color-main);
-}
 /* Medias */
+/* Media for small screen */
 @media screen and (max-width: 500px) {
   .mainContainer {
     padding-right: 10px;

@@ -1,4 +1,4 @@
-/* Link */
+/* NavLink Rework and Fix */
 .active {
   color: var(--button-color-hover);
   font-weight: bold;
@@ -14,7 +14,15 @@
   transform: translateY(-2px) scale(1.05);
 }
 
-/* NAVBAR */
+/* *NAVBAR */
+
+/* Navbar padding rework */
+.navbar {
+  --bs-navbar-nav-link-padding-x: 1rem !important;
+  --bs-navbar-toggler-icon-bg: url("/Finale2.png") !important;
+}
+/*  */
+/* NavBAR TOGGLER */
 .navbar-toggler {
   width: auto;
   max-width: 72px;
@@ -28,12 +36,17 @@
     transform 0.2s ease,
     color 0.2s ease !important;
 }
-.alignitemsMedia {
-  align-items: center;
-}
 .navbar-toggler:focus {
   box-shadow: none !important;
 }
+
+/*  */
+/* Align Only With media */
+.alignitemsMedia {
+  align-items: center;
+}
+
+/* Logo Container  */
 .icon-container {
   display: flex;
   align-items: center;
@@ -57,7 +70,40 @@
   white-space: nowrap;
   margin-right: 0 !important;
 }
+/*  */
+/*  */
+/* Wrapper with Full LOGO */
+.icon-container-full {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  min-width: 22px;
+  overflow: visible;
+  opacity: 0;
+  transform: translateX(8px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.35s ease;
+}
+.icon-wrapper-full {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  width: 77%;
+}
 
+.icon-wrapper-full p {
+  opacity: 0;
+  transform: translateX(-4px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.35s ease;
+}
+/*  */
+/*  */
 /* navbar FullScreen */
 .togglerfull {
   display: flex;
@@ -86,36 +132,7 @@
 .togglerfull:focus {
   text-decoration: none;
 }
-.icon-container-full {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  min-width: 22px;
-  overflow: visible;
-  opacity: 0;
-  transform: translateX(8px);
-  transition:
-    opacity 0.25s ease,
-    transform 0.35s ease;
-}
 
-.icon-wrapper-full {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  align-items: center;
-  white-space: nowrap;
-  width: 77%;
-}
-
-.icon-wrapper-full p {
-  opacity: 0;
-  transform: translateX(-4px);
-  transition:
-    opacity 0.3s ease,
-    transform 0.35s ease;
-}
 /* Searchbar */
 /* RESET SEARCHBAR */
 
@@ -132,11 +149,6 @@
 .searchbar:focus {
   outline: none;
   background-color: white;
-}
-/* Navbar padding rework */
-.navbar {
-  --bs-navbar-nav-link-padding-x: 1rem !important;
-  --bs-navbar-toggler-icon-bg: url("/Finale2.png") !important;
 }
 
 /* Icon */
@@ -157,6 +169,8 @@
 /* Medias */
 /* Navbar Toggler */
 @media (min-width: 992px) {
+  /* *full Animation MEdia */
+  /* Switching between logos */
   .navbar-toggler {
     max-width: 0;
     padding: 0 !important;
@@ -209,10 +223,14 @@
     visibility: hidden;
   }
 }
+/*  */
+/* *Utils */
 @media (max-width: 992px) {
+  /* Searchbar full on Small screen */
   .searchbar {
     margin-right: 0 !important;
   }
+  /* Media for Navlinks */
   .alignitemsMedia {
     align-items: start;
     margin-top: 15px;

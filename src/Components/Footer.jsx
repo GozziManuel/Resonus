@@ -3,10 +3,11 @@ import Logo from "./Logo";
 
 export default function Footer() {
   return (
-    <footer className=" text-secondary py-4 border-top border-secondary border-opacity-25 mt-5 ">
+    // Footer
+    <footer className=" text-secondary py-4 border-top border-secondary border-opacity-25  ">
       <div className="">
         <div className="row g-3 align-items-center justify-content-between">
-          {/* Brand & Tagline */}
+          {/* Brand & Info */}
           <div className="col-md-3 text-center text-md-start">
             <h5 className=" mb-0">
               <Logo />
@@ -62,18 +63,23 @@ export default function Footer() {
           </small>
           <div className="d-flex gap-3">
             <Link
+              // To do!
+
               to="/privacy"
               className="text-secondary text-decoration-none hover-white InfoLink"
             >
               Privacy
             </Link>
             <Link
+              // To do!
+
               to="/shipping"
               className="text-secondary text-decoration-none hover-white InfoLink"
             >
               Spedizioni
             </Link>
             <Link
+              // To do!
               to="/contact"
               className="text-secondary text-decoration-none hover-white InfoLink"
             >

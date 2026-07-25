@@ -1,7 +1,10 @@
+/* Titolo */
 .HomeTitle {
   color: var(--font-color-main);
   font-weight: 500 !important;
 }
+
+/* Glowing Animation to Reuse */
 .glowing {
   animation: glow 2s ease-in-out infinite alternate;
 }
@@ -12,7 +15,7 @@
   position: relative;
   display: inline-block;
 
-  /* Applichiamo la transizione di zoom sull'elemento intero */
+  /* Zoom */
   transform: scale(1);
   transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
@@ -24,7 +27,7 @@
   transition: opacity 0.3s ease-in-out;
 }
 
-/* 2. SECONDA ICONA SOVRAPPOSTA */
+/* SECONDA ICONA SOVRAPPOSTA IN HOVER*/
 .bi-shield-check::after {
   content: "\f536" !important;
   position: absolute;
@@ -62,7 +65,7 @@
   position: relative;
   display: inline-block;
 
-  /* Applichiamo la transizione di zoom sull'elemento intero */
+  /* ZOOM */
   transform: scale(1);
   transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
@@ -108,7 +111,6 @@
 }
 
 /* ICONA CUFFIE */
-/* animation */
 .bi-headset {
   position: relative;
   display: inline-block;
@@ -118,7 +120,7 @@
   transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* 1. ICONA DI BASE SCUDO */
+/* 1. ICONA DI BASE CUFFIE */
 .bi-headset::before {
   content: "\f46f";
   opacity: 1;
@@ -132,6 +134,7 @@
 /*  */
 /*  */
 /* ANIMATION */
+/* GLOWING ANIMATION */
 @keyframes glow {
   from {
     text-shadow:

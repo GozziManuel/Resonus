@@ -1,5 +1,5 @@
+/* *BestSellers */
 /* Buttons */
-/* BestSellers */
 .bestSellerButton {
   border: none;
   border-radius: 5px;
@@ -24,17 +24,22 @@
 .bestSellerButton:active {
   transform: translateY(0) scale(0.98);
 }
-/* Bestseller Section */
+/* *Bestseller Badge */
+/* badge 1 White */
 .badgeCardCategory {
   background-color: var(--inner-color);
   border-radius: 5px;
   color: var(--font-color-main);
 }
+
+/* badge 2 black */
 .badgeCardBestSeller {
   background-color: var(--badge-bestseller);
   border-radius: 5px;
   color: white;
 }
+
+/* Floating animation To reuse */
 .floating {
   display: inline-block;
   animation: floatBadge 3s ease-in-out infinite;
@@ -42,7 +47,8 @@
   transition: box-shadow 0.3s ease;
 }
 
-/* animation */
+/* *animation */
+/* Floating animation */
 @keyframes floatBadge {
   0% {
     transform: translateY(0px);

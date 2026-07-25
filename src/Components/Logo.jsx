@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Logo() {
   return (
+    // LOGO
     <NavLink
       className=" border-0 togglerfull mb-0 navlink"
       style={{ width: "100px", cursor: "pointer" }}

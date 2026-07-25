@@ -135,7 +135,7 @@ export default function HomePage() {
       </section>
 
       {/* 4. SEZIONE BEST SELLER */}
-      <section id="bestseller" className="py-5 my-4">
+      <section id="bestseller" className="py-5 my-1">
         <div className="">
           <div className="mb-5">
             <span className="text-uppercase Sans">

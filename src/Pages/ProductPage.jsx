@@ -81,7 +81,7 @@ export default function ProductPage() {
       </section>
 
       {/* Products */}
-      <section className="">
+      <section className="mb-5">
         <div className="row g-4 Sans">
           {product.map((p) => {
             return (

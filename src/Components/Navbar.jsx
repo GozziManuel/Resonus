@@ -47,11 +47,14 @@ export default function NavBar() {
             />
           </form>
         </div>
+        {/* Navigation LINKS */}
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul
             className="navbar-nav me-auto mb-2 mb-lg-0 d-flex justify-content-center alignitemsMedia"
             style={{ gap: "15px" }}
           >
+            {/*  */}
+            {/* Collection */}
             <li className="nav-item">
               <NavLink
                 className="navlink pe-1"
@@ -61,12 +64,17 @@ export default function NavBar() {
                 Collection
               </NavLink>
             </li>
+
+            {/*  */}
+            {/*  */}
             <li className="nav-item ">
               <a className="nav-link pe-1" href="#">
                 Placeholder
               </a>
             </li>
 
+            {/*  */}
+            {/*  */}
             <li className="nav-item pe-1">
               <a className="nav-link disabled" aria-disabled="true">
                 Placeholder

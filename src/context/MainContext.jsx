@@ -8,6 +8,7 @@ const MainContextProvider = ({ children }) => {
 
   //   asynchandler
   const asyncHandler = async (url) => {
+    // Error Handling
     try {
       const obj = await fetch(url);
       const response = await obj.json();
@@ -22,13 +23,14 @@ const MainContextProvider = ({ children }) => {
   const bestSellers = async () => {
     const array = await asyncHandler(
       `http://localhost:3000/product/bestSeller`,
-    );
+    ); // Getting Promise
     return array;
   };
 
+  // Translating Promise
   useEffect(() => {
     const recivingBestSellers = async () => {
-      const array = await bestSellers();
+      const array = await bestSellers(); // Translating Promise
       if (!array) {
         console.error(" Array inesistente");
         return;
@@ -37,11 +39,14 @@ const MainContextProvider = ({ children }) => {
         return;
       }
 
-      setBestSeller(array.results);
+      setBestSeller(array.results); // Setting Array
     };
+    // Calling the function
     recivingBestSellers();
   }, []);
+
   // BestSellersSlug
+  // Getting SLUGS
   const BestsellerSlug = bestSeller.map((b) => b.slug);
 
   //   exports
