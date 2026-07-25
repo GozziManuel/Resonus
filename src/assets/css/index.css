@@ -53,6 +53,21 @@ body {
   padding-left: var(--padding-container);
   transition: padding 0.5s ease;
 }
+
+/* Footer */
+.InfoLink {
+  color: var(--font-color-main);
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+.InfoLink:hover {
+  color: var(--badge-bestseller);
+  transform: translateY(-2px) scale(1.05);
+}
+.InfoContainer {
+  color: var(--font-color-main);
+}
 /* Medias */
 @media screen and (max-width: 500px) {
   .mainContainer {

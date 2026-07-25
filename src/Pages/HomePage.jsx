@@ -167,12 +167,5 @@ export default function HomePage() {
         </div>
       </section>
     </main>
-    //   {/* 5. FOOTER */}
-    //   <footer className="border-top border-secondary-subtle py-4 text-center text-secondary small">
-    //     <div className="container">
-    //       <p className="mb-0">© 2026 Aether Audio Inc. Tutti i diritti riservati.</p>
-    //     </div>
-    //   </footer>
-    // </div>
   );
 }

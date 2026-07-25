@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import "../assets/css/product.css";
 import Product from "../Cards/Product";
 import { useCrudContext } from "../context/CrudContext";
@@ -6,8 +7,27 @@ import { useMainContext } from "../context/MainContext";
 export default function ProductPage() {
   const { setProduct, product } = useCrudContext();
   const { BestsellerSlug } = useMainContext();
-  console.log(product);
 
+  // framer motion
+  // Varianti per il container principale
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+  // for items
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
+  };
   return (
     <>
       {/* Filters */}
@@ -31,16 +51,33 @@ export default function ProductPage() {
 
       {/* Title */}
       <section className="" style={{ marginTop: "70px", marginBottom: "70px" }}>
-        <div className="d-flex justify-content-center">
-          <div className="text-center" style={{ width: "88%" }}>
-            <p className="Sans">Solo il meglio</p>
-            <h1 className="display-1 Outfit text-center fw-bold">COLLECTION</h1>
-            <h5 className="Sans">
+        <motion.div
+          className="d-flex justify-content-center"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <div
+            className="text-center"
+            style={{ width: "88%" }}
+            variants={itemVariants}
+          >
+            <motion.p className="Sans" variants={itemVariants}>
+              Solo il meglio
+            </motion.p>
+            <motion.h1
+              className="display-1 Outfit text-center fw-bold"
+              variants={itemVariants}
+            >
+              COLLECTION
+            </motion.h1>
+            <motion.h5 className="Sans" variants={itemVariants}>
               Acustica di precisione, bassi profondi.
               <br /> Il meglio dell'audio, senza compromessi.
-            </h5>
+            </motion.h5>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* Products */}

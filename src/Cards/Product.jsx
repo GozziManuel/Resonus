@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import "../assets/css/product.css";
+import { motion } from "framer-motion";
 
 export default function Product({
   title,
@@ -12,31 +13,47 @@ export default function Product({
   category,
   BestsellerSlug,
 }) {
+  // Framer Motion
+
+  // Varianti per ogni singola card
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4, ease: "easeOut" },
+    },
+  };
   return (
-    <div className="col-md-4 col-sm-6">
-      <div className="card card-dark card-bestseller h-100 p-3 position-relative">
-        {featured === 1 && (
-          <span className="position-absolute top-0 end-0 m-3 badgeCardCategory floating px-3 py-2  ">
-            In Evidenza!
-          </span>
-        )}
-        {BestsellerSlug.map((b) => {
-          if (b === slug) {
-            return (
-              <span
-                className="position-absolute m-3 end-0 badgeCardBestSeller floating px-3 py-2  "
-                style={{ bottom: "31%" }}
-              >
-                BestSeller
-              </span>
-            );
-          }
-        })}
-        <div className="" style={{ height: "320px" }}>
+    <motion.div
+      variants={cardVariants}
+      className="col-md-4 col-sm-6 position-relative"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-50px" }}
+    >
+      <div className="card card-dark card-bestseller h-100 p-3 ">
+        <div
+          className="position-absolute top-0 start-0 w-100 p-3 d-flex  align-items-start pointer-events-none flex-column gap-2"
+          style={{ zIndex: 2 }}
+        >
+          {featured === 1 && (
+            <span className="   badgeCardCategory floating px-3 py-2  ">
+              In Evidenza!
+            </span>
+          )}
+
+          {BestsellerSlug.includes(slug) && (
+            <span className=" badgeCardBestSeller floating px-3 py-2  ">
+              BestSeller
+            </span>
+          )}
+        </div>
+        <div className="rounded-3 " style={{ height: "320px" }}>
           <img
             src={image}
             className="card-img-top rounded-3 "
-            style={{ objectFit: "cover", height: "100%", width: "100%" }}
+            style={{ objectFit: "scale-down", height: "100%", width: "100%" }}
             alt="Aether Soundscape Pro"
           />
         </div>
@@ -46,10 +63,10 @@ export default function Product({
               {category}
             </small>
             <h5 className="card-title  fw-bold mt-1"> {title}</h5>
-            {stock < 20 ? (
-              <p className="card-text text-warning small">Quasi Esaurito!</p>
-            ) : stock === 0 ? (
+            {stock === 0 ? (
               <p className="card-text text-danger fw-bold small">Esaurito</p>
+            ) : stock < 20 ? (
+              <p className="card-text text-warning small">Quasi Esaurito!</p>
             ) : (
               <p className="card-text text-secondary small">Disponibile</p>
             )}
@@ -66,6 +83,6 @@ export default function Product({
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -6,6 +6,7 @@ import ProductPage from "./Pages/ProductPage";
 import NotFoundPage from "./Pages/NotFoundPage";
 import { CrudContextProvider } from "./context/CrudContext";
 import { MainContextProvider } from "./context/MainContext";
+import DetailedPage from "./Pages/DetailedPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route element={<DefaultLayout />}>
               <Route element={<HomePage />} path="/" />
               <Route element={<ProductPage />} path="/products" />
+              <Route element={<DetailedPage />} path="/products/:slug" />
               <Route element={<NotFoundPage />} path="*" />
             </Route>
           </Routes>
