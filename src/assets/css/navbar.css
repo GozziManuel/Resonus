@@ -15,7 +15,10 @@
 }
 
 /* *NAVBAR */
-
+/* Homepage button */
+.HomepageButton {
+  display: none;
+}
 /* Navbar padding rework */
 .navbar {
   --bs-navbar-nav-link-padding-x: 1rem !important;
@@ -144,7 +147,6 @@
   height: 40px;
   border-radius: 5px;
   padding-left: 10px;
-  margin-right: 2.5rem;
 }
 .searchbar:focus {
   outline: none;
@@ -226,13 +228,12 @@
 /*  */
 /* *Utils */
 @media (max-width: 992px) {
-  /* Searchbar full on Small screen */
-  .searchbar {
-    margin-right: 0 !important;
-  }
   /* Media for Navlinks */
   .alignitemsMedia {
     align-items: start;
     margin-top: 15px;
+  }
+  .HomepageButton {
+    display: block;
   }
 }

@@ -40,9 +40,8 @@ const CrudContextProvider = ({ children }) => {
       // SEtting Data
       const result = array.results;
       const sortedResult = result.sort((a, b) => b.is_featured - a.is_featured); //Sorting Data
-      console.log(sortedResult); // setting Data
 
-      setProduct(array.results);
+      setProduct(array.results); // setting Data
     };
     recivingMainProducts();
   }, []);

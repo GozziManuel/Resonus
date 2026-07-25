@@ -47,6 +47,117 @@
   transition: box-shadow 0.3s ease;
 }
 
+/*  */
+/* Detailed PRoduct Css */
+.PriceContainer {
+  margin-top: 45px;
+  border-top: solid 1px var(--button-color-2);
+  border-bottom: solid 1px var(--button-color-2);
+  width: 80%;
+}
+
+/* Button Detailed */
+.backToShopButton {
+  border: none;
+  background-color: transparent;
+  border-radius: 5px;
+  transition:
+    border 0.5s ease,
+    transform 0.5s ease,
+    box-shadow 0.5s ease;
+  color: var(--font-color-main);
+}
+.backToShopButton:hover {
+  transform: translateY(-4px) scale(1.05);
+  border: solid 1px rgba(0, 0, 0, 0.219);
+  box-shadow: 0px 3px 5px 0px;
+}
+
+/* Bottom Detailed */
+.bottomDetailedContainer {
+  width: 80%;
+  border-top: solid 1px var(--button-color-2);
+}
+.infoContainerDetailedTop {
+  width: 80%;
+}
+/* Image */
+.immagineDetailed {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  opacity: 1;
+  transition: opacity 250ms ease-in-out;
+}
+
+.immagineDetailed.fade-out {
+  opacity: 0;
+}
+.imgContainer {
+  width: 100%;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Wrapper per mantenere dimensione costante dell'immagine principale */
+.immagineDetailedWrapper {
+  width: 100%;
+  max-width: 700px;
+  height: 550px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.insideImg {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+.insideImgsContainer:hover {
+  outline: solid 1px black;
+}
+.insideImgsContainer {
+  transition: outline-color 0.3s ease-in-out;
+  height: 70px;
+  width: 100px;
+  border-radius: 20px;
+  outline: solid 1px transparent;
+  padding: 4px;
+  cursor: pointer;
+}
+/* Media For Detailed */
+@media (max-width: 576px) {
+  .infoContainerDetailedTop {
+    width: 100%;
+  }
+  .bottomDetailedContainer {
+    width: 100%;
+  }
+  .PriceContainer {
+    width: 100%;
+  }
+}
+@media (max-width: 992px) {
+  .infoContainerDetailedTop {
+    width: 100%;
+  }
+  .bottomDetailedContainer {
+    width: 100%;
+  }
+  .PriceContainer {
+    width: 100%;
+  }
+}
+@media (max-width: 490px) {
+  .immagineDetailedWrapper {
+    height: 380px;
+  }
+}
+
 /* *animation */
 /* Floating animation */
 @keyframes floatBadge {

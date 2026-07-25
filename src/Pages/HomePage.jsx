@@ -95,7 +95,7 @@ export default function HomePage() {
           <div className="row">
             <div className="col-md-4 d-flex align-items-center gap-3 justify-content-center">
               <div className="p-1 fs-1">
-                <i class="bi bi-lightning"></i>
+                <i className="bi bi-lightning"></i>
               </div>
               <div>
                 <p className="mb-0 Outfit">Spedizione Express 24/48h</p>
@@ -108,7 +108,7 @@ export default function HomePage() {
             {/* Vantaggio 2 */}
             <div className="col-md-4 d-flex align-items-center gap-3 justify-content-center">
               <div className="p-1 fs-1">
-                <i class="bi bi-shield-check"></i>
+                <i className="bi bi-shield-check"></i>
               </div>
               <div>
                 <p className="mb-0 Outfit">Garanzia Ufficiale 2 Anni</p>
@@ -121,7 +121,7 @@ export default function HomePage() {
             {/* vantaggio 3 */}
             <div className="col-md-4 d-flex align-items-center gap-3 justify-content-center">
               <div className="p-1 fs-1">
-                <i class="bi bi-headset"></i>
+                <i className="bi bi-headset"></i>
               </div>
               <div>
                 <p className="mb-0 Outfit">Supporto Tecnico Audio</p>

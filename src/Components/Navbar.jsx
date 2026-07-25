@@ -54,6 +54,15 @@ export default function NavBar() {
             style={{ gap: "15px" }}
           >
             {/*  */}
+            <li className="nav-item">
+              <NavLink
+                className="navlink pe-1 HomepageButton"
+                aria-current="page"
+                to={"/"}
+              >
+                Homepage
+              </NavLink>
+            </li>
             {/* Collection */}
             <li className="nav-item">
               <NavLink
