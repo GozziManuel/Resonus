@@ -22,6 +22,7 @@ export default function DetailedPage() {
   //
   // Bootstrap popOVERS STARTING ON DetailedChanges
   useEffect(() => {
+    // Getting all popOvers
     const popoverTriggerList = document.querySelectorAll(
       '[data-bs-toggle="popover"]',
     );
@@ -29,6 +30,7 @@ export default function DetailedPage() {
     const cleanupHandlers = [];
 
     popoverTriggerList.forEach((popoverTriggerEl) => {
+      // Creating popOVers
       const instance = new Popover(popoverTriggerEl);
       popoverList.push(instance);
 
@@ -47,12 +49,14 @@ export default function DetailedPage() {
       });
     });
 
+    // Getting button for toggling PopOvers on click
     document.querySelectorAll(".DropdownRework").forEach((buttonEl) => {
       const handleButtonClick = () => {
         popoverList.forEach((popoverInstance) => popoverInstance.hide());
       };
 
       buttonEl.addEventListener("click", handleButtonClick);
+      //
       cleanupHandlers.push(() => {
         buttonEl.removeEventListener("click", handleButtonClick);
       });
@@ -240,6 +244,7 @@ export default function DetailedPage() {
                 className="text-decoration-none p-0 mb-0"
                 style={{ listStyle: "none" }}
               >
+                {/* getting specific Specs */}
                 {fullSpecs.map((el, id) => {
                   const PrimaParola = el.split(" ")[0];
                   const RestanteDellaFrase = el.substring(el.indexOf(" ") + 1);
@@ -256,7 +261,7 @@ export default function DetailedPage() {
             </div>
           </div>
           {/*  */}
-          {/*  */}
+          {/* More Infos */}
           <div className="bottomDetailedContainer mt-5 pt-4 d-flex justify-content-between">
             <p>
               Acquistati:{" "}
@@ -265,6 +270,8 @@ export default function DetailedPage() {
             <p>{gettingDate(detailed.created_at)}</p>
           </div>
         </div>
+
+        {/* Carousel */}
         <div className="col-lg-6 col-sm-12 col-md-12 d-flex flex-column  gap-4 align-items-center">
           <div className="immagineDetailedWrapper">
             <img
@@ -298,6 +305,7 @@ export default function DetailedPage() {
           </div>
         </div>
       </div>
+      {/* Modal Full Image */}
       <ModalCarousel
         isOpen={showModalIMage}
         Image={image1}

@@ -5,7 +5,15 @@ const CrudContext = createContext();
 const CrudContextProvider = ({ children }) => {
   // states
   const [product, setProduct] = useState([]);
+  const [fullProducts, setFullProducts] = useState([]);
 
+  // Filters **
+  const [filters, setFilters] = useState({
+    category: "",
+    sort: "default",
+    available: false,
+    featured: false,
+  });
   //   asynchandler For easier Fetch
   const asyncHandler = async (url) => {
     // Error Handling
@@ -19,32 +27,62 @@ const CrudContextProvider = ({ children }) => {
     }
   };
 
-  // Main Products
-  const mainProducts = async () => {
-    const array = await asyncHandler(`http://localhost:3000/products`); // Getting Data (Promise)
-    return array;
-  };
+  // Main Product + filtering
 
   useEffect(() => {
-    const recivingMainProducts = async () => {
-      const array = await mainProducts(); // Translating Promise
+    const functionFilters = async () => {
+      const queryParams = new URLSearchParams();
+      // By Category
+      if (filters.category !== "all") {
+        queryParams.append("category", filters.category);
+      }
+      // Stock
+      if (filters.available) {
+        queryParams.append("available", "true");
+      }
+
+      // Stock
+      if (filters.featured) {
+        queryParams.append("featured", "true");
+      }
+
+      // SORTING
+
+      if (filters.sort !== "default") {
+        queryParams.append("sort", filters.sort);
+      }
+
+      const gettingFilters = await fetch(
+        `http://localhost:3000/products?${queryParams.toString()}`,
+      );
+      // Array completo per Prendere tutte le categorie
+      const gettingFullArray = await fetch(`http://localhost:3000/products`);
+
+      //
+      const resultFull = await gettingFullArray.json();
+      const resultFiltered = await gettingFilters.json();
+
       // Error Handling
-      if (!array) {
+      if (!resultFiltered || !resultFull) {
         console.error("Array inesistente");
         return;
-      } else if (Array.isArray(array.results) === false) {
+      } else if (
+        Array.isArray(resultFiltered?.results) === false ||
+        Array.isArray(resultFull?.results) === false
+      ) {
         console.error("Formato Array non valido");
         return;
       }
 
-      // SEtting Data
-      const result = array.results;
-      const sortedResult = result.sort((a, b) => b.is_featured - a.is_featured); //Sorting Data
+      setFullProducts(resultFull?.results);
+      setProduct(resultFiltered?.results);
 
-      setProduct(array.results); // setting Data
+      // setProduct(resultFiltered)
+      console.log(queryParams.toString());
     };
-    recivingMainProducts();
-  }, []);
+    functionFilters();
+    console.log(filters.sort);
+  }, [filters]);
 
   //   Detailed Products
   const detailedProduct = async (id) => {
@@ -53,7 +91,14 @@ const CrudContextProvider = ({ children }) => {
   };
 
   //   exports
-  const value = { setProduct, product, detailedProduct };
+  const value = {
+    setProduct,
+    product,
+    detailedProduct,
+    fullProducts,
+    filters,
+    setFilters,
+  };
   return <CrudContext.Provider value={value}>{children}</CrudContext.Provider>;
 };
 

@@ -9,8 +9,8 @@ import DetailedPage from "./Pages/DetailedPage";
 
 function App() {
   return (
-    <MainContextProvider>
-      <CrudContextProvider>
+    <CrudContextProvider>
+      <MainContextProvider>
         <BrowserRouter>
           <Routes>
             <Route element={<DefaultLayout />}>
@@ -21,8 +21,8 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
-      </CrudContextProvider>
-    </MainContextProvider>
+      </MainContextProvider>
+    </CrudContextProvider>
   );
 }
 

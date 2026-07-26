@@ -1,8 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useCrudContext } from "./CrudContext";
 
 const MainContext = createContext();
 
 const MainContextProvider = ({ children }) => {
+  // Getting products
+  const { setProduct, product } = useCrudContext();
+
   // states
   const [bestSeller, setBestSeller] = useState([]);
 
@@ -27,30 +31,41 @@ const MainContextProvider = ({ children }) => {
     return array;
   };
 
-  // Translating Promise
+  // Translating Promises
   useEffect(() => {
     const recivingBestSellers = async () => {
-      const array = await bestSellers(); // Translating Promise
-      if (!array) {
+      const arrayBestsellers = await bestSellers(); // Translating Promise bestSellers
+
+      if (!arrayBestsellers) {
         console.error(" Array inesistente");
         return;
-      } else if (Array.isArray(array.results) === false) {
+      } else if (Array.isArray(arrayBestsellers.results) === false) {
         console.error("Formato Array non valido");
         return;
       }
 
-      setBestSeller(array.results); // Setting Array
+      setBestSeller(arrayBestsellers.results); // Setting Array Bestsellers
     };
     // Calling the function
     recivingBestSellers();
   }, []);
 
+  //
+  // *************** FILTERS *********
+
+  // *************************
+  //
   // BestSellersSlug
   // Getting SLUGS
   const BestsellerSlug = bestSeller.map((b) => b.slug);
 
   //   exports
-  const value = { bestSeller, setBestSeller, BestsellerSlug };
+  const value = {
+    bestSeller,
+    setBestSeller,
+    BestsellerSlug,
+    // filters
+  };
   return <MainContext.Provider value={value}>{children}</MainContext.Provider>;
 };
 

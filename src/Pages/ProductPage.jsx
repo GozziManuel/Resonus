@@ -3,10 +3,27 @@ import "../assets/css/product.css";
 import Product from "../Cards/Product";
 import { useCrudContext } from "../context/CrudContext";
 import { useMainContext } from "../context/MainContext";
+import { useEffect, useState } from "react";
 
 export default function ProductPage() {
-  const { setProduct, product } = useCrudContext();
+  // CRUD IMPORT
+  const { setProduct, product, fullProducts, filters, setFilters } =
+    useCrudContext();
+
+  // MAIN IMPORTS
   const { BestsellerSlug } = useMainContext();
+
+  // States
+  const [clicked, setClicked] = useState(false);
+
+  // Getting full categories
+  const fullCategories = [];
+  fullProducts.forEach((element) => {
+    if (fullCategories.includes(element.category_name)) {
+      return;
+    }
+    fullCategories.push(element.category_name);
+  });
 
   // framer motion
   // Varianti per il container principale
@@ -28,23 +45,172 @@ export default function ProductPage() {
       transition: { duration: 0.5, ease: "easeOut" },
     },
   };
+
   return (
     <>
-      {/* Filters */}
       <section
-        className="py-2 rounded-4 mt-2"
-        style={{ backgroundColor: "var(--inner-color)" }}
+        className="py-3 px-3 rounded-4 mt-3 shadow-sm"
+        style={{
+          backgroundColor: "var(--inner-color, #f8f9fa)",
+          border: "1px solid rgba(0,0,0,0.05)",
+        }}
       >
-        <div className="container">
-          <div className="row">
-            {/*  */}
-            <div className="col-md-4 d-flex align-items-center gap-3 justify-content-center"></div>
+        {/* Header Toggle */}
+        <div className="d-flex justify-content-center">
+          <button
+            style={{ background: "none", border: "none" }}
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseExample"
+            aria-expanded="false"
+            aria-controls="collapseExample"
+            className="d-flex align-items-center gap-2 text-decoration-none text-dark"
+          >
+            <i className="bi bi-funnel "></i>
+            <p className=" text-uppercase mb-0 Outfit">Filtri & Ordinamento</p>
+            <i className="bi bi-chevron-down opacity-75 small"></i>
+          </button>
+        </div>
 
-            {/*  */}
-            <div className="col-md-4 d-flex align-items-center gap-3 justify-content-center"></div>
+        {/* Contenuto Collassabile */}
+        <div className="collapse mt-3" id="collapseExample">
+          <div className="card card-body border-0 bg-transparent p-0">
+            <div className="row g-3 align-items-center justify-content-center">
+              {/* 1. In Evidenza */}
+              <div className="col-12 col-sm-6 col-md-4">
+                <button
+                  type="button"
+                  className={`btn w-100 py-2 px-2 FilterButtonHover rounded-3 d-flex align-items-center  justify-content-center gap-2 fw-semibold  ${
+                    filters.featured
+                      ? "shadow-sm FilterButton"
+                      : "btn-outline-secondary bg-white text-dark border-light-subtle"
+                  }`}
+                  onClick={() =>
+                    setFilters({
+                      ...filters,
+                      featured: filters.featured ? false : true,
+                    })
+                  }
+                >
+                  <span> In Evidenza</span>
+                  {filters.featured && (
+                    <span className="badge bg-white rounded-pill text-black extra-small">
+                      Attivo
+                    </span>
+                  )}
+                </button>
+              </div>
 
-            {/*  */}
-            <div className="col-md-4 d-flex align-items-center gap-3 justify-content-center"></div>
+              {/* 2. Disponibilità */}
+              <div className="col-12 col-sm-6 col-md-4">
+                <button
+                  type="button"
+                  className={`btn w-100  FilterButtonHover py-2 px-3 rounded-3 d-flex 
+                    align-items-center justify-content-center gap-2 fw-semibold transition-all ${
+                      filters.available
+                        ? "shadow-sm FilterButton"
+                        : "btn-outline-secondary bg-white text-dark border-light-subtle"
+                    }`}
+                  onClick={() =>
+                    setFilters({
+                      ...filters,
+                      available: filters.available ? false : true,
+                    })
+                  }
+                >
+                  <span>Disponibilità</span>
+                  {filters.available && (
+                    <span className="badge bg-white rounded-pill text-black extra-small">
+                      Attivo
+                    </span>
+                  )}
+                </button>
+              </div>
+
+              {/* 3. Select category */}
+              <div className="col-12 col-sm-12 col-md-4">
+                <div className="position-relative d-flex gap-2">
+                  <select
+                    className="form-select py-2 px-3 rounded-3 bg-white border-light-subtle shadow-none fw-medium text-secondary"
+                    aria-label="Ordinamento prodotti"
+                  >
+                    <option value="All">Scegli Categoria (All)</option>
+                    {fullCategories.map((el) => {
+                      return (
+                        <option value={el} key={el}>
+                          {el}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            {/* Sorting Part */}
+            <div className="row mt-3">
+              <div className="col-12  d-flex justify-content-center">
+                <p className=" text-uppercase mb-0 Outfit">Sorting</p>
+              </div>
+
+              {/* sorting */}
+              <div className="col-12 col-sm-6 col-md-4">
+                <div className="d-flex flex-column align-items-center">
+                  Prezzo
+                  <div className="d-flex gap-2">
+                    <button>
+                      <i class="bi bi-arrow-up"></i>
+                    </button>
+                    <button>
+                      <i class="bi bi-arrow-down"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* sorting */}
+              <div className="col-12 col-sm-6 col-md-4">
+                <div className="d-flex flex-column align-items-center">
+                  <button
+                    type="button"
+                    className={`btn w-100  FilterButtonHover py-2 px-3 rounded-3 d-flex 
+                    align-items-center justify-content-center gap-2 fw-semibold transition-all ${
+                      filters.available
+                        ? "shadow-sm FilterButton"
+                        : "btn-outline-secondary bg-white text-dark border-light-subtle"
+                    }`}
+                    onClick={() =>
+                      setFilters({
+                        ...filters,
+                        available: filters.available ? false : true,
+                      })
+                    }
+                  >
+                    <span>Disponibilità</span>
+                    {filters.available && (
+                      <span className="badge bg-white rounded-pill text-black extra-small">
+                        Attivo
+                      </span>
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {/* sorting */}
+              <div className="col-12 col-sm-6 col-md-4">
+                <div className="d-flex flex-column justify-content-center align-items-center">
+                  Prezzo
+                  <div className="d-flex gap-2">
+                    <button>
+                      <i class="bi bi-arrow-up"></i>
+                    </button>
+                    <button>
+                      <i class="bi bi-arrow-down"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
