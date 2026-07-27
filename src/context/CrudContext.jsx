@@ -70,7 +70,7 @@ const CrudContextProvider = ({ children }) => {
         Array.isArray(resultFiltered?.results) === false ||
         Array.isArray(resultFull?.results) === false
       ) {
-        console.error("Formato Array non valido");
+        console.error(resultFiltered, "Formato Array non valido");
         return;
       }
 

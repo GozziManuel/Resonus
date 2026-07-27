@@ -62,6 +62,15 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   transition: box-shadow 0.3s ease;
 }
+
+/* Animation ARRow */
+.arrowForAnimation {
+  transition: all 0.4s ease;
+}
+
+.arrowAnimationUp {
+  transform: rotateZ(-180deg);
+}
 /* *animation */
 /* Floating animation */
 @keyframes floatBadge {

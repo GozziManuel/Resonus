@@ -148,66 +148,122 @@ export default function ProductPage() {
             </div>
 
             {/* Sorting Part */}
-            <div className="row mt-3">
+            <div className="row mt-3 ">
               <div className="col-12  d-flex justify-content-center">
-                <p className=" text-uppercase mb-0 Outfit">Sorting</p>
+                <p className=" text-uppercase mb-1 Outfit">Sorting</p>
               </div>
 
-              {/* sorting */}
+              {/* sorting PRICE*/}
               <div className="col-12 col-sm-6 col-md-4">
-                <div className="d-flex flex-column align-items-center">
-                  Prezzo
-                  <div className="d-flex gap-2">
-                    <button>
-                      <i class="bi bi-arrow-up"></i>
-                    </button>
-                    <button>
-                      <i class="bi bi-arrow-down"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* sorting */}
-              <div className="col-12 col-sm-6 col-md-4">
-                <div className="d-flex flex-column align-items-center">
+                <div className="d-flex  align-items-center">
                   <button
                     type="button"
                     className={`btn w-100  FilterButtonHover py-2 px-3 rounded-3 d-flex 
                     align-items-center justify-content-center gap-2 fw-semibold transition-all ${
-                      filters.available
+                      filters.sort === "priceUp" || filters.sort === "priceDown"
                         ? "shadow-sm FilterButton"
                         : "btn-outline-secondary bg-white text-dark border-light-subtle"
                     }`}
                     onClick={() =>
                       setFilters({
                         ...filters,
-                        available: filters.available ? false : true,
+                        sort:
+                          filters.sort === "default" ||
+                          filters.sort === "acquisti"
+                            ? "priceUp"
+                            : filters.sort === "priceUp"
+                              ? "priceDown"
+                              : "default",
                       })
                     }
                   >
-                    <span>Disponibilità</span>
-                    {filters.available && (
+                    <span>Prezzo</span>
+
+                    <div
+                      className={`arrowForAnimation ${
+                        filters.sort === "default" ||
+                        filters.sort === "acquisti"
+                          ? "d-none"
+                          : filters.sort === "priceDown"
+                            ? "arrowAnimationUp"
+                            : " "
+                      }`}
+                    >
+                      <i class="bi bi-arrow-down"></i>
+                    </div>
+                    {filters.sort === "" && (
                       <span className="badge bg-white rounded-pill text-black extra-small">
-                        Attivo
+                        as
                       </span>
                     )}
                   </button>
                 </div>
               </div>
 
+              {/* sorting  Più Acquisti*/}
+              <div className="col-12 col-sm-6 col-md-4">
+                <div className="d-flex flex-column align-items-center">
+                  <button
+                    type="button"
+                    className={`btn w-100  FilterButtonHover py-2 px-3 rounded-3 d-flex 
+                    align-items-center justify-content-center gap-2 fw-semibold transition-all ${
+                      filters.sort === "acquisti"
+                        ? "shadow-sm FilterButton"
+                        : "btn-outline-secondary bg-white text-dark border-light-subtle"
+                    }`}
+                    onClick={() =>
+                      setFilters({
+                        ...filters,
+                        sort:
+                          filters.sort === "acquisti" ? "default" : "acquisti",
+                      })
+                    }
+                  >
+                    <span>Prodotti Più Venduti</span>
+                  </button>
+                </div>
+              </div>
+
               {/* sorting */}
               <div className="col-12 col-sm-6 col-md-4">
-                <div className="d-flex flex-column justify-content-center align-items-center">
-                  Prezzo
-                  <div className="d-flex gap-2">
-                    <button>
-                      <i class="bi bi-arrow-up"></i>
-                    </button>
-                    <button>
+                <div className="d-flex  align-items-center">
+                  <button
+                    type="button"
+                    className={`btn w-100  FilterButtonHover py-2 px-3 rounded-3 d-flex 
+                    align-items-center justify-content-center gap-2 fw-semibold transition-all ${
+                      filters.sort === "NameUp" || filters.sort === "NameDown"
+                        ? "shadow-sm FilterButton"
+                        : "btn-outline-secondary bg-white text-dark border-light-subtle"
+                    }`}
+                    onClick={() =>
+                      setFilters({
+                        ...filters,
+                        sort:
+                          filters.sort === "default" ||
+                          filters.sort === "acquisti"
+                            ? "NameUp"
+                            : filters.sort === "NameUp"
+                              ? "NameDown"
+                              : "default",
+                      })
+                    }
+                  >
+                    <span>Nome (Alfabetico)</span>
+
+                    {/* Arrow animation dinamic */}
+                    <div
+                      className={`arrowForAnimation ${
+                        filters.sort === "default" ||
+                        filters.sort === "acquisti"
+                          ? "d-none"
+                          : filters.sort === "NameDown"
+                            ? "arrowAnimationUp"
+                            : " "
+                      }`}
+                    >
                       <i class="bi bi-arrow-down"></i>
-                    </button>
-                  </div>
+                    </div>
+                  </button>
                 </div>
               </div>
             </div>
