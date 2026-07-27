@@ -10,11 +10,22 @@ export default function ProductPage() {
   const { setProduct, product, fullProducts, filters, setFilters } =
     useCrudContext();
 
+  // selectHandler
+  const handleSelect = (e) => {
+    setSelect(e.target.value);
+    setFilters({
+      ...filters,
+      category: e.target.value,
+    });
+  };
+
+  //
   // MAIN IMPORTS
   const { BestsellerSlug } = useMainContext();
 
   // States
   const [clicked, setClicked] = useState(false);
+  const [select, setSelect] = useState("");
 
   // Getting full categories
   const fullCategories = [];
@@ -131,6 +142,8 @@ export default function ProductPage() {
               <div className="col-12 col-sm-12 col-md-4">
                 <div className="position-relative d-flex gap-2">
                   <select
+                    value={select}
+                    onChange={(e) => handleSelect(e)}
                     className="form-select py-2 px-3 rounded-3 bg-white border-light-subtle shadow-none fw-medium text-secondary"
                     aria-label="Ordinamento prodotti"
                   >
@@ -189,7 +202,7 @@ export default function ProductPage() {
                             : " "
                       }`}
                     >
-                      <i class="bi bi-arrow-down"></i>
+                      <i className="bi bi-arrow-down"></i>
                     </div>
                     {filters.sort === "" && (
                       <span className="badge bg-white rounded-pill text-black extra-small">
@@ -261,7 +274,7 @@ export default function ProductPage() {
                             : " "
                       }`}
                     >
-                      <i class="bi bi-arrow-down"></i>
+                      <i className="bi bi-arrow-down"></i>
                     </div>
                   </button>
                 </div>

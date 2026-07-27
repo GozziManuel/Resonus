@@ -5,6 +5,8 @@ const CrudContext = createContext();
 const CrudContextProvider = ({ children }) => {
   // states
   const [product, setProduct] = useState([]);
+  const [externalSearchedProduct, setExternalSearchedProduct] = useState([]);
+
   const [fullProducts, setFullProducts] = useState([]);
 
   // Filters **
@@ -13,6 +15,7 @@ const CrudContextProvider = ({ children }) => {
     sort: "default",
     available: false,
     featured: false,
+    search: "",
   });
   //   asynchandler For easier Fetch
   const asyncHandler = async (url) => {
@@ -36,6 +39,10 @@ const CrudContextProvider = ({ children }) => {
       if (filters.category !== "all") {
         queryParams.append("category", filters.category);
       }
+      // Searchbar
+      // if (filters.search !== "all") {
+      //   queryParams.append("search", filters.search);
+      // }
       // Stock
       if (filters.available) {
         queryParams.append("available", "true");
@@ -81,7 +88,6 @@ const CrudContextProvider = ({ children }) => {
       console.log(queryParams.toString());
     };
     functionFilters();
-    console.log(filters.sort);
   }, [filters]);
 
   //   Detailed Products
@@ -89,6 +95,41 @@ const CrudContextProvider = ({ children }) => {
     const array = await asyncHandler(`http://localhost:3000/products/${id}`); // Setting data To Use in Detailed Page
     return array;
   };
+
+  //
+  //
+  //
+  // *** SEARCHBAR EXTERNAL
+  useEffect(() => {
+    const functionFilters = async () => {
+      const queryParams = new URLSearchParams();
+      // By Category
+
+      // Searchbar
+      if (filters.search !== "") {
+        queryParams.append("search", filters.search);
+      }
+
+      const gettingSearch = await fetch(
+        `http://localhost:3000/product?${queryParams.toString()}`,
+      );
+
+      //
+      const resultSearched = await gettingSearch.json();
+
+      // Error Handling
+      if (!resultSearched) {
+        console.error("Array inesistente");
+        return;
+      } else if (Array.isArray(resultSearched?.results) === false) {
+        console.error(resultSearched, "Formato Array non valido");
+        return;
+      }
+
+      setExternalSearchedProduct(resultSearched?.results);
+    };
+    functionFilters();
+  }, [filters]);
 
   //   exports
   const value = {
@@ -98,6 +139,8 @@ const CrudContextProvider = ({ children }) => {
     fullProducts,
     filters,
     setFilters,
+    setExternalSearchedProduct,
+    externalSearchedProduct,
   };
   return <CrudContext.Provider value={value}>{children}</CrudContext.Provider>;
 };

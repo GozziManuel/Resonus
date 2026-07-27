@@ -1,8 +1,16 @@
 import { NavLink } from "react-router-dom";
 import "../assets/css/navbar.css";
 import Logo from "./Logo";
+import ModalSearchbar from "./ModalSearchbar";
+import { useState } from "react";
 
 export default function NavBar() {
+  // searchbar
+  const [showSearchbar, setShowSearchbar] = useState(false);
+
+  //
+  //
+  //
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary w-100">
       <div className="container-fluid p-0 ">
@@ -35,17 +43,20 @@ export default function NavBar() {
           <Logo />
 
           {/* Form for searchbar */}
-          <form
+          <div
             className="d-flex w-100 justify-content-center align-items-center"
             role="search"
           >
-            <input
-              className="  w-100 searchbar"
-              type="search"
+            <div
+              className="  w-100 searchbar text-secondary Outfit fw-thin d-flex align-items-center"
+              style={{ cursor: "text" }}
               placeholder="Search"
               aria-label="Search"
-            />
-          </form>
+              onClick={() => setShowSearchbar(true)}
+            >
+              Search...
+            </div>
+          </div>
         </div>
         {/* Navigation LINKS */}
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -92,6 +103,10 @@ export default function NavBar() {
           </ul>
         </div>
       </div>
+      <ModalSearchbar
+        Closer={() => setShowSearchbar(false)}
+        isOpen={showSearchbar}
+      />
     </nav>
   );
 }

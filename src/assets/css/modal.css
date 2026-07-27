@@ -34,3 +34,62 @@
   transform: translate(0, 70%);
   background-color: var(--inner-color);
 }
+
+/* MODal searchbar */
+.ExternalWrapperModalSearchbar {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+  width: 100vw;
+  height: 100vh;
+  padding: 47px;
+  z-index: 9999;
+
+  transition: padding 0.5s ease;
+}
+.wrapperModal {
+  width: 100%;
+  background: var(--background-color);
+  height: auto;
+  max-height: 70%;
+  padding: 20px;
+  display: flex;
+  border-radius: 10px;
+  flex-direction: column;
+}
+
+/* card */
+.searchedCard {
+  height: 70px;
+  flex-shrink: 0;
+  border-bottom: 1px solid black;
+  transition: all 0.5s ease;
+  font-weight: 400;
+  text-decoration: none;
+  color: var(--font-color-main);
+}
+.searchedCard:hover {
+  transform: translateX(10px);
+}
+.searchedCardContainer {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  flex-grow: 1;
+  min-height: 0;
+}
+.ExternalImageContainer {
+  height: 100%;
+  width: 80px;
+  padding: 5px;
+}
+/* MEDIA */
+@media screen and (max-width: 500px) {
+  .ExternalWrapperModalSearchbar {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}

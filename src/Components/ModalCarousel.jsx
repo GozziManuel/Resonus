@@ -14,7 +14,7 @@ export default function ModalCarousel({ isOpen, Image, name, Closer }) {
             className="ModalImage"
             onClick={(e) => e.stopPropagation()}
           />
-          <i class="bi bi-x-lg fs-3 CloseButtonModal position-absolute px-2"></i>
+          <i className="bi bi-x-lg fs-3 CloseButtonModal position-absolute px-2"></i>
         </div>
       </div>
     </div>,

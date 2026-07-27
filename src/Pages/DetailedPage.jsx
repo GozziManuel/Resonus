@@ -114,7 +114,7 @@ export default function DetailedPage() {
       setImage3(array.result.third_image);
     };
     gettingDetailed();
-  }, []);
+  }, [slug, detailedProduct]);
 
   // *Data Formattata
   const gettingDate = (Data) => {
@@ -224,9 +224,9 @@ export default function DetailedPage() {
             <p className="mt-5">{detailed.description}</p>
 
             {/* Dropdown for specs */}
-            <p class="d-inline-flex gap-1">
+            <p className="d-inline-flex gap-1">
               <button
-                class="btn btn-secondary DropdownRework "
+                className="btn btn-secondary DropdownRework "
                 data-bs-toggle="collapse"
                 data-bs-target="#collapseExample"
                 aria-expanded="false"
@@ -238,8 +238,8 @@ export default function DetailedPage() {
           </div>
           {/* Collapse Button */}
 
-          <div class="collapse" id="collapseExample">
-            <div class="card card-body mb-5" style={{ maxWidth: "30rem" }}>
+          <div className="collapse" id="collapseExample">
+            <div className="card card-body mb-5" style={{ maxWidth: "30rem" }}>
               <ul
                 className="text-decoration-none p-0 mb-0"
                 style={{ listStyle: "none" }}
