@@ -8,6 +8,8 @@ export default function HomePage() {
 
   return (
     <main>
+      <button>Ciao</button>
+
       {/* Home section */}
       <header className="hero-section text-center py-2 my-4 Sans">
         <div className="container">

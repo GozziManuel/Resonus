@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 export default function ProductPage() {
   // CRUD IMPORT
-  const { setProduct, product, fullProducts, filters, setFilters } =
+  const { setProduct, product, fullProducts, filters, setFilters, urlSetter } =
     useCrudContext();
 
   // selectHandler
@@ -147,7 +147,7 @@ export default function ProductPage() {
                     className="form-select py-2 px-3 rounded-3 bg-white border-light-subtle shadow-none fw-medium text-secondary"
                     aria-label="Ordinamento prodotti"
                   >
-                    <option value="All">Scegli Categoria (All)</option>
+                    <option value="all">Scegli Categoria (All)</option>
                     {fullCategories.map((el) => {
                       return (
                         <option value={el} key={el}>
@@ -161,7 +161,7 @@ export default function ProductPage() {
             </div>
 
             {/* Sorting Part */}
-            <div className="row mt-3 ">
+            <div className="row mt-3 g-3">
               <div className="col-12  d-flex justify-content-center">
                 <p className=" text-uppercase mb-1 Outfit">Sorting</p>
               </div>

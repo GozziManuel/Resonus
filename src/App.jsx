@@ -9,9 +9,9 @@ import DetailedPage from "./Pages/DetailedPage";
 
 function App() {
   return (
-    <CrudContextProvider>
-      <MainContextProvider>
-        <BrowserRouter>
+    <BrowserRouter>
+      <CrudContextProvider>
+        <MainContextProvider>
           <Routes>
             <Route element={<DefaultLayout />}>
               <Route element={<HomePage />} path="/" />
@@ -20,9 +20,9 @@ function App() {
               <Route element={<NotFoundPage />} path="*" />
             </Route>
           </Routes>
-        </BrowserRouter>
-      </MainContextProvider>
-    </CrudContextProvider>
+        </MainContextProvider>
+      </CrudContextProvider>
+    </BrowserRouter>
   );
 }
 

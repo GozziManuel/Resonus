@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import "../assets/css/navbar.css";
 
-export default function Logo() {
+export default function Logo({}) {
   return (
     // LOGO
     <>
