@@ -25,11 +25,8 @@ const CrudContextProvider = ({ children }) => {
 
   //
   // SEARCHBAR
-  const [searchbar, setSearchbar] = useState(() => {
-    const params = new URLSearchParams(window.location.search);
-    return {
-      search: params.get("search") || "all",
-    };
+  const [searchbar, setSearchbar] = useState({
+    search: "",
   });
   //   asynchandler For easier Fetch
   const asyncHandler = async (url) => {
@@ -110,8 +107,6 @@ const CrudContextProvider = ({ children }) => {
       setProduct(resultFiltered?.results);
 
       // setProduct(resultFiltered)
-      console.log(`http://localhost:3000/products?${queryParams.toString()}`);
-      console.log(queryParams.toString());
     };
     functionFilters();
   }, [filters]);
@@ -122,8 +117,6 @@ const CrudContextProvider = ({ children }) => {
   // *** SEARCHBAR EXTERNAL
   useEffect(() => {
     const functionFilters = async () => {
-      console.log("test");
-
       const queryParams = new URLSearchParams();
       // By Category
 

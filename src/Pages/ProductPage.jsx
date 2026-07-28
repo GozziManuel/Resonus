@@ -25,7 +25,7 @@ export default function ProductPage() {
 
   // States
   const [clicked, setClicked] = useState(false);
-  const [select, setSelect] = useState("");
+  const [select, setSelect] = useState(filters.category);
 
   // Getting full categories
   const fullCategories = [];
@@ -337,6 +337,11 @@ export default function ProductPage() {
             );
           })}
         </div>
+        {product.length === 0 && (
+          <div className="d-flex justify-content-center Outfit ">
+            <h1 className="border-top pt-3">Nessun risultato</h1>
+          </div>
+        )}
       </section>
     </>
   );

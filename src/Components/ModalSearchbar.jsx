@@ -13,7 +13,6 @@ export default function ModalSearchbar({ isOpen, Closer }) {
     setExternalSearchedProduct,
     externalSearchedProduct,
   } = useCrudContext();
-  console.log(externalSearchedProduct);
 
   // toggling scrollbar
   useEffect(() => {
@@ -49,7 +48,7 @@ export default function ModalSearchbar({ isOpen, Closer }) {
           className=" d-flex navbar justify-content-start"
           style={{ flexWrap: "nowrap" }}
         >
-          {/*  */}
+          {/* LOGO FOR SEARCHBAR */}
           <>
             <Link
               to={"/"}
@@ -106,9 +105,11 @@ export default function ModalSearchbar({ isOpen, Closer }) {
           </>
           {/*  */}
 
+          {/* SEARCHBAR */}
           <input
             type="text"
             onChange={(e) =>
+              // SETTING VALUE FOR FILTERING
               setSearchbar({
                 ...searchbar,
                 search: e.target.value,
@@ -117,7 +118,29 @@ export default function ModalSearchbar({ isOpen, Closer }) {
             className="searchbar w-100 "
           />
         </div>
+
+        {/* Empty State */}
         <motion.div className="searchedCardContainer">
+          {searchbar.search === "" ? (
+            <div
+              className="d-flex  mt-2 fs-5 align-items-center justify-content-center gap-2 Sans"
+              style={{ border: "none" }}
+            >
+              <div>Cerca qualcosa nel nostro catalogo!</div>
+            </div>
+          ) : externalSearchedProduct.length === 0 ? (
+            <div
+              className="d-flex  mt-2 fs-5 align-items-center justify-content-center gap-2 Sans"
+              style={{ border: "none" }}
+            >
+              <div>Nessun risultato</div>
+            </div>
+          ) : (
+            ""
+          )}
+
+          <motion.div className="searchedCardContainer"></motion.div>
+          {/* MAPPING RESULTS */}
           {externalSearchedProduct.map((el) => {
             return (
               <Link

@@ -17,7 +17,7 @@ export default function DetailedPage() {
   const { BestsellerSlug } = useMainContext();
 
   // States
-  const [detailed, setDetailed] = useState({});
+  const [detailed, setDetailed] = useState(null);
 
   //
   // Bootstrap popOVERS STARTING ON DetailedChanges
@@ -68,25 +68,6 @@ export default function DetailedPage() {
     };
   }, [detailed]);
 
-  // Containers for specs
-  const specs = [];
-  const specsKey = [];
-  // Getting specs name
-  for (const key in detailed.specs) {
-    if (!Object.hasOwn(detailed.specs, key)) continue;
-
-    const element = detailed.specs[key];
-    specs.push(element);
-  }
-
-  // Getting keys
-  for (let key2 in detailed.specs) {
-    specsKey.push((key2 += ": "));
-  }
-
-  // assembling Specs to get full array for map
-  const fullSpecs = specsKey.map((el, id) => (el += specs[id]));
-
   // * IMG FOR CAROUSEL
   // img1
   const [image1, setImage1] = useState();
@@ -108,10 +89,11 @@ export default function DetailedPage() {
   useEffect(() => {
     const gettingDetailed = async () => {
       const array = await detailedProduct(slug);
+
       setDetailed(array.result); //setting Data
-      setImage1(array.result.image_url);
-      setImage2(array.result.second_image);
-      setImage3(array.result.third_image);
+      setImage1(array?.result?.image_url);
+      setImage2(array?.result?.second_image);
+      setImage3(array?.result?.third_image);
     };
     gettingDetailed();
   }, [slug, detailedProduct]);
@@ -163,6 +145,49 @@ export default function DetailedPage() {
       setIsFading(false);
     }, 250);
   };
+  //
+  //
+  // GUARD FOR NOT FINDING PRODUCT
+  if (!detailed) {
+    return (
+      <div className="Outfit ">
+        <h1 className="mt-4">Dove vai torna indietro!</h1>
+        <h2>Questo prodotto non esiste </h2>
+        <Link
+          to={"/products"}
+          className="buttonBasic mt-4 text-center"
+          style={{
+            width: "158px",
+            textDecoration: "none",
+            textAlign: "center",
+          }}
+        >
+          Torna alla Home
+        </Link>
+      </div>
+    );
+  }
+
+  //
+  // Containers for specs
+  const specs = [];
+  const specsKey = [];
+  // Getting specs name
+  for (const key in detailed.specs) {
+    if (!Object.hasOwn(detailed.specs, key)) continue;
+
+    const element = detailed.specs[key];
+    specs.push(element);
+  }
+
+  // Getting keys
+  for (let key2 in detailed.specs) {
+    specsKey.push((key2 += ": "));
+  }
+
+  // assembling Specs to get full array for map
+  const fullSpecs = specsKey.map((el, id) => (el += specs[id]));
+
   return (
     <section className="Sans mt-5" style={{ padding: "12px" }}>
       <div className="row">
@@ -305,6 +330,7 @@ export default function DetailedPage() {
           </div>
         </div>
       </div>
+
       {/* Modal Full Image */}
       <ModalCarousel
         isOpen={showModalIMage}
