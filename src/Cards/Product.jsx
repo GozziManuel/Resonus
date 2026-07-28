@@ -12,6 +12,9 @@ export default function Product({
   stock,
   category,
   BestsellerSlug,
+  colmd4,
+  colsm6,
+  TopAcquisti,
 }) {
   // * Framer Motion
   // Varianti per ogni singola card
@@ -28,7 +31,7 @@ export default function Product({
   return (
     <motion.div
       variants={cardVariants}
-      className="col-md-4 col-sm-6 position-relative"
+      className={`${colmd4} ${colsm6} position-relative`}
       initial="hidden" // Framer Motion
       whileInView="visible" // Framer Motion
       viewport={{ once: true, margin: "-50px" }}
@@ -52,6 +55,17 @@ export default function Product({
           {BestsellerSlug.includes(slug) && (
             <span className=" badgeCardBestSeller floating px-3 py-2  ">
               BestSeller
+            </span>
+          )}
+        </div>
+        {/* Top acquisti BADGE */}
+        <div
+          className="position-absolute  w-100 p-3 d-flex  align-items-end pointer-events-none flex-column gap-2 "
+          style={{ zIndex: 2, left: "6%", top: "-5%" }}
+        >
+          {TopAcquisti === title && (
+            <span className="   TopSellerBadge floating px-3 py-2  ">
+              N.1 in Acquisti!
             </span>
           )}
         </div>

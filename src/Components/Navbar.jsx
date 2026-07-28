@@ -15,31 +15,7 @@ export default function NavBar() {
     <nav className="navbar navbar-expand-lg bg-body-tertiary w-100">
       <div className="container-fluid p-0 ">
         <div className="d-flex w-100 ">
-          <button
-            className="navbar-toggler togglerStart  border-0 navlink"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-            style={{ width: "173px" }}
-          >
-            <div className="d-flex me-3 icon-wrapper">
-              <div className=" justify-content-center icon-container">
-                <div className="d-flex align-items-center">
-                  <span className="navbar-toggler-icon"></span>
-                  <p
-                    className="mb-0 ms-1 fw-bold Outfit"
-                    style={{ color: "var(--font-color-main)" }}
-                  >
-                    R
-                  </p>
-                </div>
-              </div>
-            </div>
-          </button>
-
-          {/* SEcond Display */}
+          {/*  LOGO */}
           <Logo />
 
           {/* Form for searchbar */}

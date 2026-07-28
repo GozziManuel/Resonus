@@ -54,7 +54,11 @@
   border-radius: 5px;
   color: white;
 }
-
+.TopSellerBadge {
+  background-color: var(--button-third-color);
+  border-radius: 5px;
+  color: var(--font-color-main);
+}
 /* Floating animation To reuse */
 .floating {
   display: inline-block;

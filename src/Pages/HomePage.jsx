@@ -29,21 +29,22 @@ export default function HomePage() {
       <section className="py-4 mb-5">
         <div>
           <div className="row gy-5">
-            <div className="col-lg-7">
+            <div className="col-lg-6 justify-content-between d-flex flex-column">
               {/* Hero Boom */}
               {/* Title */}
-              <h1 className="display-3   mt-2 HomeTitle Outfit">
-                Ingegneria Acustica. <br />
-                <span className="  glowing">Suono Puro.</span>
-              </h1>
+              <div>
+                <h1 className="display-3   mt-2 HomeTitle Outfit">
+                  Ingegneria Acustica. <br />
+                  <span className="  glowing">Suono Puro.</span>
+                </h1>
 
-              {/* Description */}
-              <p className="lead my-4 Sans">
-                Scopri la selezione di cuffie, speaker e DAC progettati per
-                offrire fedeltà sonora senza compromessi, isolamento attivo e
-                design minimale.
-              </p>
-
+                {/* Description */}
+                <p className="lead my-4 Sans">
+                  Scopri la selezione di cuffie, speaker e DAC progettati per
+                  offrire fedeltà sonora senza compromessi, isolamento attivo e
+                  design minimale.
+                </p>
+              </div>
               {/* Buttons */}
               <div className="d-flex gap-3 Sans">
                 <a href="#bestseller" className=" bestSellerButton">
@@ -58,27 +59,31 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* IMage container */}
-            <div className="col-lg-5 text-center Sans">
-              <div className="position-relative d-inline-block">
-                <img
-                  src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80"
-                  alt="Aether Soundscape Pro"
-                  className="img-fluid rounded-4 shadow-lg img-replace-yellow "
-                  style={{ border: "1px solid var(--button-color-hover)" }}
-                />
-                <div
-                  className="position-absolute bottom-0 start-0 m-3 p-3 card-dark text-start floating shadow-lg"
-                  style={{ minWidth: "200px" }}
-                >
-                  <small className="text-secondary d-block fw-bold">
-                    Top di Gamma
-                  </small>
-                  <strong className=" d-block" style={{ color: "white" }}>
-                    Aether Soundscape Pro
-                  </strong>
-                  <span className="fw-bold price">&euro; 299.99</span>
-                </div>
+            {/* GETTING MOST SALED PRODUCT */}
+            <div className="col-lg-6 text-center Sans">
+              <div className="row g-4 Sans">
+                {bestSeller
+                  .sort((a, b) => {
+                    a.sales_count - b.sales_count;
+                  })
+                  .slice(0, 1)
+                  .map((p) => {
+                    return (
+                      <Product
+                        key={p.slug}
+                        title={p.name}
+                        price={p.price}
+                        slug={p.slug}
+                        featured={p.is_featured}
+                        specs={p.specs}
+                        image={p.image_url}
+                        stock={p.stock}
+                        category={p.category_name}
+                        BestsellerSlug={BestsellerSlug}
+                        TopAcquisti={p.name}
+                      />
+                    );
+                  })}
               </div>
             </div>
           </div>
@@ -160,6 +165,8 @@ export default function HomePage() {
                   stock={b.stock}
                   category={b.category_name}
                   BestsellerSlug={BestsellerSlug}
+                  colmd4={"col-md-4"}
+                  colsm6={"col-sm-6"}
                 />
               );
             })}

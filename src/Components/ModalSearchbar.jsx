@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useCrudContext } from "../context/CrudContext";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import Logo from "./Logo";
 
 export default function ModalSearchbar({ isOpen, Closer }) {
   const {
@@ -44,7 +45,11 @@ export default function ModalSearchbar({ isOpen, Closer }) {
         exit={{ opacity: 0, scale: 0.8, y: -20 }}
         transition={{ duration: 0.25, ease: "easeOut" }}
       >
-        <div className="w-100  ">
+        <div
+          className=" d-flex navbar justify-content-start"
+          style={{ flexWrap: "nowrap" }}
+        >
+          <Logo />
           <input
             type="text"
             onChange={(e) =>
@@ -56,7 +61,7 @@ export default function ModalSearchbar({ isOpen, Closer }) {
             className="searchbar w-100 "
           />
         </div>
-        <div className="searchedCardContainer">
+        <motion.div className="searchedCardContainer">
           {externalSearchedProduct.map((el) => {
             return (
               <Link
@@ -80,7 +85,7 @@ export default function ModalSearchbar({ isOpen, Closer }) {
               </Link>
             );
           })}
-        </div>
+        </motion.div>
       </motion.div>
     </motion.div>,
     document.getElementById("portal-root"),

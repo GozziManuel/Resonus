@@ -331,6 +331,8 @@ export default function ProductPage() {
                 stock={p.stock}
                 category={p.category_name}
                 BestsellerSlug={BestsellerSlug}
+                colmd4={"col-md-4"}
+                colsm6={"col-sm-6"}
               />
             );
           })}
