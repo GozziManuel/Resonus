@@ -41,10 +41,6 @@ const CrudContextProvider = ({ children }) => {
     }
   };
 
-  const urlSetter = (param, key) => {
-    const url = new URLSearchParams(searchParams);
-  };
-
   //
   // Main Product + filtering
   useEffect(() => {

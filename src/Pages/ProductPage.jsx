@@ -7,9 +7,9 @@ import { useEffect, useState } from "react";
 
 export default function ProductPage() {
   // CRUD IMPORT
-  const { setProduct, product, fullProducts, filters, setFilters, urlSetter } =
+  const { setProduct, product, fullProducts, filters, setFilters } =
     useCrudContext();
-
+  const [button, setButton] = useState(false);
   // selectHandler
   const handleSelect = (e) => {
     setSelect(e.target.value);
@@ -20,7 +20,9 @@ export default function ProductPage() {
       category: e.target.value,
     });
   };
+  //
 
+  //
   const handleSlider = (e) => {
     setSlider(e.target.value);
     console.log(slider);
@@ -153,7 +155,7 @@ export default function ProductPage() {
         </div>
 
         {/* Contenuto Collassabile */}
-        <div className="collapse mt-3" id="collapseExample">
+        <div className="collapse mt-3 position-relative" id="collapseExample">
           <div className="card card-body border-0 bg-transparent p-0">
             <div className="row g-3 align-items-center justify-content-center">
               {/* 1. In Evidenza */}
@@ -308,7 +310,7 @@ export default function ProductPage() {
               </div>
 
               {/* sorting */}
-              <div className="col-12 col-sm-6 col-md-4">
+              <div className="col-12 col-sm-12 col-md-4">
                 <div className="d-flex  align-items-center">
                   <button
                     type="button"
@@ -332,6 +334,11 @@ export default function ProductPage() {
                     </div>
                   </button>
                 </div>
+              </div>
+              <div className="col-12 d-flex justify-content-center ">
+                <button className="w-50 buttonBasic h-75 d-flex justify-content-center">
+                  Reset
+                </button>
               </div>
             </div>
           </div>
