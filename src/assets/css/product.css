@@ -89,33 +89,33 @@ input[type="range"]::-webkit-slider-thumb {
   background: var(--font-color-main);
   height: 40px;
   border-radius: 10px;
-  width: 10px;
+  width: 6px;
 }
 /* different labels */
 
 input[type="range"][value="150"]::after {
-  content: "< 150";
+  content: "< € 150";
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
 input[type="range"][value="300"]::after {
-  content: "150 - 300";
+  content: "€ 150 - € 300";
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
 input[type="range"][value="450"]::after {
-  content: "300 - 450 ";
+  content: "€ 300 - € 450 ";
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
 input[type="range"][value="600"]::after {
-  content: "> 600";
+  content: "> € 600";
   position: absolute;
   left: 50%;
   top: 50%;
