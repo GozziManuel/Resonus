@@ -4,7 +4,6 @@ import Product from "../Cards/Product";
 import { useMainContext } from "../context/MainContext";
 export default function HomePage() {
   const { bestSeller, BestsellerSlug } = useMainContext();
-  console.log(bestSeller);
 
   return (
     <main>

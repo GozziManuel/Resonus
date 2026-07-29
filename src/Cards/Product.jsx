@@ -61,7 +61,7 @@ export default function Product({
         {/* Top acquisti BADGE */}
         <div
           className="position-absolute  w-100 p-3 d-flex  align-items-end pointer-events-none flex-column gap-2 "
-          style={{ zIndex: 2, left: "6%", top: "-5%" }}
+          style={{ zIndex: 2, left: "3%", top: "-5%" }}
         >
           {TopAcquisti === title && (
             <span className="   TopSellerBadge floating px-3 py-2  ">

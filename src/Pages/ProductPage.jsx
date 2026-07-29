@@ -13,12 +13,23 @@ export default function ProductPage() {
   // selectHandler
   const handleSelect = (e) => {
     setSelect(e.target.value);
+
+    //
     setFilters({
       ...filters,
       category: e.target.value,
     });
   };
 
+  const handleSlider = (e) => {
+    setSlider(e.target.value);
+    console.log(slider);
+
+    setFilters({
+      ...filters,
+      price: e.target.value,
+    });
+  };
   //
   // MAIN IMPORTS
   const { BestsellerSlug } = useMainContext();
@@ -26,6 +37,8 @@ export default function ProductPage() {
   // States
   const [clicked, setClicked] = useState(false);
   const [select, setSelect] = useState(filters.category);
+
+  const [slider, setSlider] = useState(filters.price);
 
   // Getting full categories
   const fullCategories = [];
@@ -88,7 +101,7 @@ export default function ProductPage() {
           <div className="card card-body border-0 bg-transparent p-0">
             <div className="row g-3 align-items-center justify-content-center">
               {/* 1. In Evidenza */}
-              <div className="col-12 col-sm-6 col-md-4">
+              <div className="col-12 col-sm-6 col-md-4 col-lg-3">
                 <button
                   type="button"
                   className={`btn w-100 py-2 px-2 FilterButtonHover rounded-3 d-flex align-items-center  justify-content-center gap-2 fw-semibold  ${
@@ -113,7 +126,7 @@ export default function ProductPage() {
               </div>
 
               {/* 2. Disponibilità */}
-              <div className="col-12 col-sm-6 col-md-4">
+              <div className="col-12 col-sm-6 col-md-4 col-lg-3">
                 <button
                   type="button"
                   className={`btn w-100  FilterButtonHover py-2 px-3 rounded-3 d-flex 
@@ -138,8 +151,25 @@ export default function ProductPage() {
                 </button>
               </div>
 
+              {/*  */}
+              {/* 4. Price  */}
+              <div className="col-12 col-sm-12 col-md-4 col-lg-3 Outfit">
+                <div className="position-relative d-flex gap-2 ">
+                  <input
+                    className="w-100 slider"
+                    type="range"
+                    id="volume"
+                    name="volume"
+                    min="150"
+                    max="600"
+                    step={150}
+                    value={slider}
+                    onChange={(e) => handleSlider(e)}
+                  />
+                </div>
+              </div>
               {/* 3. Select category */}
-              <div className="col-12 col-sm-12 col-md-4">
+              <div className="col-12 col-sm-12 col-md-12 col-lg-3">
                 <div className="position-relative d-flex gap-2">
                   <select
                     value={select}
@@ -194,12 +224,7 @@ export default function ProductPage() {
 
                     <div
                       className={`arrowForAnimation ${
-                        filters.sort === "default" ||
-                        filters.sort === "acquisti"
-                          ? "d-none"
-                          : filters.sort === "priceDown"
-                            ? "arrowAnimationUp"
-                            : " "
+                        filters.sort === "priceDown" ? "arrowAnimationUp" : ""
                       }`}
                     >
                       <i className="bi bi-arrow-down"></i>
@@ -266,12 +291,7 @@ export default function ProductPage() {
                     {/* Arrow animation dinamic */}
                     <div
                       className={`arrowForAnimation ${
-                        filters.sort === "default" ||
-                        filters.sort === "acquisti"
-                          ? "d-none"
-                          : filters.sort === "NameDown"
-                            ? "arrowAnimationUp"
-                            : " "
+                        filters.sort === "NameDown" ? "arrowAnimationUp" : ""
                       }`}
                     >
                       <i className="bi bi-arrow-down"></i>
@@ -339,7 +359,10 @@ export default function ProductPage() {
         </div>
         {product.length === 0 && (
           <div className="d-flex justify-content-center Outfit ">
-            <h1 className="border-top pt-3">Nessun risultato</h1>
+            <h1 className="border-top pt-3">
+              Nessun risultato
+              <i className="bi bi-emoji-frown-fill ms-3"></i>
+            </h1>
           </div>
         )}
       </section>

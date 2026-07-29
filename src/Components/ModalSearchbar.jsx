@@ -12,6 +12,8 @@ export default function ModalSearchbar({ isOpen, Closer }) {
     setSearchbar,
     setExternalSearchedProduct,
     externalSearchedProduct,
+    loader,
+    setLoader,
   } = useCrudContext();
 
   // toggling scrollbar
@@ -108,62 +110,76 @@ export default function ModalSearchbar({ isOpen, Closer }) {
           {/* SEARCHBAR */}
           <input
             type="text"
-            onChange={(e) =>
+            onChange={(e) => {
+              const value = e.target.value;
               // SETTING VALUE FOR FILTERING
               setSearchbar({
                 ...searchbar,
-                search: e.target.value,
-              })
-            }
+                search: value,
+              });
+              setLoader(true);
+            }}
+            placeholder="Cerca direttamente dal catalogo!"
             className="searchbar w-100 "
           />
         </div>
 
         {/* Empty State */}
         <motion.div className="searchedCardContainer">
-          {searchbar.search === "" ? (
+          {searchbar?.search !== "" &&
+            !loader &&
+            externalSearchedProduct.length === 0 && (
+              <div
+                className="d-flex  mt-2 fs-5 align-items-center justify-content-center gap-2 Sans"
+                style={{ border: "none" }}
+              >
+                <div>Nessun risultato</div>
+              </div>
+            )}
+
+          {/* Loader */}
+          {loader && searchbar?.search !== "" && (
             <div
               className="d-flex  mt-2 fs-5 align-items-center justify-content-center gap-2 Sans"
               style={{ border: "none" }}
             >
-              <div>Cerca qualcosa nel nostro catalogo!</div>
+              <div>Caricamento...</div>
             </div>
-          ) : externalSearchedProduct.length === 0 ? (
-            <div
-              className="d-flex  mt-2 fs-5 align-items-center justify-content-center gap-2 Sans"
-              style={{ border: "none" }}
-            >
-              <div>Nessun risultato</div>
-            </div>
-          ) : (
-            ""
           )}
 
-          <motion.div className="searchedCardContainer"></motion.div>
-          {/* MAPPING RESULTS */}
-          {externalSearchedProduct.map((el) => {
-            return (
-              <Link
-                className="searchedCard d-flex  align-items-center gap-2"
-                to={`/products/${el.slug}`}
-                onClick={Closer}
-              >
-                <div className="ExternalImageContainer">
-                  <img
-                    src={el.image_url}
-                    alt={el.name}
-                    style={{
-                      height: "100%",
-                      width: "100%",
-                      borderRadius: "10px",
-                      objectFit: "cover",
-                    }}
-                  />
-                </div>
-                <div>{el.name}</div>
-              </Link>
-            );
-          })}
+          <motion.div
+            className="searchedCardContainer"
+            initial={{ opacity: 0, scale: 0.8, y: -20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: -20 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+          >
+            {/* MAPPING RESULTS */}
+            {externalSearchedProduct.map((el) => {
+              return (
+                <Link
+                  className="searchedCard d-flex  align-items-center gap-2"
+                  to={`/products/${el.slug}`}
+                  onClick={Closer}
+                  key={el.name}
+                >
+                  <div className="ExternalImageContainer">
+                    <img
+                      src={el.image_url}
+                      alt={el.name}
+                      style={{
+                        height: "100%",
+                        width: "100%",
+                        borderRadius: "10px",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </div>
+                  <div>{el.name}</div>
+                </Link>
+              );
+            })}
+          </motion.div>
         </motion.div>
       </motion.div>
     </motion.div>,
