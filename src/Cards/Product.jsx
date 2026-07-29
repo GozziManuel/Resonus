@@ -50,6 +50,7 @@ export default function Product({
               In Evidenza!
             </span>
           )}
+
           {/* Bestseller Badge */}
           {/* Solo se è un bestseller */}
           {BestsellerSlug.includes(slug) && (
@@ -58,6 +59,7 @@ export default function Product({
             </span>
           )}
         </div>
+
         {/* Top acquisti BADGE */}
         <div
           className="position-absolute  w-100 p-3 d-flex  align-items-end pointer-events-none flex-column gap-2 "
@@ -70,7 +72,7 @@ export default function Product({
           )}
         </div>
         {/*  */}
-        {/*  */}
+
         {/* IMage container + IMage */}
         <div className="rounded-3 " style={{ height: "320px" }}>
           <img
@@ -87,6 +89,7 @@ export default function Product({
             <small className="text-secondary text-uppercase fw-bold">
               {category}
             </small>
+
             {/* Stock dinamico */}
             <h5 className="card-title  fw-bold mt-1"> {title}</h5>
             {stock === 0 ? (
@@ -97,6 +100,7 @@ export default function Product({
               <p className="card-text text-secondary small">Disponibile</p>
             )}
           </div>
+
           {/* Other infos */}
           <div className="d-flex justify-content-between align-items-center mt-4 flex-wrap">
             <span className="fs-4 fw-bold mb-3">&euro; {price}</span>

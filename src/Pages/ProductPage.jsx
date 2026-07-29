@@ -6,15 +6,27 @@ import { useMainContext } from "../context/MainContext";
 import { useEffect, useState } from "react";
 
 export default function ProductPage() {
-  // CRUD IMPORT
+  // *** CRUD IMPORT
   const { setProduct, product, fullProducts, filters, setFilters } =
     useCrudContext();
-  const [button, setButton] = useState(false);
+
+  //  ***MAIN IMPORTS
+  const { BestsellerSlug } = useMainContext();
+
+  //  ***States
+  // input category
+  const [select, setSelect] = useState(filters.category);
+
+  // input Slider Price
+  const [slider, setSlider] = useState(filters.price);
+
+  //
   // selectHandler
   const handleSelect = (e) => {
+    // Setting Value on Input
     setSelect(e.target.value);
 
-    //
+    // Setting Value for Ip
     setFilters({
       ...filters,
       category: e.target.value,
@@ -24,9 +36,10 @@ export default function ProductPage() {
 
   //
   const handleSlider = (e) => {
+    //  tracing value for input
     setSlider(e.target.value);
-    console.log(slider);
 
+    // setting filters IP
     setFilters({
       ...filters,
       price: e.target.value,
@@ -35,25 +48,34 @@ export default function ProductPage() {
 
   // Handling Sorter For Buttons reset
   const sorterHandler = (name) => {
-    // Price Logic
+    //  * ****Price Logic
+    // Entering on Price Button
     if (name === "price") {
+      //
+      // * Loop Logic
       if (
+        // Se sono gli altri pulsanti
         filters.sort === "default" ||
         filters.sort === "acquisti" ||
         filters.sort === "NameDown" ||
         filters.sort === "NameUp"
       ) {
+        // 1s loop PriceUp
         setFilters({
           ...filters,
           sort: "priceUp",
         });
       }
+
+      // 2s loop PriceDown
       if (filters.sort === "priceUp") {
         setFilters({
           ...filters,
           sort: "priceDown",
         });
       }
+
+      // Resetting Button repeat
       if (filters.sort === "priceDown") {
         setFilters({
           ...filters,
@@ -62,8 +84,12 @@ export default function ProductPage() {
       }
     }
 
-    // Name Logic
+    // Name Logic BUTTON
+
+    // Entering on name Button
     if (name === "name") {
+      // **Loop Logic Same for price
+      //
       if (
         filters.sort === "default" ||
         filters.sort === "acquisti" ||
@@ -90,13 +116,6 @@ export default function ProductPage() {
     }
   };
   //
-  // MAIN IMPORTS
-  const { BestsellerSlug } = useMainContext();
-
-  // States
-  const [select, setSelect] = useState(filters.category);
-
-  const [slider, setSlider] = useState(filters.price);
 
   // Getting full categories
   const fullCategories = [];
@@ -104,10 +123,13 @@ export default function ProductPage() {
     if (fullCategories.includes(element.category_name)) {
       return;
     }
+
+    //
+    // Pushing UNIC category
     fullCategories.push(element.category_name);
   });
 
-  // framer motion
+  // framer motion sample
   // Varianti per il container principale
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -130,6 +152,7 @@ export default function ProductPage() {
 
   return (
     <>
+      {/* Main Section */}
       <section
         className="py-3 px-3 rounded-4 mt-3 shadow-sm"
         style={{
@@ -137,7 +160,8 @@ export default function ProductPage() {
           border: "1px solid rgba(0,0,0,0.05)",
         }}
       >
-        {/* Header Toggle */}
+        {/*  */}
+        {/* Header Toggle  FILTERS*/}
         <div className="d-flex justify-content-center">
           <button
             style={{ background: "none", border: "none" }}
@@ -158,15 +182,23 @@ export default function ProductPage() {
         <div className="collapse mt-3 position-relative" id="collapseExample">
           <div className="card card-body border-0 bg-transparent p-0">
             <div className="row g-3 align-items-center justify-content-center">
+              {/* ****FILTRI */}
+
+              {/*  */}
               {/* 1. In Evidenza */}
-              <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+              <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                 <button
                   type="button"
-                  className={`btn w-100 py-2 px-2 FilterButtonHover rounded-3 d-flex align-items-center  justify-content-center gap-2 fw-semibold  ${
-                    filters.featured
-                      ? "shadow-sm FilterButton"
-                      : "btn-outline-secondary bg-white text-dark border-light-subtle"
-                  }`}
+                  className={`btn w-100 py-2 px-2 FilterButtonHover rounded-3 d-flex align-items-center  justify-content-center gap-2 fw-semibold  
+                    
+                    ${
+                      // Dinamic button
+                      filters.featured
+                        ? "shadow-sm FilterButton"
+                        : "btn-outline-secondary bg-white text-dark border-light-subtle"
+                    }`}
+                  //
+                  // setting filters IP
                   onClick={() =>
                     setFilters({
                       ...filters,
@@ -174,7 +206,10 @@ export default function ProductPage() {
                     })
                   }
                 >
+                  {/* Filter Name */}
                   <span> In Evidenza</span>
+
+                  {/* Dinamic Badge */}
                   {filters.featured && (
                     <span className="badge bg-white rounded-pill text-black extra-small">
                       Attivo
@@ -183,16 +218,21 @@ export default function ProductPage() {
                 </button>
               </div>
 
-              {/* 2. Disponibilità */}
-              <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+              {/* 2. Disponibilità Filter */}
+              <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                 <button
                   type="button"
                   className={`btn w-100  FilterButtonHover py-2 px-3 rounded-3 d-flex 
-                    align-items-center justify-content-center gap-2 fw-semibold transition-all ${
+                    align-items-center justify-content-center gap-2 fw-semibold transition-all
+                    
+                    ${
+                      // Transition Button
                       filters.available
                         ? "shadow-sm FilterButton"
                         : "btn-outline-secondary bg-white text-dark border-light-subtle"
                     }`}
+                  //
+                  // Setting filter For IP
                   onClick={() =>
                     setFilters({
                       ...filters,
@@ -200,42 +240,35 @@ export default function ProductPage() {
                     })
                   }
                 >
+                  {/* Filter Name */}
                   <span>Disponibilità</span>
+
+                  {/* Dinamic Badge */}
                   {filters.available && (
                     <span className="badge bg-white rounded-pill text-black extra-small">
                       Attivo
                     </span>
                   )}
+
+                  {/*  */}
                 </button>
               </div>
 
-              {/*  */}
-              {/* 4. Price  */}
-              <div className="col-12 col-sm-12 col-md-4 col-lg-3 Outfit">
-                <div className="position-relative d-flex gap-2 ">
-                  <input
-                    className="w-100 slider"
-                    type="range"
-                    id="volume"
-                    name="volume"
-                    min="150"
-                    max="600"
-                    step={150}
-                    value={slider}
-                    onChange={(e) => handleSlider(e)}
-                  />
-                </div>
-              </div>
               {/* 3. Select category */}
-              <div className="col-12 col-sm-12 col-md-12 col-lg-3">
+              <div className="col-12 col-sm-12 col-md-12 col-lg-4">
                 <div className="position-relative d-flex gap-2">
                   <select
+                    // TRACING VALUE
                     value={select}
                     onChange={(e) => handleSelect(e)}
+                    //
                     className="form-select py-2 px-3 rounded-3 bg-white border-light-subtle shadow-none fw-medium text-secondary"
                     aria-label="Ordinamento prodotti"
                   >
+                    {/* placeholder option */}
                     <option value="all">Scegli Categoria (All)</option>
+
+                    {/* Mapping other Option with  UNIC  category */}
                     {fullCategories.map((el) => {
                       return (
                         <option value={el} key={el}>
@@ -246,9 +279,30 @@ export default function ProductPage() {
                   </select>
                 </div>
               </div>
+              {/*  */}
+
+              {/* 4. Price  */}
+              <div className="col-12 col-sm-12 col-md-12 col-lg-12 Outfit">
+                <div className="position-relative d-flex gap-2 ">
+                  {/* Slider */}
+
+                  <input
+                    className="w-100 slider"
+                    type="range"
+                    id="volume"
+                    name="volume"
+                    min="150"
+                    max="600"
+                    step={150}
+                    // tracing Value
+                    value={slider}
+                    onChange={(e) => handleSlider(e)}
+                  />
+                </div>
+              </div>
             </div>
 
-            {/* Sorting Part */}
+            {/* ***********FILTERS SORTER********* */}
             <div className="row mt-3 g-3">
               <div className="col-12  d-flex justify-content-center">
                 <p className=" text-uppercase mb-1 Outfit">Sorting</p>
@@ -260,27 +314,29 @@ export default function ProductPage() {
                   <button
                     type="button"
                     className={`btn w-100  FilterButtonHover py-2 px-3 rounded-3 d-flex 
-                    align-items-center justify-content-center gap-2 fw-semibold transition-all ${
+                    align-items-center justify-content-center gap-2 fw-semibold transition-all 
+                    ${
+                      // Dinamic BUtton Color on click between different sort
                       filters.sort === "priceUp" || filters.sort === "priceDown"
                         ? "shadow-sm FilterButton"
                         : "btn-outline-secondary bg-white text-dark border-light-subtle"
                     }`}
+                    // sending button name on Main function
                     onClick={() => sorterHandler("price")}
                   >
+                    {/* Button Name */}
                     <span>Prezzo</span>
 
                     <div
-                      className={`arrowForAnimation ${
-                        filters.sort === "priceDown" ? "arrowAnimationUp" : ""
-                      }`}
+                      className={`arrowForAnimation 
+                        
+                        ${
+                          // Dinamic arrow
+                          filters.sort === "priceDown" ? "arrowAnimationUp" : ""
+                        }`}
                     >
                       <i className="bi bi-arrow-up"></i>
                     </div>
-                    {filters.sort === "" && (
-                      <span className="badge bg-white rounded-pill text-black extra-small">
-                        as
-                      </span>
-                    )}
                   </button>
                 </div>
               </div>
@@ -291,11 +347,14 @@ export default function ProductPage() {
                   <button
                     type="button"
                     className={`btn w-100  FilterButtonHover py-2 px-3 rounded-3 d-flex 
-                    align-items-center justify-content-center gap-2 fw-semibold transition-all ${
+                    align-items-center justify-content-center gap-2 fw-semibold transition-all 
+                    ${
+                      // Dinamic button on click
                       filters.sort === "acquisti"
                         ? "shadow-sm FilterButton"
                         : "btn-outline-secondary bg-white text-dark border-light-subtle"
                     }`}
+                    // sending Ip filter
                     onClick={() =>
                       setFilters({
                         ...filters,
@@ -304,22 +363,27 @@ export default function ProductPage() {
                       })
                     }
                   >
+                    {/* button Name  */}
                     <span>Prodotti Più Venduti</span>
                   </button>
                 </div>
               </div>
 
-              {/* sorting */}
+              {/* sorting NAME */}
               <div className="col-12 col-sm-12 col-md-4">
                 <div className="d-flex  align-items-center">
                   <button
                     type="button"
                     className={`btn w-100  FilterButtonHover py-2 px-3 rounded-3 d-flex 
-                    align-items-center justify-content-center gap-2 fw-semibold transition-all ${
+                    align-items-center justify-content-center gap-2 fw-semibold transition-all 
+                    
+                    ${
+                      // dinamic Button
                       filters.sort === "NameUp" || filters.sort === "NameDown"
                         ? "shadow-sm FilterButton"
                         : "btn-outline-secondary bg-white text-dark border-light-subtle"
                     }`}
+                    // sending button name for main Function
                     onClick={() => sorterHandler("name")}
                   >
                     <span>Nome (Alfabetico)</span>
@@ -331,15 +395,50 @@ export default function ProductPage() {
                       }`}
                     >
                       <i className="bi bi-arrow-up"></i>
+                      {/*  */}
                     </div>
                   </button>
                 </div>
               </div>
-              <div className="col-12 d-flex justify-content-center ">
-                <button className="w-50 buttonBasic h-75 d-flex justify-content-center">
-                  Reset
-                </button>
-              </div>
+
+              {/* RESET BUTTON */}
+              {/* APPEAR ONLY IF THERE IS A FILTER */}
+              {filters.sort === "default" &&
+              filters.price === "0" &&
+              filters.category === "all" &&
+              filters.available === false &&
+              filters.featured === false ? (
+                ""
+              ) : (
+                <div className="col-12 d-flex justify-content-center ">
+                  <button
+                    className="w-100 buttonBasic h-75 d-flex justify-content-center"
+                    // RESETTING PARAMS
+                    onClick={() => {
+                      const params = new URLSearchParams(
+                        window.location.search,
+                      );
+
+                      // RESETTING STATES
+                      setSelect("all");
+                      setSlider(0);
+
+                      // RESETTING PARAMS
+                      setFilters({
+                        category: params.delete("category") || "all",
+                        available: params.delete("available") === "true",
+                        featured: params.delete("featured") === "true",
+                        sort: params.delete("sort") || "default",
+                        price: params.delete("price") || "0",
+                      });
+                    }}
+                  >
+                    Reset
+                  </button>
+                </div>
+              )}
+
+              {/*  */}
             </div>
           </div>
         </div>
@@ -398,6 +497,7 @@ export default function ProductPage() {
             );
           })}
         </div>
+        {/* EMPTY STATES */}
         {product.length === 0 && (
           <div className="d-flex justify-content-center Outfit ">
             <h1 className="border-top pt-3">

@@ -3,17 +3,31 @@ import { createContext, useContext, useEffect, useState } from "react";
 const CrudContext = createContext();
 
 const CrudContextProvider = ({ children }) => {
-  // states
+  // * STATES
+  // Main product
   const [product, setProduct] = useState([]);
+
+  // Full product For external Searchbar
   const [externalSearchedProduct, setExternalSearchedProduct] = useState([]);
 
+  // Full product For getting all category
   const [fullProducts, setFullProducts] = useState([]);
 
   // Loader
   const [loader, setLoader] = useState(false);
-  // Filters  with dinamic URl**
+
+  // SEARCHBAR
+  const [searchbar, setSearchbar] = useState({
+    search: "",
+  });
+
+  //
+  //* Filters  with dinamic URl**
   const [filters, setFilters] = useState(() => {
+    // Getting params for saving filter between pages
     const params = new URLSearchParams(window.location.search);
+
+    // returning params
     return {
       category: params.get("category") || "all",
       available: params.get("available") === "true",
@@ -24,10 +38,7 @@ const CrudContextProvider = ({ children }) => {
   });
 
   //
-  // SEARCHBAR
-  const [searchbar, setSearchbar] = useState({
-    search: "",
-  });
+
   //   asynchandler For easier Fetch
   const asyncHandler = async (url) => {
     // Error Handling
@@ -50,6 +61,8 @@ const CrudContextProvider = ({ children }) => {
       if (filters.category !== "all") {
         queryParams.append("category", filters.category);
       }
+
+      // TODO: internal searchbar
       // Searchbar
       // if (filters.search !== "all") {
       //   queryParams.append("search", filters.search);
@@ -88,7 +101,7 @@ const CrudContextProvider = ({ children }) => {
       // Array completo per Prendere tutte le categorie
       const gettingFullArray = await fetch(`http://localhost:3000/products`);
 
-      //
+      // Getting data
       const resultFull = await gettingFullArray.json();
       const resultFiltered = await gettingFilters.json();
 
@@ -97,6 +110,7 @@ const CrudContextProvider = ({ children }) => {
         console.error("Array inesistente");
         return;
       } else if (
+        // If not array send error
         Array.isArray(resultFiltered?.results) === false ||
         Array.isArray(resultFull?.results) === false
       ) {
@@ -104,12 +118,12 @@ const CrudContextProvider = ({ children }) => {
         return;
       }
 
-      //
+      // setting states with data
       setFullProducts(resultFull?.results);
       setProduct(resultFiltered?.results);
-
-      // setProduct(resultFiltered)
     };
+
+    // autodeclaring function on filters change
     functionFilters();
   }, [filters]);
 
@@ -127,13 +141,14 @@ const CrudContextProvider = ({ children }) => {
 
     // SETTING LOADER FOR EMPTY STATE
     setLoader(true);
-    // DEBOUNCED SEARCH
+
+    // ************ DEBOUNCED SEARCH
     const timer = setTimeout(async () => {
       try {
         // CREATING PARAMS
         const queryParams = new URLSearchParams();
 
-        // Searchbar
+        // sending searchbar value on backend
         if (searchbar.search !== "") {
           queryParams.append("search", searchbar.search);
         }
@@ -153,22 +168,26 @@ const CrudContextProvider = ({ children }) => {
           return;
         }
 
+        // setting data
         setExternalSearchedProduct(resultSearched?.results);
       } finally {
+        // Loader for spinner
         setLoader(false);
       }
     }, 300);
+
+    // clearing Timeout
     return () => clearTimeout(timer);
   }, [searchbar]);
 
   //
-  //   Detailed Products
+  //   **Detailed Products
   const detailedProduct = async (id) => {
     const array = await asyncHandler(`http://localhost:3000/products/${id}`); // Setting data To Use in Detailed Page
     return array;
   };
 
-  //   exports
+  //   ***exports
   const value = {
     setProduct,
     product,

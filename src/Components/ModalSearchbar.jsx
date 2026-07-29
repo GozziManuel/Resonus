@@ -16,7 +16,7 @@ export default function ModalSearchbar({ isOpen, Closer }) {
     setLoader,
   } = useCrudContext();
 
-  // toggling scrollbar
+  // toggling scrollbar and resetting states
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
