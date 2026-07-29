@@ -30,12 +30,68 @@ export default function ProductPage() {
       price: e.target.value,
     });
   };
+
+  // Handling Sorter For Buttons reset
+  const sorterHandler = (name) => {
+    // Price Logic
+    if (name === "price") {
+      if (
+        filters.sort === "default" ||
+        filters.sort === "acquisti" ||
+        filters.sort === "NameDown" ||
+        filters.sort === "NameUp"
+      ) {
+        setFilters({
+          ...filters,
+          sort: "priceUp",
+        });
+      }
+      if (filters.sort === "priceUp") {
+        setFilters({
+          ...filters,
+          sort: "priceDown",
+        });
+      }
+      if (filters.sort === "priceDown") {
+        setFilters({
+          ...filters,
+          sort: "default",
+        });
+      }
+    }
+
+    // Name Logic
+    if (name === "name") {
+      if (
+        filters.sort === "default" ||
+        filters.sort === "acquisti" ||
+        filters.sort === "priceDown" ||
+        filters.sort === "priceUp"
+      ) {
+        setFilters({
+          ...filters,
+          sort: "NameUp",
+        });
+      }
+      if (filters.sort === "NameUp") {
+        setFilters({
+          ...filters,
+          sort: "NameDown",
+        });
+      }
+      if (filters.sort === "NameDown") {
+        setFilters({
+          ...filters,
+          sort: "default",
+        });
+      }
+    }
+  };
   //
   // MAIN IMPORTS
   const { BestsellerSlug } = useMainContext();
 
   // States
-  const [clicked, setClicked] = useState(false);
   const [select, setSelect] = useState(filters.category);
 
   const [slider, setSlider] = useState(filters.price);
@@ -207,18 +263,7 @@ export default function ProductPage() {
                         ? "shadow-sm FilterButton"
                         : "btn-outline-secondary bg-white text-dark border-light-subtle"
                     }`}
-                    onClick={() =>
-                      setFilters({
-                        ...filters,
-                        sort:
-                          filters.sort === "default" ||
-                          filters.sort === "acquisti"
-                            ? "priceUp"
-                            : filters.sort === "priceUp"
-                              ? "priceDown"
-                              : "default",
-                      })
-                    }
+                    onClick={() => sorterHandler("price")}
                   >
                     <span>Prezzo</span>
 
@@ -227,7 +272,7 @@ export default function ProductPage() {
                         filters.sort === "priceDown" ? "arrowAnimationUp" : ""
                       }`}
                     >
-                      <i className="bi bi-arrow-down"></i>
+                      <i className="bi bi-arrow-up"></i>
                     </div>
                     {filters.sort === "" && (
                       <span className="badge bg-white rounded-pill text-black extra-small">
@@ -273,18 +318,7 @@ export default function ProductPage() {
                         ? "shadow-sm FilterButton"
                         : "btn-outline-secondary bg-white text-dark border-light-subtle"
                     }`}
-                    onClick={() =>
-                      setFilters({
-                        ...filters,
-                        sort:
-                          filters.sort === "default" ||
-                          filters.sort === "acquisti"
-                            ? "NameUp"
-                            : filters.sort === "NameUp"
-                              ? "NameDown"
-                              : "default",
-                      })
-                    }
+                    onClick={() => sorterHandler("name")}
                   >
                     <span>Nome (Alfabetico)</span>
 
@@ -294,7 +328,7 @@ export default function ProductPage() {
                         filters.sort === "NameDown" ? "arrowAnimationUp" : ""
                       }`}
                     >
-                      <i className="bi bi-arrow-down"></i>
+                      <i className="bi bi-arrow-up"></i>
                     </div>
                   </button>
                 </div>
