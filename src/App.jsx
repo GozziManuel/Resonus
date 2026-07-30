@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import DefaultLayout from "./Layout/DefaultLayout";
 import HomePage from "./Pages/HomePage";
 import ProductPage from "./Pages/ProductPage";
@@ -10,7 +10,7 @@ import CartPage from "./Pages/CartPage";
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <CrudContextProvider>
         <MainContextProvider>
           <Routes>
@@ -24,7 +24,7 @@ function App() {
           </Routes>
         </MainContextProvider>
       </CrudContextProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
