@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useCrudContext } from "./CrudContext";
 
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 const MainContext = createContext();
 
 const MainContextProvider = ({ children }) => {
@@ -25,9 +27,7 @@ const MainContextProvider = ({ children }) => {
 
   // Bestsellers
   const bestSellers = async () => {
-    const array = await asyncHandler(
-      `http://localhost:3000/product/bestSeller`,
-    ); // Getting Promise
+    const array = await asyncHandler(`${API_BASE_URL}/product/bestSeller`); // Getting Promise
     return array;
   };
 
