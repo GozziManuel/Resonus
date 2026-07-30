@@ -1,16 +1,41 @@
-# React + Vite
+# 🎧 Resonus — AudioTech E-Commerce
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+**Resonus** è un'applicazione web e-commerce moderna e reattiva dedicata alla vendita di prodotti e componenti audio ad alta fedeltà e tecnologia avanzata. Il progetto combina un'interfaccia utente dinamica e animata lato client con un'infrastruttura backend robusta per la gestione dei dati e della rete.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech Stack
 
-## React Compiler
+### **Frontend**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React** (v18+) – Framework UI basato su componenti.
+- **React DOM** – Rendering per il web.
+- **Framer Motion** – Animazioni fluide ed effetti transizione per un'esperienza utente coinvolgente.
+- **Bootstrap / Bootstrap Icons** – Layout responsive e stilizzazione tramite utilità CSS.
 
-## Expanding the Oxlint configuration
+### **Backend**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+- **Node.js** – Ambiente di esecuzione JavaScript lato server.
+- **Express.js** – Framework web organizzato con architettura a **Controllers** e **Routers**.
+- **MySQL** – Database relazionale per la gestione di prodotti, utenti e ordini.
+
+---
+
+## 🛠️ Funzionalità Dettagliate
+
+- **Homepage con Carosello Immagini**: Hero section interattiva animata con _Framer Motion_ per mettere in evidenza promozioni e novità.
+- **Product List Dinamica**: Catalogo prodotti reattivo con rendering e paginazione ottimizzati.
+- **Searchbar Interna ed Esterna**: Sistema di ricerca flessibile gestito completamente dal backend per filtrare la gamma prodotti.
+- **Filtri Avanzati & Gestione IP Dinamici**: Sistema di filtraggio interattivo integrato con il backend, progettato per gestire le richieste e l'indirizzamento di rete basato su **IP dinamici**.
+- **Carrello Spesa (In Sviluppo)**: Gestione aggiunta/rimozione prodotti, aggiornamento delle quantità in tempo reale e sincronizzazione dello stato lato client e backend.
+- **Design Fully Responsive**: Interfaccia ottimizzata per qualsiasi risoluzione e dispositivo.
+
+---
+
+## 🚧 In Sviluppo / Roadmap
+
+- [x] Homepage e Carosello animato
+- [x] Product List e Dettaglio Prodotto
+- [x] Searchbar e Filtri con gestione IP dinamici
+- [ ] 🔄 **Integrazione completa Carrello** (Aggiunta prodotti, quantificatore)
+- [ ] Invio Email alla conferma // validazione Form Dati
