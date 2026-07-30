@@ -10,7 +10,7 @@ import CartPage from "./Pages/CartPage";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/Resonus/">
       <CrudContextProvider>
         <MainContextProvider>
           <Routes>
