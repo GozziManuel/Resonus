@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 const CrudContext = createContext();
 
 const CrudContextProvider = ({ children }) => {
@@ -100,12 +102,12 @@ const CrudContextProvider = ({ children }) => {
 
       // FETCHING RESULT BASED ON QUERY
       const gettingFilters = await fetch(
-        `http://localhost:3000/products?${queryParams.toString()}`,
+        `${API_BASE_URL}/products?${queryParams.toString()}`,
       );
 
       //
       // Array completo per Prendere tutte le categorie
-      const gettingFullArray = await fetch(`http://localhost:3000/products`);
+      const gettingFullArray = await fetch(`${API_BASE_URL}/products`);
 
       // Getting data
       const resultFull = await gettingFullArray.json();
@@ -161,7 +163,7 @@ const CrudContextProvider = ({ children }) => {
         }
 
         const gettingSearch = await fetch(
-          `http://localhost:3000/product?${queryParams.toString()}`,
+          `${API_BASE_URL}/product?${queryParams.toString()}`,
         );
         //
         const resultSearched = await gettingSearch.json();
@@ -190,7 +192,7 @@ const CrudContextProvider = ({ children }) => {
   //
   //   **Detailed Products
   const detailedProduct = async (id) => {
-    const array = await asyncHandler(`http://localhost:3000/products/${id}`); // Setting data To Use in Detailed Page
+    const array = await asyncHandler(`${API_BASE_URL}/products/${id}`); // Setting data To Use in Detailed Page
     return array;
   };
 
