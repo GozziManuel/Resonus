@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "../assets/css/navbar.css";
 import Logo from "./Logo";
 import ModalSearchbar from "./ModalSearchbar";

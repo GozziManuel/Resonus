@@ -29,11 +29,13 @@ const CrudContextProvider = ({ children }) => {
 
     // returning params
     return {
+      search: params.get("search") || "",
+
       category: params.get("category") || "all",
       available: params.get("available") === "true",
       featured: params.get("featured") === "true",
       sort: params.get("sort") || "default",
-      price: params.get("price") || "0",
+      price: params.get("price") || 0,
     };
   });
 
@@ -63,13 +65,12 @@ const CrudContextProvider = ({ children }) => {
       }
 
       // TODO: internal searchbar
-      // Searchbar
-      // if (filters.search !== "all") {
-      //   queryParams.append("search", filters.search);
-      // }
+      if (filters.search !== "") {
+        queryParams.append("search", filters.search);
+      }
 
       // Price
-      if (filters.price) {
+      if (filters.price !== 0) {
         queryParams.append("price", filters.price);
       }
 
@@ -90,7 +91,12 @@ const CrudContextProvider = ({ children }) => {
       }
 
       // SETTING IP DINAMICO
-      window.history.pushState({}, "", `?${queryParams.toString()}`);
+      // avoiding useless ? on refresh
+      const newUrl = queryParams.toString()
+        ? `?${queryParams.toString()}`
+        : window.location.pathname;
+
+      window.history.pushState({}, "", newUrl);
 
       // FETCHING RESULT BASED ON QUERY
       const gettingFilters = await fetch(
@@ -117,6 +123,7 @@ const CrudContextProvider = ({ children }) => {
         console.error(resultFiltered, "Formato Array non valido");
         return;
       }
+      console.log(queryParams.toString());
 
       // setting states with data
       setFullProducts(resultFull?.results);

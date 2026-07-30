@@ -20,6 +20,9 @@ export default function ProductPage() {
   // input Slider Price
   const [slider, setSlider] = useState(filters.price);
 
+  // Searchbar
+  const [searchbar, setSearchbar] = useState("");
+
   //
   // selectHandler
   const handleSelect = (e) => {
@@ -34,7 +37,7 @@ export default function ProductPage() {
   };
   //
 
-  //
+  // handling price ranger
   const handleSlider = (e) => {
     //  tracing value for input
     setSlider(e.target.value);
@@ -43,6 +46,19 @@ export default function ProductPage() {
     setFilters({
       ...filters,
       price: e.target.value,
+    });
+  };
+
+  // SearchHandler
+  const handleSearch = (e) => {
+    //  tracing value for input
+    const trimmedValue = e.target.value.trim();
+    setSearchbar(trimmedValue);
+
+    // setting filters IP
+    setFilters({
+      ...filters,
+      search: trimmedValue,
     });
   };
 
@@ -300,6 +316,22 @@ export default function ProductPage() {
                   />
                 </div>
               </div>
+
+              {slider !== 0 && (
+                <button
+                  className="mt-2 backToShopButton Outfit"
+                  style={{ width: "150px", border: "1px solid black" }}
+                  onClick={() => {
+                    setSlider(0);
+                    setFilters({
+                      ...filters,
+                      price: 0,
+                    });
+                  }}
+                >
+                  Resetta Prezzo
+                </button>
+              )}
             </div>
 
             {/* ***********FILTERS SORTER********* */}
@@ -404,7 +436,7 @@ export default function ProductPage() {
               {/* RESET BUTTON */}
               {/* APPEAR ONLY IF THERE IS A FILTER */}
               {filters.sort === "default" &&
-              filters.price === "0" &&
+              filters.price === 0 &&
               filters.category === "all" &&
               filters.available === false &&
               filters.featured === false ? (
@@ -412,7 +444,8 @@ export default function ProductPage() {
               ) : (
                 <div className="col-12 d-flex justify-content-center ">
                   <button
-                    className="w-100 buttonBasic h-75 d-flex justify-content-center"
+                    type="button"
+                    className="w-100 buttonBasic h-75 d-flex justify-content-center Outfit"
                     // RESETTING PARAMS
                     onClick={() => {
                       const params = new URLSearchParams(
@@ -425,15 +458,16 @@ export default function ProductPage() {
 
                       // RESETTING PARAMS
                       setFilters({
+                        ...filters,
                         category: params.delete("category") || "all",
                         available: params.delete("available") === "true",
                         featured: params.delete("featured") === "true",
                         sort: params.delete("sort") || "default",
-                        price: params.delete("price") || "0",
+                        price: params.delete("price") || 0,
                       });
                     }}
                   >
-                    Reset
+                    Resetta tutti i filtri
                   </button>
                 </div>
               )}
@@ -477,7 +511,16 @@ export default function ProductPage() {
 
       {/* Products */}
       <section className="mb-5">
-        <div className="row g-4 Sans">
+        <div>
+          <input
+            type="text "
+            value={searchbar}
+            className="searchbar w-100 mb-4"
+            placeholder="Cerca nella lista"
+            onChange={(e) => handleSearch(e)}
+          />
+        </div>
+        <div className="row g-4 Sans border-top mt-2">
           {product.map((p) => {
             return (
               <Product
@@ -500,7 +543,7 @@ export default function ProductPage() {
         {/* EMPTY STATES */}
         {product.length === 0 && (
           <div className="d-flex justify-content-center Outfit ">
-            <h1 className="border-top pt-3">
+            <h1 className=" pt-3">
               Nessun risultato
               <i className="bi bi-emoji-frown-fill ms-3"></i>
             </h1>

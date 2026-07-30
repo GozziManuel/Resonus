@@ -80,6 +80,21 @@ body {
   transition: padding 0.5s ease;
 }
 
+/* CArt BUTTON */
+.cartButton {
+  width: 80px;
+  height: 80px;
+  background-color: var(--font-color-main);
+  border-radius: 10px;
+  z-index: 99999;
+  right: -50px;
+  top: 80px;
+  transition: all 0.2s ease;
+  color: white;
+}
+.cartButton:hover {
+  transform: translateX(-40px);
+}
 /* Medias */
 /* Media for small screen */
 @media screen and (max-width: 500px) {

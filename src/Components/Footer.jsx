@@ -67,13 +67,13 @@ export default function Footer() {
 
           {/* Social */}
           <div className="col-md-3 d-flex justify-content-center justify-content-md-end gap-3 fs-5">
-            <a href="#" className=" InfoLink">
+            <a className=" InfoLink">
               <i className="bi bi-instagram"></i>
             </a>
-            <a href="#" className=" InfoLink">
+            <a className=" InfoLink">
               <i className="bi bi-facebook"></i>
             </a>
-            <a href="#" className=" InfoLink">
+            <a className=" InfoLink">
               <i className="bi bi-discord"></i>
             </a>
           </div>
@@ -88,27 +88,13 @@ export default function Footer() {
             riservati.
           </small>
           <div className="d-flex gap-3">
-            <Link
-              // To do!
-
-              to="/privacy"
-              className="text-secondary text-decoration-none hover-white InfoLink"
-            >
+            <Link className="text-secondary text-decoration-none hover-white InfoLink">
               Privacy
             </Link>
-            <Link
-              // To do!
-
-              to="/shipping"
-              className="text-secondary text-decoration-none hover-white InfoLink"
-            >
+            <Link className="text-secondary text-decoration-none hover-white InfoLink">
               Spedizioni
             </Link>
-            <Link
-              // To do!
-              to="/contact"
-              className="text-secondary text-decoration-none hover-white InfoLink"
-            >
+            <Link className="text-secondary text-decoration-none hover-white InfoLink">
               Contatti
             </Link>
           </div>

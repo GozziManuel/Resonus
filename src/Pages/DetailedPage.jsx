@@ -6,6 +6,7 @@ import ModalCarousel from "../Components/ModalCarousel";
 import "../assets/css/productDetailed.css";
 import { Popover } from "bootstrap/dist/js/bootstrap.bundle.min";
 import PopOverbutton from "../Components/PopOverbutton";
+import NotFoundPage from "./NotFoundPage";
 
 //
 
@@ -150,21 +151,11 @@ export default function DetailedPage() {
   // GUARD FOR NOT FINDING PRODUCT
   if (!detailed) {
     return (
-      <div className="Outfit ">
-        <h1 className="mt-4">Dove vai torna indietro!</h1>
-        <h2>Questo prodotto non esiste </h2>
-        <Link
-          to={"/products"}
-          className="buttonBasic mt-4 text-center"
-          style={{
-            width: "158px",
-            textDecoration: "none",
-            textAlign: "center",
-          }}
-        >
-          Torna alla Home
-        </Link>
-      </div>
+      <NotFoundPage
+        Text={
+          "Il Prodotto che stai cercando non esiste, è stato rimosso o l'indirizzo digitato non è corretto."
+        }
+      />
     );
   }
 
