@@ -10,7 +10,7 @@ import CartPage from "./Pages/CartPage";
 
 function App() {
   return (
-    <BrowserRouter basename="/Resonus/">
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <CrudContextProvider>
         <MainContextProvider>
           <Routes>
