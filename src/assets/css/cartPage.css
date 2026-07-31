@@ -19,6 +19,11 @@
 .DoubleContainer {
   margin-right: 12px !important;
 }
+
+.incrementingButton {
+  background-color: var(--font-color-main);
+  color: white;
+}
 @media (max-width: 992px) {
   .UpperInfo {
     margin-bottom: 40px;

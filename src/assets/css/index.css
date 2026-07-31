@@ -95,6 +95,9 @@ body {
 .cartButton:hover {
   transform: translateX(-40px);
 }
+.cartButton.active {
+  transform: translateX(-40px);
+}
 /* Medias */
 /* Media for small screen */
 @media screen and (max-width: 500px) {
