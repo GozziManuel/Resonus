@@ -8,7 +8,7 @@ export default function CartButton() {
         className="position-fixed cartButton   d-flex justify-content-end align-items-center pe-3"
         to={"/carrello"}
       >
-        <i class="bi bi-cart fs-2"></i>
+        <i className="bi bi-cart fs-2"></i>
       </Link>
     </div>,
     document.getElementById("portal-root"),

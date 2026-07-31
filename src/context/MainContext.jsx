@@ -15,6 +15,8 @@ const MainContextProvider = ({ children }) => {
   // Cart
   const [Cart, setCart] = useState([]);
 
+  const [CartLoader, setCartLoader] = useState(true);
+
   // TriggerCart
   const [trigger, setTrigger] = useState(0);
 
@@ -87,6 +89,7 @@ const MainContextProvider = ({ children }) => {
   // **** Showing Cart
   useEffect(() => {
     const showCart = async () => {
+      setCartLoader(true);
       try {
         const response = await fetch(`${API_BASE_URL}/audio/cartitems`);
         const data = await response.json();
@@ -96,6 +99,8 @@ const MainContextProvider = ({ children }) => {
         return data;
       } catch (err) {
         console.error(err);
+      } finally {
+        setCartLoader(false);
       }
     };
     showCart();
@@ -114,6 +119,7 @@ const MainContextProvider = ({ children }) => {
     // Cart
     addToCart,
     Cart,
+    CartLoader,
   };
   return <MainContext.Provider value={value}>{children}</MainContext.Provider>;
 };

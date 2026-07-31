@@ -1,0 +1,41 @@
+.productName {
+  transition: all 0.4s ease;
+}
+
+.productName:hover {
+  color: black;
+  transform: scale(1.05);
+}
+
+.ImageContainerCart {
+  height: 70px;
+}
+
+.ImageCart {
+  object-fit: contain;
+  height: 100%;
+  border-radius: 20px;
+}
+.DoubleContainer {
+  margin-right: 12px !important;
+}
+@media (max-width: 992px) {
+  .UpperInfo {
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .UpperInfo {
+    margin-bottom: 0;
+  }
+  .cardCart {
+    gap: 20px;
+  }
+  .DoubleContainer {
+    gap: 20px;
+  }
+  .ImageContainerCart {
+    height: 250px;
+  }
+}

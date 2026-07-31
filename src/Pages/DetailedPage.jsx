@@ -15,12 +15,17 @@ export default function DetailedPage() {
   // Import Context
   const { detailedProduct } = useCrudContext();
 
-  const { BestsellerSlug, addToCart } = useMainContext();
+  const { BestsellerSlug, addToCart, Cart, CartLoader } = useMainContext();
+
+  // **LOADER
+  const [loaderPage, setLoaderPage] = useState(true);
 
   // States
   const [detailed, setDetailed] = useState(null);
 
-  // PopOVERS (AI HELP)
+  //
+  //  ************************* BOOTSTRAP ******************************
+  // ******PopOVERS (AI HELP)
   // Bootstrap popOVERS STARTING ON DetailedChanges
   useEffect(() => {
     // Getting all popOvers
@@ -69,6 +74,19 @@ export default function DetailedPage() {
     };
   }, [detailed]);
 
+  // *************** TOAST  JS BOOTSTRAP
+  const toastTrigger = document.getElementById("liveToastBtn");
+  const toastLiveExample = document.getElementById("liveToast");
+
+  if (toastTrigger) {
+    const toastBootstrap =
+      bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+    toastTrigger.addEventListener("click", () => {
+      toastBootstrap.show();
+    });
+  }
+
+  //
   // * IMG FOR CAROUSEL
   // img1
   const [image1, setImage1] = useState();
@@ -89,12 +107,18 @@ export default function DetailedPage() {
   // *Translating Promise
   useEffect(() => {
     const gettingDetailed = async () => {
-      const array = await detailedProduct(slug);
+      setLoaderPage(true);
 
-      setDetailed(array.result); //setting Data
-      setImage1(array?.result?.image_url);
-      setImage2(array?.result?.second_image);
-      setImage3(array?.result?.third_image);
+      try {
+        const array = await detailedProduct(slug);
+
+        setDetailed(array.result); //setting Data
+        setImage1(array?.result?.image_url);
+        setImage2(array?.result?.second_image);
+        setImage3(array?.result?.third_image);
+      } finally {
+        setLoaderPage(false);
+      }
     };
     gettingDetailed();
   }, [slug, detailedProduct]);
@@ -148,6 +172,16 @@ export default function DetailedPage() {
   };
   //
   //
+  // Loader
+  if (loaderPage || CartLoader) {
+    return (
+      <div className="d-flex justify-content-center align-items-center mt-5 py-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Caricamento...</span>
+        </div>
+      </div>
+    );
+  }
   // GUARD FOR NOT FINDING PRODUCT
   if (!detailed) {
     return (
@@ -180,7 +214,10 @@ export default function DetailedPage() {
   const fullSpecs = specsKey.map((el, id) => (el += specs[id]));
 
   return (
-    <section className="Sans mt-5" style={{ padding: "12px" }}>
+    <section
+      className="Sans mt-5"
+      style={{ padding: "12px", paddingBottom: "30px" }}
+    >
       <div className="row">
         <div className="col-lg-6 col-sm-12 col-md-12">
           <Link
@@ -287,14 +324,27 @@ export default function DetailedPage() {
             </p>
             <p>{gettingDate(detailed.created_at)}</p>
           </div>
-          <div className="d-flex align-items-center mt-2">
-            <button
-              className="CartButton d-flex gap-2"
-              onClick={() => addToCart(detailed)}
-            >
-              Aggiungi al Carrello{" "}
-              <i className=" fs-5 bi bi-cart-plus-fill"></i>
-            </button>
+          <div className="d-flex align-items-center mt-2 ">
+            {/* CaRT button LOgic for added or not added */}
+            {Cart.some((c) => c?.name === detailed?.name) ? (
+              <div>
+                <Link className="mb-2 bestSellerButton" to={"/carrello"}>
+                  Aggiunto Vai al Carrello
+                </Link>
+                <button className="RemoveButton d-flex gap-2">
+                  Rimuovi dal Carrello
+                  <i className="bi bi-cart-x-fill"></i>
+                </button>
+              </div>
+            ) : (
+              <button
+                className="CartButton d-flex gap-2"
+                onClick={() => addToCart(detailed)}
+              >
+                Aggiungi al Carrello{" "}
+                <i className=" fs-5 bi bi-cart-plus-fill"></i>
+              </button>
+            )}
           </div>
         </div>
 
