@@ -12,6 +12,12 @@ const MainContextProvider = ({ children }) => {
   // states
   const [bestSeller, setBestSeller] = useState([]);
 
+  // Cart
+  const [Cart, setCart] = useState([]);
+
+  // TriggerCart
+  const [trigger, setTrigger] = useState(0);
+
   //   asynchandler
   const asyncHandler = async (url) => {
     // Error Handling
@@ -51,8 +57,49 @@ const MainContextProvider = ({ children }) => {
   }, []);
 
   //
-  // *************** FILTERS *********
+  // *************** Add to cart *********
+  const addToCart = async (obj) => {
+    try {
+      // SEndind obj to backend Cart
+      const PostData = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+      };
 
+      // Adding obj to Cart
+      const response = await fetch(`${API_BASE_URL}/audio/addToCart`, PostData);
+
+      // result
+      const data = await response.json();
+
+      // attiva trigger
+      setTrigger((curr) => curr + 1);
+
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // **** Showing Cart
+  useEffect(() => {
+    const showCart = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/audio/cartitems`);
+        const data = await response.json();
+
+        // setting Array cart
+        setCart(data.results);
+        return data;
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    showCart();
+  }, [trigger]);
   // *************************
   //
   // BestSellersSlug
@@ -64,7 +111,9 @@ const MainContextProvider = ({ children }) => {
     bestSeller,
     setBestSeller,
     BestsellerSlug,
-    // filters
+    // Cart
+    addToCart,
+    Cart,
   };
   return <MainContext.Provider value={value}>{children}</MainContext.Provider>;
 };

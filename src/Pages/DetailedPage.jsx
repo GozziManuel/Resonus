@@ -15,12 +15,12 @@ export default function DetailedPage() {
   // Import Context
   const { detailedProduct } = useCrudContext();
 
-  const { BestsellerSlug } = useMainContext();
+  const { BestsellerSlug, addToCart } = useMainContext();
 
   // States
   const [detailed, setDetailed] = useState(null);
 
-  //
+  // PopOVERS (AI HELP)
   // Bootstrap popOVERS STARTING ON DetailedChanges
   useEffect(() => {
     // Getting all popOvers
@@ -35,7 +35,7 @@ export default function DetailedPage() {
       const instance = new Popover(popoverTriggerEl);
       popoverList.push(instance);
 
-      // Chiudi popover aperti prima di aprire il nuovo + button close on click (AI HELP)
+      // Chiudi popover aperti prima di aprire il nuovo + button close on click
       const handleShow = () => {
         popoverList.forEach((popoverInstance) => {
           if (popoverInstance !== instance) {
@@ -231,9 +231,11 @@ export default function DetailedPage() {
           </div>
 
           {/* PriceSection */}
-          <div className="PriceContainer py-3">
-            <p className="mb-1">Prezzo:</p>
-            <h2>&euro; {detailed.price}</h2>
+          <div className="PriceContainer py-3 d-flex gap-4 justify-content-between">
+            <div>
+              <p className="mb-1">Prezzo:</p>
+              <h2>&euro; {detailed.price}</h2>
+            </div>
           </div>
           <div className="categoryContainer">
             {/* Description */}
@@ -284,6 +286,15 @@ export default function DetailedPage() {
               <span className="fw-bold">{detailed.sales_count}</span>
             </p>
             <p>{gettingDate(detailed.created_at)}</p>
+          </div>
+          <div className="d-flex align-items-center mt-2">
+            <button
+              className="CartButton d-flex gap-2"
+              onClick={() => addToCart(detailed)}
+            >
+              Aggiungi al Carrello{" "}
+              <i className=" fs-5 bi bi-cart-plus-fill"></i>
+            </button>
           </div>
         </div>
 
