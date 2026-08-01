@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useMainContext } from "../context/MainContext";
 import "../assets/css/cartPage.css";
 import CartCard from "../Cards/CartCard";
+import PopUpContainer from "../Components/PopUpContainer";
 
 export default function CartPage() {
   const { Cart } = useMainContext();
@@ -12,6 +13,20 @@ export default function CartPage() {
         <div className="row">
           <div className="col-md-8 mt-4 col-12">
             <h1 className="mb-4">Il tuo Carrello</h1>
+            {Cart.length === 0 && (
+              <div className="border-top ">
+                <h2 className="pt-4">
+                  Il Carrello è vuoto <br />
+                </h2>
+                <Link
+                  className="bestSellerButton  "
+                  style={{ width: "35%" }}
+                  to={"/products"}
+                >
+                  Aggiungi qualche prodotto
+                </Link>
+              </div>
+            )}
             {Cart.map((c) => {
               return (
                 <CartCard
@@ -28,6 +43,11 @@ export default function CartPage() {
           </div>
           <div className=" col-md-4 mt-4 col-12">
             <div className="border ">
+              {Cart.length === 0 && (
+                <p className="d-flex gap-2 align-items-center m-4">
+                  Carrello Vuoto
+                </p>
+              )}
               {Cart.map((c) => {
                 return (
                   <div
@@ -56,6 +76,7 @@ export default function CartPage() {
           </div>
         </div>
       </div>
+      <PopUpContainer />
     </>
   );
 }

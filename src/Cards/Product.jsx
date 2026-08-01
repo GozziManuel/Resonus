@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "../assets/css/product.css";
 import { motion } from "framer-motion";
+import { useMainContext } from "../context/MainContext";
 
 export default function Product({
   title,
@@ -16,6 +17,8 @@ export default function Product({
   colsm6,
   TopAcquisti,
 }) {
+  const { Cart } = useMainContext();
+
   // * Framer Motion
   // Varianti per ogni singola card
   const cardVariants = {
@@ -84,11 +87,20 @@ export default function Product({
         </div>
 
         {/* INfo Card */}
-        <div className="card-body p-0 d-flex flex-column justify-content-between mt-3">
+        <div className="card-body p-0 d-flex flex-column justify-content-between mt-3 ">
           <div>
-            <small className="text-secondary text-uppercase fw-bold">
-              {category}
-            </small>
+            <div className="d-flex align-items-center justify-content-between">
+              <small className="text-secondary text-uppercase fw-bold ">
+                {category}
+              </small>
+              {Cart.some((c) => c?.name === title) ? (
+                <p className="mb-0">
+                  <i className="bi bi-cart-check-fill fs-5"></i>
+                </p>
+              ) : (
+                ""
+              )}
+            </div>
 
             {/* Stock dinamico */}
             <h5 className="card-title  fw-bold mt-1"> {title}</h5>

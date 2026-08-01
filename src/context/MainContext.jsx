@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useCrudContext } from "./CrudContext";
 
 const API_BASE_URL =
@@ -11,6 +11,26 @@ const MainContextProvider = ({ children }) => {
 
   // states
   const [bestSeller, setBestSeller] = useState([]);
+
+  // **** TOAST
+  const [showToast, setShowToast] = useState(false);
+  const [addedOrRemoved, setAddedOrRemoved] = useState({
+    added: null,
+    removed: null,
+  });
+
+  // ToastTrigger
+  const timerRef = useRef(null);
+  //
+  const triggerToast = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+    setShowToast(true);
+    timerRef.current = setTimeout(() => {
+      setShowToast(false);
+    }, 2500);
+  };
 
   // Cart
   const [Cart, setCart] = useState([]);
@@ -62,6 +82,7 @@ const MainContextProvider = ({ children }) => {
   // *************** Add to cart *********
   const addToCart = async (obj) => {
     try {
+      triggerToast();
       // SEndind obj to backend Cart
       const PostData = {
         method: "POST",
@@ -79,6 +100,10 @@ const MainContextProvider = ({ children }) => {
 
       // attiva trigger
       setTrigger((curr) => curr + 1);
+      setAddedOrRemoved({
+        added: true,
+        removed: false,
+      });
 
       return data;
     } catch (err) {
@@ -114,6 +139,7 @@ const MainContextProvider = ({ children }) => {
   // ****** DELETE FROM CART
   const removeToCart = async (slug) => {
     try {
+      triggerToast();
       const CurrentObj = Cart.find((c) => c.slug === slug);
       const PostData = {
         method: "DELETE",
@@ -126,7 +152,10 @@ const MainContextProvider = ({ children }) => {
         PostData,
       ); // Setting data To Use in Detailed Page
       const data = await array.json();
-
+      setAddedOrRemoved({
+        added: false,
+        removed: true,
+      });
       console.log(data);
 
       // Setting Filtered ARRAY
@@ -147,6 +176,9 @@ const MainContextProvider = ({ children }) => {
     CartLoader,
     removeToCart,
     setCart,
+    showToast,
+    setShowToast,
+    addedOrRemoved,
   };
   return <MainContext.Provider value={value}>{children}</MainContext.Provider>;
 };

@@ -12,16 +12,20 @@ import NotFoundPage from "./NotFoundPage";
 
 export default function DetailedPage() {
   //
+
   // Import Context
   const { detailedProduct } = useCrudContext();
 
-  const { BestsellerSlug, addToCart, Cart, CartLoader } = useMainContext();
+  const { BestsellerSlug, addToCart, Cart, CartLoader, removeToCart } =
+    useMainContext();
 
   // **LOADER
   const [loaderPage, setLoaderPage] = useState(true);
 
   // States
   const [detailed, setDetailed] = useState(null);
+
+  const [sureButton, setSureButton] = useState(false);
 
   //
   //  ************************* BOOTSTRAP ******************************
@@ -324,17 +328,52 @@ export default function DetailedPage() {
             </p>
             <p>{gettingDate(detailed.created_at)}</p>
           </div>
+
+          {/* CaRT button LOgic for added or not added */}
           <div className="d-flex align-items-center mt-2 ">
-            {/* CaRT button LOgic for added or not added */}
-            {Cart.some((c) => c?.name === detailed?.name) ? (
+            {detailed.stock === 0 ? (
+              <div
+                className="px-4 py-2 rounded"
+                style={{ background: "var(--font-color-main)", color: "white" }}
+              >
+                Prodotto esaurito Ci dispiace!
+              </div>
+            ) : Cart.some((c) => c?.name === detailed?.name) ? (
               <div>
                 <Link className="mb-2 bestSellerButton" to={"/carrello"}>
                   Aggiunto Vai al Carrello
                 </Link>
-                <button className="RemoveButton d-flex gap-2">
-                  Rimuovi dal Carrello
-                  <i className="bi bi-cart-x-fill"></i>
-                </button>
+
+                {/* surebutton Logic */}
+                {sureButton ? (
+                  <div className="d-flex gap-2">
+                    <div className=" w-100 ">
+                      <button
+                        className="buttonBasic d-flex gap-2 w-100 text-center d-flex justify-content-center"
+                        onClick={() => setSureButton(false)}
+                      >
+                        Annulla
+                      </button>
+                    </div>
+                    <div className="w-100">
+                      <button
+                        className="RemoveButton d-flex gap-2 px-3 w-100  d-flex justify-content-center"
+                        onClick={() => removeToCart(detailed.slug)}
+                      >
+                        Rimuovi
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <button
+                    className="RemoveButton d-flex gap-2"
+                    // onClick={() => removeToCart(detailed.slug)}
+                    onClick={() => setSureButton(true)}
+                  >
+                    Rimuovi dal Carrello
+                    <i className="bi bi-cart-x-fill"></i>
+                  </button>
+                )}
               </div>
             ) : (
               <button
