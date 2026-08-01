@@ -72,7 +72,7 @@ const MainContextProvider = ({ children }) => {
       };
 
       // Adding obj to Cart
-      const response = await fetch(`${API_BASE_URL}/audio/addToCart`, PostData);
+      const response = await fetch(`${API_BASE_URL}/cart/addToCart`, PostData);
 
       // result
       const data = await response.json();
@@ -91,7 +91,7 @@ const MainContextProvider = ({ children }) => {
     const showCart = async () => {
       setCartLoader(true);
       try {
-        const response = await fetch(`${API_BASE_URL}/audio/cartitems`);
+        const response = await fetch(`${API_BASE_URL}/cart/cartitems`);
         const data = await response.json();
 
         // setting Array cart
@@ -111,6 +111,31 @@ const MainContextProvider = ({ children }) => {
   // Getting SLUGS
   const BestsellerSlug = bestSeller.map((b) => b.slug);
 
+  // ****** DELETE FROM CART
+  const removeToCart = async (slug) => {
+    try {
+      const CurrentObj = Cart.find((c) => c.slug === slug);
+      const PostData = {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const array = await fetch(
+        `${API_BASE_URL}/cart/removeToCart/${slug}`,
+        PostData,
+      ); // Setting data To Use in Detailed Page
+      const data = await array.json();
+
+      console.log(data);
+
+      // Setting Filtered ARRAY
+      setCart(data.results);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   //   exports
   const value = {
     bestSeller,
@@ -120,6 +145,8 @@ const MainContextProvider = ({ children }) => {
     addToCart,
     Cart,
     CartLoader,
+    removeToCart,
+    setCart,
   };
   return <MainContext.Provider value={value}>{children}</MainContext.Provider>;
 };

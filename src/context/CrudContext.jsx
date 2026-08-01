@@ -66,7 +66,7 @@ const CrudContextProvider = ({ children }) => {
         queryParams.append("category", filters.category);
       }
 
-      // TODO: internal searchbar
+      //  internal searchbar
       if (filters.search !== "") {
         queryParams.append("search", filters.search);
       }
