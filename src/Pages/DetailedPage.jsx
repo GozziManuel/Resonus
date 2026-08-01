@@ -7,6 +7,7 @@ import "../assets/css/productDetailed.css";
 import { Popover } from "bootstrap/dist/js/bootstrap.bundle.min";
 import PopOverbutton from "../Components/PopOverbutton";
 import NotFoundPage from "./NotFoundPage";
+import { AnimatePresence, motion } from "framer-motion";
 
 //
 
@@ -14,10 +15,9 @@ export default function DetailedPage() {
   //
 
   // Import Context
-  const { detailedProduct } = useCrudContext();
+  const { detailedProduct, BestsellersSlug } = useCrudContext();
 
-  const { BestsellerSlug, addToCart, Cart, CartLoader, removeToCart } =
-    useMainContext();
+  const { addToCart, Cart, CartLoader, removeToCart } = useMainContext();
 
   // **LOADER
   const [loaderPage, setLoaderPage] = useState(true);
@@ -28,6 +28,7 @@ export default function DetailedPage() {
   const [sureButton, setSureButton] = useState(false);
 
   //
+  const [isSpecsOpen, setIsSpecsOpen] = useState(false);
   //  ************************* BOOTSTRAP ******************************
   // ******PopOVERS (AI HELP)
   // Bootstrap popOVERS STARTING ON DetailedChanges
@@ -76,7 +77,7 @@ export default function DetailedPage() {
       cleanupHandlers.forEach((removeListener) => removeListener());
       popoverList.forEach((popoverInstance) => popoverInstance.dispose());
     };
-  }, [detailed]);
+  }, [detailed, isSpecsOpen]);
 
   // *************** TOAST  JS BOOTSTRAP
   const toastTrigger = document.getElementById("liveToastBtn");
@@ -243,7 +244,7 @@ export default function DetailedPage() {
             )}
             {/* Bestseller Badge */}
             {/* Solo se è un bestseller */}
-            {BestsellerSlug.includes(slug) && (
+            {BestsellersSlug.includes(slug) && (
               <span className=" badgeCardBestSeller floating px-3 py-2  ">
                 BestSeller
               </span>
@@ -286,39 +287,55 @@ export default function DetailedPage() {
             <p className="d-inline-flex gap-1">
               <button
                 className="btn btn-secondary DropdownRework "
-                data-bs-toggle="collapse"
-                data-bs-target="#collapseExample"
-                aria-expanded="false"
-                aria-controls="collapseExample"
+                type="button"
+                onClick={() => setIsSpecsOpen((prev) => !prev)}
+                aria-expanded={isSpecsOpen}
               >
                 Specifiche
               </button>
             </p>
           </div>
           {/* Collapse Button */}
-
-          <div className="collapse" id="collapseExample">
-            <div className="card card-body mb-5" style={{ maxWidth: "30rem" }}>
-              <ul
-                className="text-decoration-none p-0 mb-0"
-                style={{ listStyle: "none" }}
+          <AnimatePresence initial={false}>
+            {isSpecsOpen && (
+              <motion.div
+                id="collapseExample"
+                // farmer Motion
+                key="specs-collapse"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                style={{ overflow: "hidden" }}
               >
-                {/* getting specific Specs */}
-                {fullSpecs.map((el, id) => {
-                  const PrimaParola = el.split(" ")[0];
-                  const RestanteDellaFrase = el.substring(el.indexOf(" ") + 1);
+                <div
+                  className="card card-body mb-5"
+                  style={{ maxWidth: "30rem" }}
+                >
+                  <ul
+                    className="text-decoration-none p-0 mb-0"
+                    style={{ listStyle: "none" }}
+                  >
+                    {/* getting specific Specs */}
+                    {fullSpecs.map((el, id) => {
+                      const PrimaParola = el.split(" ")[0];
+                      const RestanteDellaFrase = el.substring(
+                        el.indexOf(" ") + 1,
+                      );
 
-                  return (
-                    <li className="border-top  py-2" key={id}>
-                      <span className="fw-bold">{PrimaParola}</span>
-                      {RestanteDellaFrase}
-                      <PopOverbutton IdParole={id} Specs={fullSpecs} />
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </div>
+                      return (
+                        <li className="border-top  py-2" key={id}>
+                          <span className="fw-bold">{PrimaParola}</span>
+                          {RestanteDellaFrase}
+                          <PopOverbutton IdParole={id} Specs={fullSpecs} />
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
           {/*  */}
           {/* More Infos */}
           <div className="bottomDetailedContainer mt-5 pt-4 d-flex justify-content-between">

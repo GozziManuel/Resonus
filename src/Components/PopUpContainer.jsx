@@ -1,9 +1,11 @@
+import { Toast } from "bootstrap";
 import { createPortal } from "react-dom";
 
 export default function PopUpContainer({ addOrRem, show, setShow }) {
   if (!show) {
     return null;
   }
+  // Animation Bootstrap for toast
 
   const message = addOrRem?.added
     ? "Prodotto aggiunto al carrello!"
@@ -12,7 +14,7 @@ export default function PopUpContainer({ addOrRem, show, setShow }) {
 
   //
   return createPortal(
-    <div className="ExternalPopUpWrapper">
+    <div className="ExternalPopUpWrapper" id="liveToast">
       <div
         className="PopUpWrapper py-2 px-3"
         style={{ backgroundColor: bgColor }}

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import "../assets/css/product.css";
 import { motion } from "framer-motion";
 import { useMainContext } from "../context/MainContext";
+import { useCrudContext } from "../context/CrudContext";
 
 export default function Product({
   title,
@@ -12,13 +13,13 @@ export default function Product({
   image,
   stock,
   category,
-  BestsellerSlug,
   colmd4,
   colsm6,
   TopAcquisti,
 }) {
   const { Cart } = useMainContext();
 
+  const { BestsellersSlug } = useCrudContext();
   // * Framer Motion
   // Varianti per ogni singola card
   const cardVariants = {
@@ -31,6 +32,7 @@ export default function Product({
   };
   //
   //
+
   return (
     <motion.div
       variants={cardVariants}
@@ -56,7 +58,7 @@ export default function Product({
 
           {/* Bestseller Badge */}
           {/* Solo se è un bestseller */}
-          {BestsellerSlug.includes(slug) && (
+          {BestsellersSlug.includes(slug) && (
             <span className=" badgeCardBestSeller floating px-3 py-2  ">
               BestSeller
             </span>

@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import "../assets/css/Homepage.css";
 import Product from "../Cards/Product";
-import { useMainContext } from "../context/MainContext";
+import { useCrudContext } from "../context/CrudContext";
 export default function HomePage() {
-  const { bestSeller, BestsellerSlug } = useMainContext();
-  console.log(bestSeller);
+  const { product } = useCrudContext();
+  console.log(product);
+  const sortedArray = product.sort((a, b) => b.sales_count - a.sales_count);
 
   return (
     <main>
@@ -62,28 +63,23 @@ export default function HomePage() {
             {/* GETTING MOST SALED PRODUCT */}
             <div className="col-lg-6 text-center Sans">
               <div className="row g-4 Sans">
-                {bestSeller
-                  .sort((a, b) => {
-                    a.sales_count - b.sales_count;
-                  })
-                  .slice(0, 1)
-                  .map((p) => {
-                    return (
-                      <Product
-                        key={p.slug}
-                        title={p.name}
-                        price={p.price}
-                        slug={p.slug}
-                        featured={p.is_featured}
-                        specs={p.specs}
-                        image={p.image_url}
-                        stock={p.stock}
-                        category={p.category_name}
-                        BestsellerSlug={BestsellerSlug}
-                        TopAcquisti={p.name}
-                      />
-                    );
-                  })}
+                {sortedArray.slice(0, 1).map((p) => {
+                  return (
+                    <Product
+                      key={p.slug}
+                      title={p.name}
+                      price={p.price}
+                      slug={p.slug}
+                      featured={p.is_featured}
+                      specs={p.specs}
+                      image={p.image_url}
+                      stock={p.stock}
+                      category={p.category_name}
+                      slug={p.slug}
+                      TopAcquisti={p.name}
+                    />
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -152,7 +148,7 @@ export default function HomePage() {
           </div>
 
           <div className="row g-4 Sans">
-            {bestSeller.map((b) => {
+            {sortedArray.slice(0, 6).map((b) => {
               return (
                 <Product
                   key={b.slug}
@@ -164,7 +160,7 @@ export default function HomePage() {
                   image={b.image_url}
                   stock={b.stock}
                   category={b.category_name}
-                  BestsellerSlug={BestsellerSlug}
+                  slug={b.slug}
                   colmd4={"col-md-4"}
                   colsm6={"col-sm-6"}
                 />

@@ -79,7 +79,12 @@ export default function CartCard({
               </button>
             </div>
             <div className="col-12 col-md-8 col-lg-6 ImageContainerCart">
-              <img src={image_url} alt="" className="ImageCart" />
+              <img
+                src={image_url}
+                alt=""
+                className="ImageCart"
+                style={{ border: "solid 1px" }}
+              />
             </div>{" "}
           </div>
           <div className="col-md-6  col-12 col-lg-3 UpperInfo">

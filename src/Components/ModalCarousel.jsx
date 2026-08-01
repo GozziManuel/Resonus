@@ -1,10 +1,23 @@
 import { createPortal } from "react-dom";
 import "../assets/css/modal.css";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 export default function ModalCarousel({ isOpen, Image, name, Closer }) {
+  // toggling scrollbar and resetting states
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
+  //
   return createPortal(
     <motion.div
       className="ExternalModalWrapper"
@@ -27,8 +40,8 @@ export default function ModalCarousel({ isOpen, Image, name, Closer }) {
             className="ModalImage"
             onClick={(e) => e.stopPropagation()}
           />
-          <i className="bi bi-x-lg fs-3 CloseButtonModal position-absolute px-2"></i>
         </div>
+        <i className="bi bi-x-lg fs-3 CloseButtonModal position-absolute px-2"></i>
       </motion.div>
     </motion.div>,
     document.getElementById("portal-root"),

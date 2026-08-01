@@ -53,31 +53,6 @@ const MainContextProvider = ({ children }) => {
     }
   };
 
-  // Bestsellers
-  const bestSellers = async () => {
-    const array = await asyncHandler(`${API_BASE_URL}/product/bestSeller`); // Getting Promise
-    return array;
-  };
-
-  // Translating Promises
-  useEffect(() => {
-    const recivingBestSellers = async () => {
-      const arrayBestsellers = await bestSellers(); // Translating Promise bestSellers
-
-      if (!arrayBestsellers) {
-        console.error(" Array inesistente");
-        return;
-      } else if (Array.isArray(arrayBestsellers.results) === false) {
-        console.error("Formato Array non valido");
-        return;
-      }
-
-      setBestSeller(arrayBestsellers.results); // Setting Array Bestsellers
-    };
-    // Calling the function
-    recivingBestSellers();
-  }, []);
-
   //
   // *************** Add to cart *********
   const addToCart = async (obj) => {
@@ -167,9 +142,6 @@ const MainContextProvider = ({ children }) => {
 
   //   exports
   const value = {
-    bestSeller,
-    setBestSeller,
-    BestsellerSlug,
     // Cart
     addToCart,
     Cart,

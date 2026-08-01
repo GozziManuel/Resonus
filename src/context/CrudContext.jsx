@@ -23,6 +23,13 @@ const CrudContextProvider = ({ children }) => {
     search: "",
   });
 
+  // BestsellerSlug
+  const BestsellersSlug = product
+    .sort((a, b) => b.sales_count - a.sales_count)
+    .map((el) => el.slug)
+    .slice(0, 6);
+  console.log(BestsellersSlug);
+
   //
   //* Filters  with dinamic URl**
   const [filters, setFilters] = useState(() => {
@@ -210,6 +217,7 @@ const CrudContextProvider = ({ children }) => {
     externalSearchedProduct,
     loader,
     setLoader,
+    BestsellersSlug,
   };
   return <CrudContext.Provider value={value}>{children}</CrudContext.Provider>;
 };
