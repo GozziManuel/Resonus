@@ -1,16 +1,28 @@
 import { NavLink } from "react-router-dom";
 import "../assets/css/navbar.css";
+import { Collapse } from "bootstrap";
 
-export default function Logo({}) {
+export default function Logo({ isNavOpen, setIsNavOpen }) {
+  const toggleNavbar = (e) => {
+    // Previene comportamenti nativi di Bootstrap che potrebbero essere bloccati da altri listener
+    e.preventDefault();
+
+    const targetEl = document.getElementById("navbarSupportedContent");
+    if (targetEl) {
+      // Forza l'istanza del collapse sulla navbar senza interferire con i popover
+      const bsCollapse = Collapse.getOrCreateInstance(targetEl, {
+        toggle: false,
+      });
+      bsCollapse.toggle();
+    }
+  };
   return (
     // LOGO
     <>
       <button
         className="navbar-toggler togglerStart  border-0 navlink"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
+        onClick={setIsNavOpen}
+        type="button"
         aria-label="Toggle navigation"
         style={{ width: "173px" }}
       >

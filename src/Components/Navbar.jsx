@@ -8,6 +8,7 @@ export default function NavBar() {
   // searchbar
   const [showSearchbar, setShowSearchbar] = useState(false);
 
+  const [isNavOpen, setIsNavOpen] = useState(false);
   //
   //
   //
@@ -16,7 +17,10 @@ export default function NavBar() {
       <div className="container-fluid p-0 ">
         <div className="d-flex w-100 ">
           {/*  LOGO */}
-          <Logo />
+          <Logo
+            isNavOpen={isNavOpen}
+            setIsNavOpen={() => setIsNavOpen((curr) => !curr)}
+          />
 
           {/* Form for searchbar */}
           <div
@@ -35,7 +39,11 @@ export default function NavBar() {
           </div>
         </div>
         {/* Navigation LINKS */}
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div
+          className={`collapse navbar-collapse ${isNavOpen ? "show" : ""}`}
+          id="navbarSupportedContent"
+          style={{ display: isNavOpen ? "block" : undefined }}
+        >
           <ul
             className="navbar-nav me-auto mb-2 mb-lg-0 d-flex justify-content-center alignitemsMedia"
             style={{ gap: "15px" }}
@@ -45,6 +53,7 @@ export default function NavBar() {
               <NavLink
                 className="navlink pe-1 HomepageButton"
                 aria-current="page"
+                onClick={() => setIsNavOpen(false)}
                 to={"/"}
               >
                 Homepage
@@ -55,6 +64,7 @@ export default function NavBar() {
               <NavLink
                 className="navlink pe-1"
                 aria-current="page"
+                onClick={() => setIsNavOpen(false)}
                 to={"/products"}
               >
                 Collection

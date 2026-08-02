@@ -24,7 +24,7 @@ const CrudContextProvider = ({ children }) => {
   });
 
   // BestsellerSlug
-  const BestsellersSlug = product
+  const BestsellersSlug = [...product]
     .sort((a, b) => b.sales_count - a.sales_count)
     .map((el) => el.slug)
     .slice(0, 6);

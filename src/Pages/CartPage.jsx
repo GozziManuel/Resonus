@@ -76,10 +76,6 @@ export default function CartPage() {
                 {Cart.length !== 0 && (
                   <Link
                     className="mt-3 bestSellerButton rounded border-1 p-2 d-flex justify-content-center"
-                    style={{
-                      background: "var(--button-third-color)",
-                      color: "var(--font-color-main)",
-                    }}
                     to={"/checkout"}
                   >
                     Procedi al pagamento

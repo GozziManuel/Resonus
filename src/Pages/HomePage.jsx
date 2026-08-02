@@ -100,7 +100,7 @@ export default function HomePage() {
               <div>
                 <p className="mb-0 Outfit">Spedizione Express 24/48h</p>
                 <small className="text-secondary Sans">
-                  Gratuita per ordini superiori a €79
+                  Gratuita per ordini superiori a €150
                 </small>
               </div>
             </div>
