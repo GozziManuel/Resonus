@@ -17,7 +17,14 @@ export default function DetailedPage() {
   // Import Context
   const { detailedProduct, BestsellersSlug } = useCrudContext();
 
-  const { addToCart, Cart, CartLoader, removeToCart } = useMainContext();
+  const {
+    addToCart,
+    Cart,
+    CartLoader,
+    removeToCart,
+    triggerToast,
+    setAddedOrRemoved,
+  } = useMainContext();
 
   // **LOADER
   const [loaderPage, setLoaderPage] = useState(true);
@@ -395,7 +402,15 @@ export default function DetailedPage() {
             ) : (
               <button
                 className="CartButton d-flex gap-2"
-                onClick={() => addToCart(detailed)}
+                onClick={() => {
+                  addToCart(detailed);
+                  triggerToast();
+                  setAddedOrRemoved({
+                    added: true,
+                    removed: false,
+                    message: "Prodotto aggiunto al carrello!",
+                  });
+                }}
               >
                 Aggiungi al Carrello{" "}
                 <i className=" fs-5 bi bi-cart-plus-fill"></i>

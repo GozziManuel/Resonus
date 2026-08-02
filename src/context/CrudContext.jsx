@@ -28,7 +28,6 @@ const CrudContextProvider = ({ children }) => {
     .sort((a, b) => b.sales_count - a.sales_count)
     .map((el) => el.slug)
     .slice(0, 6);
-  console.log(BestsellersSlug);
 
   //
   //* Filters  with dinamic URl**

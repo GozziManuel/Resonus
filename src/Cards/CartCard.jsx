@@ -10,7 +10,8 @@ export default function CartCard({
   id,
   quantity,
 }) {
-  const { addToCart, Cart, removeToCart } = useMainContext();
+  const { addToCart, Cart, removeToCart, triggerToast, setAddedOrRemoved } =
+    useMainContext();
 
   // Finding Current
   const FindingCurrent = Cart.find((c) => c.id === id);
@@ -37,12 +38,22 @@ export default function CartCard({
       if (FindingCurrent.quantity === 1) {
         return;
       }
+
       setQuantityNumber(FindingCurrent.quantity + obj.quantity);
     }
     if (Number === +1) {
       setQuantityNumber(FindingCurrent.quantity + obj.quantity);
     }
 
+    // triggerToast
+    triggerToast();
+
+    setAddedOrRemoved({
+      refreshed: true,
+      added: false,
+      removed: false,
+      message: "Quantità aggiornata",
+    });
     // addTocart to refresh quantity DB
     addToCart(obj);
   };
@@ -60,6 +71,16 @@ export default function CartCard({
     addToCart(obj);
     setQuantityNumber(changer);
     setShowChanger(false);
+
+    // triggerToast
+    triggerToast();
+
+    setAddedOrRemoved({
+      refreshed: true,
+      added: false,
+      removed: false,
+      message: "Quantità aggiornata",
+    });
   };
   return (
     <div className="border-top py-4 d-flex  align-items-center row cardCart">

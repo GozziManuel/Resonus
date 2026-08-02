@@ -7,6 +7,7 @@ import { CrudContextProvider } from "./context/CrudContext";
 import { MainContextProvider } from "./context/MainContext";
 import DetailedPage from "./Pages/DetailedPage";
 import CartPage from "./Pages/CartPage";
+import CheckoutPage from "./Pages/CheckoutPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
               <Route element={<ProductPage />} path="/products" />
               <Route element={<DetailedPage />} path="/products/:slug" />
               <Route element={<CartPage />} path="/carrello" />
+              <Route element={<CheckoutPage />} path="/checkout" />
               <Route element={<NotFoundPage />} path="*" />
             </Route>
           </Routes>

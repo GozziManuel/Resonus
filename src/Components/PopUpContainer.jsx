@@ -7,10 +7,11 @@ export default function PopUpContainer({ addOrRem, show, setShow }) {
   }
   // Animation Bootstrap for toast
 
-  const message = addOrRem?.added
-    ? "Prodotto aggiunto al carrello!"
-    : "Prodotto rimosso dal carrello!";
-  const bgColor = addOrRem?.added ? "rgb(115, 192, 115)" : "rgb(220, 53, 69)";
+  const bgColor = addOrRem?.refreshed
+    ? "rgb(68, 110, 248)"
+    : addOrRem?.added
+      ? "rgb(115, 192, 115)"
+      : "rgb(220, 53, 69)";
 
   //
   return createPortal(
@@ -20,7 +21,7 @@ export default function PopUpContainer({ addOrRem, show, setShow }) {
         style={{ backgroundColor: bgColor }}
       >
         <div className="d-flex justify-content-between align-items-center gap-4 w-100">
-          <p className="mb-0 text-white fw-semibold">{message}</p>
+          <p className="mb-0 text-white fw-semibold">{addOrRem?.message}</p>
           <button
             type="button"
             className="closeButton text-white"

@@ -41,6 +41,8 @@ export default function CartPage() {
               );
             })}
           </div>
+
+          {/* Right Container For recap */}
           <div className=" col-md-4 mt-4 col-12">
             <div className="border ">
               {Cart.length === 0 && (
@@ -71,6 +73,18 @@ export default function CartPage() {
                     0,
                   ).toFixed(2)}
                 </h5>
+                {Cart.length !== 0 && (
+                  <Link
+                    className="mt-3 bestSellerButton rounded border-1 p-2 d-flex justify-content-center"
+                    style={{
+                      background: "var(--button-third-color)",
+                      color: "var(--font-color-main)",
+                    }}
+                    to={"/checkout"}
+                  >
+                    Procedi al pagamento
+                  </Link>
+                )}
               </div>
             </div>
           </div>

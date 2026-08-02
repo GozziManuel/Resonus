@@ -17,6 +17,7 @@ const MainContextProvider = ({ children }) => {
   const [addedOrRemoved, setAddedOrRemoved] = useState({
     added: null,
     removed: null,
+    message: "",
   });
 
   // ToastTrigger
@@ -57,7 +58,6 @@ const MainContextProvider = ({ children }) => {
   // *************** Add to cart *********
   const addToCart = async (obj) => {
     try {
-      triggerToast();
       // SEndind obj to backend Cart
       const PostData = {
         method: "POST",
@@ -75,10 +75,6 @@ const MainContextProvider = ({ children }) => {
 
       // attiva trigger
       setTrigger((curr) => curr + 1);
-      setAddedOrRemoved({
-        added: true,
-        removed: false,
-      });
 
       return data;
     } catch (err) {
@@ -130,8 +126,8 @@ const MainContextProvider = ({ children }) => {
       setAddedOrRemoved({
         added: false,
         removed: true,
+        message: "Prodotto rimosso dal carrello!",
       });
-      console.log(data);
 
       // Setting Filtered ARRAY
       setCart(data.results);
@@ -151,6 +147,8 @@ const MainContextProvider = ({ children }) => {
     showToast,
     setShowToast,
     addedOrRemoved,
+    triggerToast,
+    setAddedOrRemoved,
   };
   return <MainContext.Provider value={value}>{children}</MainContext.Provider>;
 };

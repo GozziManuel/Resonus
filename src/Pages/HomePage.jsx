@@ -4,7 +4,6 @@ import Product from "../Cards/Product";
 import { useCrudContext } from "../context/CrudContext";
 export default function HomePage() {
   const { product } = useCrudContext();
-  console.log(product);
   const sortedArray = product.sort((a, b) => b.sales_count - a.sales_count);
 
   return (
