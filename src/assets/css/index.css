@@ -10,6 +10,8 @@
   --button-color-2: #aaaaaa;
   --font-color-animation: #b3b3b3;
   --button-third-color: #fffbdd;
+  --remove-button: rgb(82, 7, 7);
+  --remove-button-hover: rgb(116, 10, 10);
 }
 
 /* FONTS */

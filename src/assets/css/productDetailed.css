@@ -61,7 +61,7 @@
   padding: 12px 20px;
   color: white;
   display: flex;
-  background-color: rgb(82, 7, 7);
+  background-color: var(--remove-button);
 
   align-items: center;
   text-decoration: none;
@@ -70,7 +70,7 @@
 }
 
 .RemoveButton:hover {
-  background-color: rgb(116, 10, 10);
+  background-color: var(--remove-button-hover);
 
   color: white;
   transform: translateY(-2px) scale(1.03);

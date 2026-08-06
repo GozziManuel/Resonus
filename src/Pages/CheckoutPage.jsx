@@ -4,8 +4,20 @@ import { useMainContext } from "../context/MainContext";
 import { Link } from "react-router-dom";
 
 export default function CheckoutPage() {
+  let alfabeto = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZòàùèò";
+  let symbols = " !\"#$%&'()*+,-./:;<=>£?@[\\\\]^_`{|}~";
+  //
   const { Cart, removeToCart } = useMainContext();
 
+  //
+  const [loader, setLoader] = useState(true);
+
+  // errorHAnDLING
+  const [error, setError] = useState(null);
+
+  const [showError, setShowError] = useState(null);
+
+  //
   const [formData, setFormData] = useState({
     nome: "",
     cognome: "",
@@ -33,16 +45,116 @@ export default function CheckoutPage() {
   //
   const inputTracer = (e) => {
     const { name, value, checked, type } = e.target;
+
+    // CAP  AND CVV CONTROLLER
+
+    // **CAP
+    if (name === "cap") {
+      if (value === "") {
+        setFormData((curr) => ({
+          ...curr,
+          [name]: value,
+        }));
+      }
+
+      // MAX 5 NUMBER
+      if (value.length > 5) {
+        return;
+      }
+
+      // last char for controlling letter and symbols
+      const lastChar = value.charAt(value.length - 1);
+
+      if (alfabeto.includes(lastChar) || symbols.includes(lastChar)) {
+        return;
+      }
+    }
+
+    // **CVV
+    if (name === "cvv") {
+      if (value === "") {
+        setFormData((curr) => ({
+          ...curr,
+          [name]: value,
+        }));
+      }
+
+      // MAX NUMBER CVV 3
+      if (value.length > 3) {
+        return;
+      }
+
+      // last char for controlling letter and symbols
+      const lastChar = value.charAt(value.length - 1);
+
+      if (alfabeto.includes(lastChar) || symbols.includes(lastChar)) {
+        return;
+      }
+    }
+
+    // CARt number
+    if (name === "cartNumber") {
+      if (value === "") {
+        setFormData((curr) => ({
+          ...curr,
+          [name]: value,
+        }));
+      }
+
+      // last char for controlling letter and symbols
+      const lastChar = value.charAt(value.length - 1);
+
+      if (alfabeto.includes(lastChar) || symbols.includes(lastChar)) {
+        return;
+      }
+    }
+
     //
+    setShowError(false);
 
     setFormData((curr) => ({
       ...curr,
       [name]: value,
     }));
   };
+
+  //
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoader(true);
+    try {
+      const PostData = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      };
+      const fetching = await fetch(
+        `http://localhost:3000/product/checkout`,
+        PostData,
+      );
+      const data = await fetching.json();
+      setShowError(true);
+      setError(data.message);
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoader(false);
+    }
+  };
   //
   return (
-    <div className=" my-5">
+    <form className=" my-5" onSubmit={(e) => handleSubmit(e)}>
+      {showError && (
+        <div
+          className=" mb-3 w-100 py-2 px-3 d-flex justify-content-center rounded"
+          style={{ background: "var(--remove-button-hover)" }}
+        >
+          <p className="mb-0 text-light Outfit fs-3">Errore: {error}</p>
+        </div>
+      )}
       <div className="row g-5">
         {/* COLONNA SINISTRA: SEZIONI DEL FORM */}
         <div className="col-md-6 col-lg-7">
@@ -50,7 +162,7 @@ export default function CheckoutPage() {
           <h4 className="mb-3 Outfit fw-bold">1. Indirizzo di Spedizione</h4>
 
           {/*  */}
-          <form onSubmit={(e) => e.preventDefault()} className="Sans">
+          <div className="Sans">
             <div className="row g-3">
               {/* Nome */}
               <div className="col-sm-6">
@@ -260,7 +372,7 @@ export default function CheckoutPage() {
             >
               Conferma e Paga
             </button>
-          </form>
+          </div>
         </div>
 
         {/* COLONNA DESTRA: RIEPILOGO ORDINE */}
@@ -310,12 +422,12 @@ export default function CheckoutPage() {
               <span>Totale</span>
               <strong>&euro; {fullPrice}</strong>
             </li>
-            <li className="list-group-item d-flex justify-content-between">
+            <li className="list-group-item d-flex justify-content-between gap-4">
               {/* se spedizione è gratuita CAmbia tra i button */}
               {fullPrice > 150 ? (
                 <>
-                  <span className="fw-bold">Spedizione</span>
-                  <strong>Gratis oltre i &euro; 150 </strong>
+                  <span className="fw-bold py-3">Spedizione</span>
+                  <strong className=" py-3">Gratis oltre i &euro; 150 </strong>
                 </>
               ) : (
                 <div className="d-flex flex-column w-100">
@@ -352,12 +464,14 @@ export default function CheckoutPage() {
 
             {/* Confirm Button */}
             <li className="list-group-item d-flex justify-content-between fw-bold fs-5 py-4">
-              <span>Conferma Pagamento</span>
+              <span>
+                Conferma <br /> Pagamento
+              </span>
               <button className="buttonBasic">Conferma</button>
             </li>
           </ul>
         </div>
       </div>
-    </div>
+    </form>
   );
 }
