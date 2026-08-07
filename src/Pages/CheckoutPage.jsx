@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../assets/css/checkout.css";
 import { useMainContext } from "../context/MainContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function CheckoutPage() {
   let alfabeto = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZòàùèò";
@@ -9,6 +9,16 @@ export default function CheckoutPage() {
   //
   const { Cart, removeToCart } = useMainContext();
 
+  //
+  const navigate = useNavigate();
+  //
+
+  // If empty turn back
+  useEffect(() => {
+    if (Cart.length === 0) {
+      navigate("/carrello");
+    }
+  }, []);
   //
   const [loader, setLoader] = useState(true);
 
@@ -135,9 +145,18 @@ export default function CheckoutPage() {
         PostData,
       );
       const data = await fetching.json();
-      setShowError(true);
-      setError(data.message);
+      if (data.success === false) {
+        setShowError(true);
+        setError(data.message);
+        window.scroll({
+          top: 0,
+          behavior: "smooth",
+        });
+        return;
+      }
+
       console.log(data);
+      navigate("/greetings");
     } catch (err) {
       console.error(err);
     } finally {
@@ -394,14 +413,6 @@ export default function CheckoutPage() {
                 >
                   {/* Remove Button */}
                   <div className="d-flex gap-2 align-items-center">
-                    <button
-                      className="h-50 RemoveButton p-1"
-                      style={{ padding: "6px 12px" }}
-                      onClick={() => removeToCart(c.slug)}
-                    >
-                      <i className="bi bi-cart-x-fill   "></i>
-                    </button>
-                    {/*  */}
                     <Link className="text-decoration-none">
                       <p
                         className="my-0"
@@ -463,12 +474,6 @@ export default function CheckoutPage() {
             )}
 
             {/* Confirm Button */}
-            <li className="list-group-item d-flex justify-content-between fw-bold fs-5 py-4">
-              <span>
-                Conferma <br /> Pagamento
-              </span>
-              <button className="buttonBasic">Conferma</button>
-            </li>
           </ul>
         </div>
       </div>

@@ -8,6 +8,8 @@ import { MainContextProvider } from "./context/MainContext";
 import DetailedPage from "./Pages/DetailedPage";
 import CartPage from "./Pages/CartPage";
 import CheckoutPage from "./Pages/CheckoutPage";
+import GreetingsPage from "./Pages/GreetingsPage";
+import GreetingsGuard from "./Components/GuardForGreetings";
 
 function App() {
   return (
@@ -21,6 +23,14 @@ function App() {
               <Route element={<DetailedPage />} path="/products/:slug" />
               <Route element={<CartPage />} path="/carrello" />
               <Route element={<CheckoutPage />} path="/checkout" />
+              <Route
+                element={
+                  <GreetingsGuard>
+                    <GreetingsPage />
+                  </GreetingsGuard>
+                }
+                path="/greetings"
+              />
               <Route element={<NotFoundPage />} path="*" />
             </Route>
           </Routes>
