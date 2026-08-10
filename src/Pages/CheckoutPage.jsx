@@ -7,7 +7,8 @@ export default function CheckoutPage() {
   let alfabeto = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZòàùèò";
   let symbols = " !\"#$%&'()*+,-./:;<=>£?@[\\\\]^_`{|}~";
   //
-  const { Cart, removeToCart } = useMainContext();
+  const { Cart, removeToCart, setCart, formData, setFormData } =
+    useMainContext();
 
   //
   const navigate = useNavigate();
@@ -28,22 +29,6 @@ export default function CheckoutPage() {
   const [showError, setShowError] = useState(null);
 
   //
-  const [formData, setFormData] = useState({
-    nome: "",
-    cognome: "",
-    email: "",
-    indirizzo: "",
-    cap: "",
-    paese: "",
-    citta: "",
-
-    // payment
-    payment: "CreditCard",
-    intestatario: "",
-    cartNumber: "",
-    scadenza: "",
-    cvv: "",
-  });
 
   // Getting Full Price
   const fullPrice = Cart.reduce(
@@ -156,13 +141,29 @@ export default function CheckoutPage() {
       }
 
       console.log(data);
+      // RESETTING THE CART sending to backend
+      const PostDataDelete = {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      fetch(`http://localhost:3000/product/reset`, PostDataDelete);
+
+      //
+      // Refreshing in frontend
+      setCart([]);
+
+      //
       navigate("/greetings");
+      localStorage.setItem("order_access", "true");
     } catch (err) {
       console.error(err);
     } finally {
       setLoader(false);
     }
   };
+
   //
   return (
     <form className=" my-5" onSubmit={(e) => handleSubmit(e)}>

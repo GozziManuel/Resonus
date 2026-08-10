@@ -9,9 +9,26 @@ const MainContextProvider = ({ children }) => {
   // Getting products
   const { setProduct, product } = useCrudContext();
 
+  // Formdata for checkout
+  const [formData, setFormData] = useState({
+    nome: "",
+    cognome: "",
+    email: "",
+    indirizzo: "",
+    cap: "",
+    paese: "",
+    citta: "",
+
+    // payment
+    payment: "CreditCard",
+    intestatario: "",
+    cartNumber: "",
+    scadenza: "",
+    cvv: "",
+  });
+
   // states
   const [bestSeller, setBestSeller] = useState([]);
-
   // **** TOAST
   const [showToast, setShowToast] = useState(false);
   const [addedOrRemoved, setAddedOrRemoved] = useState({
@@ -148,6 +165,8 @@ const MainContextProvider = ({ children }) => {
     setShowToast,
     addedOrRemoved,
     triggerToast,
+    formData,
+    setFormData,
     setAddedOrRemoved,
   };
   return <MainContext.Provider value={value}>{children}</MainContext.Provider>;
