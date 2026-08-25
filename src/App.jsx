@@ -10,6 +10,7 @@ import CartPage from "./Pages/CartPage";
 import CheckoutPage from "./Pages/CheckoutPage";
 import GreetingsPage from "./Pages/GreetingsPage";
 import GreetingsGuard from "./Components/GuardForGreetings";
+import HistoryPage from "./Pages/HistoryPage";
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
               <Route element={<DetailedPage />} path="/products/:slug" />
               <Route element={<CartPage />} path="/carrello" />
               <Route element={<CheckoutPage />} path="/checkout" />
+              <Route element={<HistoryPage />} path="/acquisti" />
+
               <Route
                 element={
                   <GreetingsGuard>

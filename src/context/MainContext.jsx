@@ -50,6 +50,12 @@ const MainContextProvider = ({ children }) => {
     }, 2500);
   };
 
+  //
+  // ** Orders History
+  const [orders, setOrders] = useState([]);
+  // trigger order
+  const [triggerOrders, setTriggerOrders] = useState(0);
+
   // Cart
   const [Cart, setCart] = useState([]);
 
@@ -70,6 +76,55 @@ const MainContextProvider = ({ children }) => {
       console.error(error, "Errore nel raggiungere il database");
     }
   };
+
+  // ****** Order History ******
+  const orderHistory = async (obj) => {
+    try {
+      // SEndind obj to backend Cart
+      const PostData = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(obj),
+      };
+
+      // Adding obj to Cart
+      const response = await fetch(`${API_BASE_URL}/products/order`, PostData);
+
+      // result
+      const data = await response.json();
+
+      // attiva trigger
+      setTriggerOrders((curr) => curr + 1);
+
+      return data;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // ***GETTING ORDER HISTORY PRODUCT
+  useEffect(() => {
+    const gettingHistory = async () => {
+      try {
+        const gettingData = await fetch(`${API_BASE_URL}/products/history`);
+
+        // result
+        const data = await gettingData.json();
+
+        setOrders(data.results);
+        console.log(data.results);
+
+        //
+        return data;
+        //
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    gettingHistory();
+  }, [triggerOrders]);
 
   //
   // *************** Add to cart *********
@@ -109,6 +164,7 @@ const MainContextProvider = ({ children }) => {
 
         // setting Array cart
         setCart(data.results);
+
         return data;
       } catch (err) {
         console.error(err);
@@ -157,6 +213,7 @@ const MainContextProvider = ({ children }) => {
   const value = {
     // Cart
     addToCart,
+    orders,
     Cart,
     CartLoader,
     removeToCart,
@@ -168,6 +225,7 @@ const MainContextProvider = ({ children }) => {
     formData,
     setFormData,
     setAddedOrRemoved,
+    orderHistory,
   };
   return <MainContext.Provider value={value}>{children}</MainContext.Provider>;
 };

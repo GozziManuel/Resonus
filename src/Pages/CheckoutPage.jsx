@@ -7,7 +7,7 @@ export default function CheckoutPage() {
   let alfabeto = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZòàùèò";
   let symbols = " !\"#$%&'()*+,-./:;<=>£?@[\\\\]^_`{|}~";
   //
-  const { Cart, removeToCart, setCart, formData, setFormData } =
+  const { Cart, removeToCart, setCart, formData, setFormData, orderHistory } =
     useMainContext();
 
   //
@@ -29,6 +29,7 @@ export default function CheckoutPage() {
   const [showError, setShowError] = useState(null);
 
   //
+  console.log(Cart);
 
   // Getting Full Price
   const fullPrice = Cart.reduce(
@@ -127,17 +128,20 @@ export default function CheckoutPage() {
         },
         body: JSON.stringify({ ...formData, price: fullPrice }),
       };
+
+      //
       const fetching = await fetch(
         `http://localhost:3000/product/checkout`,
         PostData,
       );
 
       // sending email
-      const sendingEmail = await fetch(
-        `http://localhost:3000/send-email`,
-        PostData,
-      );
-
+      // const sendingEmail = await fetch(
+      //   `http://localhost:3000/send-email`,
+      //   PostData,
+      // );
+      // Order history adder
+      orderHistory(Cart);
       // getting data
       const data = await fetching.json();
 

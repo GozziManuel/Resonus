@@ -74,9 +74,14 @@ export default function NavBar() {
             {/*  */}
             {/*  */}
             <li className="nav-item ">
-              <a className="nav-link pe-1" href="#">
-                Placeholder
-              </a>
+              <NavLink
+                className="navlink pe-1"
+                aria-current="page"
+                onClick={() => setIsNavOpen(false)}
+                to={"/acquisti"}
+              >
+                Acquisti
+              </NavLink>
             </li>
 
             {/*  */}
