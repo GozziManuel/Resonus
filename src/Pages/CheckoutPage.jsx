@@ -460,6 +460,7 @@ export default function CheckoutPage() {
                             style={{ color: "var(--font-color-main)" }}
                           >
                             {c.name}
+                            <span className="fw-bold"> x {c.quantity}</span>
                           </p>
                           <small className="text-secondary">
                             {c.description.split(" ").slice(0, 3).join(" ")}...
